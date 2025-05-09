@@ -1,0 +1,115 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 1rem 2rem;
+    position: relative;
+    z-index: 1000;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .logo img {
+    height: 80px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: #000000;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+  }
+  
+  .nav-links .btn {
+    background: #f22048;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+  .nav-links .btn.outline {
+    background: transparent;
+    color: #f22048;
+    border: 1px solid #f22048;
+  }
+  
+  .language-select {
+    position: relative;
+    margin-left: auto;
+    margin-right: 1rem;
+  }
+  
+  .language-select button {
+    background: transparent;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .language-options {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    width: 100px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    z-index: 1;
+  }
+  
+  .language-select:hover .language-options {
+    display: block;
+  }
+  
+  .language-options div {
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .language-options div:hover {
+    background-color: #f22048;
+    color: #ffffff;
+  }
+  
+  /* Burger Icon */
+  .burger-icon {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #f22048;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #ffffff;
+      width: 200px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  
+    .burger-icon {
+      display: block;
+    }
+  
+    .language-select {
+      margin: 0 1rem 0 auto;
+    }
+  }
+  
