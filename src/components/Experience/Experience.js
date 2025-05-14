@@ -1,35 +1,39 @@
 import React from 'react';
 import './Experience.css';
 
-const Experience = () => {
-  return (
-    <section className="experience-section">
-      <div className="experience-container">
-        <h2 className="experience-heading">A Personalized Home Experience</h2>
-        <p className="experience-subtext">Explore curated stays tailored for style, comfort, and smart living.</p>
+const experiences = [
+  {
+    image: '/Images/home1.jpg',
+    title: 'Elegant Homes',
+    description: 'Homes focused on visual aesthetics, offering a peaceful and comfortable design for your living space.',
+  },
+  {
+    image: '/Images/home2.jpg',
+    title: 'Smartly Designed',
+    description: 'Functional and practical homes tailored for your modern lifestyle and daily needs.',
+  },
+  {
+    image: '/Images/home3.jpg',
+    title: 'Unique Ambience',
+    description: 'Each home offers a one-of-a-kind atmosphere, adding character and comfort to your stay.',
+  },
+];
 
-        <div className="experience-cards">
-          <div className="experience-card">
-            <img src="/Images/striking-home.jpg" alt="Striking Home" />
-            <h3>Striking Homes</h3>
-            <p>Homes that prioritize visual aesthetics, offering tranquility and comfort with elegant designs.</p>
-          </div>
-
-          <div className="experience-card">
-            <img src="/Images/comfortable-stay.jpg" alt="Comfortable Stay" />
-            <h3>Comfortable Stays</h3>
-            <p>Fully equipped homes that offer a cozy and familiar experience just like home.</p>
-          </div>
-
-          <div className="experience-card">
-            <img src="/Images/smart-home.jpg" alt="Smart Home" />
-            <h3>Smart Home Technology</h3>
-            <p>Enjoy convenience and peace of mind in homes enhanced with smart features and automation.</p>
-          </div>
+const Experience = () => (
+  <section className="experience-section">
+    <div className="experience-header">
+      <h2>A Personalized Home Experience</h2>
+    </div>
+    <div className="experience-cards">
+      {experiences.map((exp, index) => (
+        <div className="experience-card" key={index}>
+          <img src={exp.image} alt={exp.title} />
+          <h3>{exp.title}</h3>
+          <p>{exp.description}</p>
         </div>
-      </div>
-    </section>
-  );
-};
+      ))}
+    </div>
+  </section>
+);
 
 export default Experience;
