@@ -1,40 +1,35 @@
 import React from 'react';
-import './ExperienceSection.css';
+import './Experience.css';
 
-const cards = [
-  {
-    image: '/Images/experience1.jpg',
-    title: 'Etkileyici Evler',
-    description: 'Görsel estetiği ön planda tutan evlerimiz, sakinlik ve konfor sunan tasarımlarıyla yaşam alanınıza zarif bir dokunuş katar.'
-  },
-  {
-    image: '/Images/experience2.jpg',
-    title: 'Konforlu Konaklama',
-    description: 'Tüm ihtiyaçlarınızı karşılayacak şekilde donatılmış evlerimiz, evinizin konforunu aratmayan bir deneyim sunar.'
-  },
-  {
-    image: '/Images/experience3.jpg',
-    title: 'Akıllı Ev Teknolojisi',
-    description: 'Gelişmiş teknolojilerle donatılmış evlerimizle konforu ve güvenliği bir arada yaşayın.'
-  }
-];
+const Experience = () => {
+  return (
+    <section className="experience-section">
+      <div className="experience-container">
+        <h2 className="experience-heading">A Personalized Home Experience</h2>
+        <p className="experience-subtext">Explore curated stays tailored for style, comfort, and smart living.</p>
 
-const ExperienceSection = () => (
-  <section className="experience-section">
-    <div className="experience-header">
-      <h2>Kişiselleştirilmiş Bir Ev Deneyimi</h2>
-      <p>Sizin için en uygun evi bulmanıza yardımcı oluyoruz.</p>
-    </div>
-    <div className="experience-cards">
-      {cards.map((card, index) => (
-        <div className="experience-card" key={index}>
-          <img src={card.image} alt={card.title} />
-          <h3>{card.title}</h3>
-          <p>{card.description}</p>
+        <div className="experience-cards">
+          <div className="experience-card">
+            <img src="/Images/striking-home.jpg" alt="Striking Home" />
+            <h3>Striking Homes</h3>
+            <p>Homes that prioritize visual aesthetics, offering tranquility and comfort with elegant designs.</p>
+          </div>
+
+          <div className="experience-card">
+            <img src="/Images/comfortable-stay.jpg" alt="Comfortable Stay" />
+            <h3>Comfortable Stays</h3>
+            <p>Fully equipped homes that offer a cozy and familiar experience just like home.</p>
+          </div>
+
+          <div className="experience-card">
+            <img src="/Images/smart-home.jpg" alt="Smart Home" />
+            <h3>Smart Home Technology</h3>
+            <p>Enjoy convenience and peace of mind in homes enhanced with smart features and automation.</p>
+          </div>
         </div>
-      ))}
-    </div>
-  </section>
-);
+      </div>
+    </section>
+  );
+};
 
-export default ExperienceSection;
+export default Experience;
