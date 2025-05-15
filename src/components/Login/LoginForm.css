@@ -1,105 +1,134 @@
-.signup-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 4rem 2rem;
-    background-color: #f9f9f9;
-    min-height: 100vh;
+/* Full page background */
+.login-page {
+  min-height: 100vh;
+  background: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  padding: 2rem;
+}
+
+/* Center container */
+.login-container {
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Logo */
+.logo img {
+  width: 120px;
+  margin-bottom: 2rem;
+}
+
+/* Form heading */
+.login-form h2 {
+  margin-bottom: 2rem;
+  color: #F22048;
+  font-weight: 700;
+}
+
+/* Input group for floating labels */
+.input-group {
+  position: relative;
+  margin-bottom: 1.8rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 12px 12px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: transparent;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #F22048;
+}
+
+/* Floating label style */
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  color: #999;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: 0.3s ease all;
+  background: white;
+  padding: 0 5px;
+}
+
+/* When input is focused or has value, move label up */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 8px;
+  font-size: 0.75rem;
+  color: #F22048;
+}
+
+/* Forgot password */
+.forgot-password {
+  text-align: right;
+  margin-bottom: 2rem;
+}
+
+.forgot-password a {
+  color: #F22048;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* Login button */
+.btn-login {
+  background-color: #F22048;
+  border: none;
+  color: white;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #d81b3f;
+}
+
+/* Signup link */
+.signup-link {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.signup-link a {
+  color: #F22048;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 2rem 1rem;
   }
-  
-  .signup-form {
-    background: #ffffff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .signup-form h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #000000;
-  }
-  
-  .signup-form input {
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
-  
-  .signup-form input:focus {
-    border-color: #f22048;
-    outline: none;
-  }
-  
-  .phone-input {
-    display: flex;
-    position: relative;
-  }
-  
-  .country-code {
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-right: none;
-    background: #ffffff;
-    cursor: pointer;
-    font-size: 1rem;
-    border-radius: 4px 0 0 4px;
-  }
-  
-  .phone-input input {
-    flex: 1;
-    border-left: none;
-    border-radius: 0 4px 4px 0;
-  }
-  
-  .country-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: #ffffff;
-    border: 1px solid #ccc;
-    width: 100%;
-    z-index: 10;
-    max-height: 150px;
-    overflow-y: auto;
-  }
-  
-  .country-dropdown div {
-    padding: 0.5rem;
-    cursor: pointer;
-  }
-  
-  .country-dropdown div:hover {
-    background-color: #f22048;
-    color: #ffffff;
-  }
-  
-  .signup-form button {
-    background-color: #f22048;
-    color: #ffffff;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  
-  .signup-form button:hover {
-    background-color: #000000;
-  }
-  
-  /* Responsive */
-  @media (max-width: 480px) {
-    .signup-form {
-      padding: 1.5rem;
-    }
-  }
-  
+}
