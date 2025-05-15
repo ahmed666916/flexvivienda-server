@@ -1,0 +1,42 @@
+.steps-section {
+  background-color: #FFFFFF;
+  padding: 40px;
+  color: black;
+  text-align: center;
+}
+
+.steps-section h2 {
+  color: #F22048;
+  margin-bottom: 30px;
+}
+
+.steps-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.step-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 180px;
+  padding: 20px;
+}
+
+.step-card img {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.step-card h3 {
+  color: #F22048;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.step-card p {
+  font-size: 14px;
+  color: black;
+}

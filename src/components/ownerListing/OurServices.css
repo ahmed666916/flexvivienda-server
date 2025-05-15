@@ -1,0 +1,24 @@
+.our-services-wrapper {
+  background-color: #FFFFFF;
+  padding: 40px;
+}
+
+.our-services-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Optional: Limit width on large screens */
+.subscription-card {
+  width: 100%;
+  max-width: 350px; /* Ensures 3 fit in a row */
+  flex: 1 1 300px;
+}
+
+.our-services-wrapper h2 {
+  color: #F22048;
+  text-align: center;
+  margin-bottom: 30px;
+}
