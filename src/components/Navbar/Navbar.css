@@ -4,7 +4,8 @@
     align-items: center;
     background: #ffffff;
     padding: 1rem 2rem;
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 1000;
     border-bottom: 1px solid #eee;
   }
@@ -98,6 +99,11 @@
       width: 200px;
       padding: 1rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-links .btn.manage-property {
+      background: #0b8a42; /* green */
+      color: #ffffff;
     }
   
     .nav-links.active {

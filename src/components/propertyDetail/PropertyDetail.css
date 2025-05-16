@@ -1,81 +1,90 @@
 .property-detail-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    color: black;
-    font-family: Arial, sans-serif;
-  }
-  
-  .property-title-detail {
-    font-size: 32px;
-    color: #F22048;
-    margin-bottom: 10px;
-  }
-  
-  .property-location {
-    font-size: 18px;
-    color: #555;
-    margin-bottom: 20px;
-  }
-  
-  .image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-  
-  .gallery-image {
-    width: calc(50% - 10px);
-    height: auto;
-    border-radius: 8px;
-  }
-  
-  .property-info {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  
-  .property-overview,
-  .property-amenities,
-  .property-booking {
-    background-color: #FFFFFF;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .property-overview h2,
-  .property-amenities h2,
-  .property-booking h2 {
-    color: #F22048;
-    margin-bottom: 15px;
-  }
-  
-  .property-overview ul,
-  .property-amenities ul {
-    list-style-type: disc;
-    padding-left: 20px;
-  }
-  
-  .property-booking p {
-    margin: 5px 0;
-  }
-  
-  .book-button {
-    background-color: #F22048;
-    color: #FFFFFF;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-  }
-  
-  .book-button:hover {
-    background-color: #d81b3f;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.property-title-detail {
+  font-size: 32px;
+  color: #F22048;
+  margin-bottom: 10px;
+}
+
+.property-location {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.property-detail-layout {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.left-section {
+  flex: 2;
+  min-width: 0;
+}
+
+.right-section {
+  flex: 1;
+  position: sticky;
+  top: 100px;
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.gallery-image {
+  width: calc(50% - 10px);
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.property-overview,
+.property-amenities,
+.booking-card,
+.google-map-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.property-overview h2,
+.property-amenities h2,
+.google-map-container h2,
+.booking-card h2 {
+  color: #F22048;
+  margin-bottom: 15px;
+}
+
+.property-overview ul,
+.property-amenities ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.book-button {
+  background-color: #F22048;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.book-button:hover {
+  background-color: #d81b3f;
+}
