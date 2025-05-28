@@ -9,6 +9,11 @@ import Signup from './pages/Signup';
 import LoginForm from './components/Login/LoginForm';
 import Listings from './pages/Listings';
 import PropertyDetail from './pages/PropertyDetailPage';
+import OwnerListing from './pages/ownerListing'
+import Blog from './pages/blog'
+import Blog_detail from './pages/blog_details';
+import ContactUs from './pages/ContactUs';
+
 
 function App() {
   return (
@@ -23,6 +28,10 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/listing" element={<Listings />} />
           <Route path="/property_detail" element={<PropertyDetail />} />
+          <Route path="/owner_listing" element={<OwnerListing />} />
+          <Route path="/blogs" element={<Blog />} />
+          <Route path="/blog-detail" element={<Blog_detail />} />
+          <Route path="/contact" element={<ContactUs />} />
         </Routes>
 
 

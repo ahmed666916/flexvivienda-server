@@ -1,23 +1,46 @@
 /* Container for the entire listing */
 .listing-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 20px;
-  justify-content: center;
   padding: 20px;
   background-color: #FFFFFF;
+  scroll-behavior: smooth;
+}
+
+.heading{
+  color: #d81b3f;
+  outline: none;
+}
+
+.links a{
+  text-decoration: none;
+  outline: none;
+  color: #E11D48;
+}
+
+.listing-container::-webkit-scrollbar {
+  display: none;
+}
+.listing-container {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
 .listing-container a{
   text-decoration: none;
+  flex: 0 0 auto;
 }
 
 /* Individual property card */
 .property-card {
+  position: relative;
   background-color: #FFFFFF;
   border: 1px solid #ddd;
   border-radius: 8px;
   width: 300px;
+  flex: 0 0 auto;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
@@ -77,4 +100,49 @@
 
 .book-button:hover {
   background-color: #d81b3f;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+}
+
+.fav-btn:hover {
+   color: #E11D48;
+}
+
+.clusters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+   justify-content: center; /* center items horizontally */
+}
+
+.clusters li {
+  padding: 10px 20px;
+  background-color: #f0f0f0; /* light gray background */
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.clusters li:hover {
+  background-color: #E11D48;
+  color: white; /* optional: for better contrast */
+}
+
+.listing-container.dragging,
+.listing-container.dragging * {
+  user-select: none;
 }

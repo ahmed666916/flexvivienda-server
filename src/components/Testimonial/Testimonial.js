@@ -12,6 +12,11 @@ const testimonials = [
     name: 'Sevval Kaya',
     feedback: 'Her şey çok güzeldi ve ev inanılmazdı...',
   },
+  {
+    id: 3,
+    name: 'Sevval Kaya',
+    feedback: 'Her şey çok güzeldi ve ev inanılmazdı...',
+  },
   // Add more testimonials as needed
 ];
 

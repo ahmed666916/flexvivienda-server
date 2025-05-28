@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PropertyList.css';
 
@@ -48,22 +48,93 @@ const properties = [
   // Add more properties as needed
 ];
 
-const PropertyList = () => {
+const PropertyList = (props) => {
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      el.classList.add('dragging');
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      el.classList.remove('dragging');
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      el.classList.remove('dragging');
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      const walk = (x - startX) * 2; // speed multiplier
+      el.scrollLeft = scrollLeft - walk;
+    };
+
+    el.addEventListener('mousedown', handleMouseDown);
+    el.addEventListener('mouseleave', handleMouseLeave);
+    el.addEventListener('mouseup', handleMouseUp);
+    el.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      el.removeEventListener('mousedown', handleMouseDown);
+      el.removeEventListener('mouseleave', handleMouseLeave);
+      el.removeEventListener('mouseup', handleMouseUp);
+      el.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   return (
-    <div className="listing-container">
+    <>
+    <center><h2 className='heading'>{props.title}</h2></center>
+      <br></br>
+      {props.tabs === "1" && (
+      <div>
+        <ul className="clusters">
+          <li>Sea view</li>
+          <li>Swimming Pool</li>
+          <li>Garden</li>
+          <li>Close to Beach</li>
+          <li>Pet friendly</li>
+        </ul>
+      </div>
+    )}
+
+    <br></br>
+
+    <div className="listing-container" ref={scrollRef}>
+
       {properties.map((property) => (
-        <Link to={"/property_detail"}>
-        <div className="property-card" key={property.id}>
+        <Link to="/property_detail" key={property.id}>
+          <div className="property-card">
+          <button className="fav-btn">
+            <i className="fa-regular fa-heart"></i>
+          </button>
+
           <img src={property.image} alt={property.title} className="property-image" />
           <div className="property-details">
             <h2 className="property-title">{property.title}</h2>
             <p className="property-location">{property.location}</p>
             <p className="property-price">{property.price}</p>
-            
           </div>
-        </div></Link>
+        </div>
+
+        </Link>
       ))}
     </div>
+    <center><span className='links'><Link  to="/listing">See All Listings</Link></span></center>
+    </>
   );
 };
 

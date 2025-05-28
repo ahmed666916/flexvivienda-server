@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
+import { addYears } from 'date-fns';
 import enUS from 'date-fns/locale/en-US'; // ✅ Import locale
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';

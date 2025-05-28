@@ -6,42 +6,66 @@
   border-top: 1px solid #333;
 }
 
-.footer-top {
+.footer-container {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
-  text-align: center;
+  gap: 2rem;
 }
 
-.footer p {
-  margin: 0;
-  flex: 1 1 100%;
+.footer-left,
+.footer-center,
+.footer-right {
+  flex: 1 1 250px;
+}
+
+.footer-logo {
+  width: 120px;
   margin-bottom: 1rem;
 }
 
+.footer-left p {
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.footer-center h4,
+.footer-right h4 {
+  color: #fff;
+  margin-bottom: 0.8rem;
+}
+
 .footer-links {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
 }
 
 .footer a {
   color: #f22048;
   text-decoration: none;
-  transition: text-decoration 0.2s;
+  transition: color 0.3s ease;
 }
 
 .footer a:hover {
-  text-decoration: underline;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-socials {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .footer-socials a {
   color: #fff;
-  margin-left: 1rem;
   font-size: 1.2rem;
   transition: color 0.3s;
 }
@@ -50,21 +74,46 @@
   color: #f22048;
 }
 
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #25d366;
+  color: #000 !important;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  background-color: #1ebe5d;
+  color: #fff !important;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #aaa;
+}
 
 /* Responsive */
-@media (min-width: 600px) {
-  .footer-top {
-    flex-direction: row;
-    text-align: left;
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .footer p {
-    flex: 1;
-    margin-bottom: 0;
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    flex: 1 1 100%;
   }
 
-  .footer-links {
-    flex: 1;
-    justify-content: flex-end;
+  .footer-socials {
+    justify-content: flex-start;
   }
 }

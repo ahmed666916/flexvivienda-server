@@ -5,9 +5,10 @@ import './Hero.css';
 import SearchBar from '../SearchBar/SearchBar';
 
 const images = [
-  '/Images/slider1.jpg',
-  '/Images/slider2.jpg',
-  '/Images/slider3.jpg',
+  '/Images/hero1.jpeg',
+  '/Images/hero2.jpg',
+  '/Images/hero3.jpg',
+  '/Images/hero4.jpg',
 ];
 
 const Hero = () => {
@@ -31,10 +32,9 @@ const Hero = () => {
     >
       <div className="overlay"></div> {/* Dark overlay */}
       <div className="hero-content">
-        <h1>Missafir'le Evin Her Yerde</h1>
-        <p>Birkaç gün, hafta veya ay boyunca kusursuzca düzenlenmiş bir mekanda konaklayın.</p>
-        <Link to="/listing" className="explore-button">Explore Now</Link>
-        <SearchBar />
+        <h1>Your Property. Our Expertise. Maximized Returns</h1>
+        <p>Flexible rental solutions — short, mid, or long term. Fully managed.</p>
+        
       </div>
     </section>
   );

@@ -3,17 +3,17 @@ import './Experience.css';
 
 const experiences = [
   {
-    image: '/Images/home1.jpg',
+    image: '/Images/exp_1.jpeg',
     title: 'Elegant Homes',
     description: 'Homes focused on visual aesthetics, offering a peaceful and comfortable design for your living space.',
   },
   {
-    image: '/Images/home2.jpg',
+    image: '/Images/exp_2.jpeg',
     title: 'Smartly Designed',
     description: 'Functional and practical homes tailored for your modern lifestyle and daily needs.',
   },
   {
-    image: '/Images/home3.jpg',
+    image: '/Images/exp_3.jpeg',
     title: 'Unique Ambience',
     description: 'Each home offers a one-of-a-kind atmosphere, adding character and comfort to your stay.',
   },
