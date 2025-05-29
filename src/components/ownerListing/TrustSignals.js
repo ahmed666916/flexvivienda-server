@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import './TrustSignals.css';
 
 const partnerLogos = [
-  { name: 'Airbnb', src: '/images/airbnb.png' },
+  { name: 'Airbnb', src: '/Images/airbnb.png' },
   { name: 'Booking.com', src: '/images/booking.png' },
-  { name: 'VRBO', src: '/images/vrbo.png' },
+  { name: 'VRBO', src: '/Images/vrbo.png' },
 ];
 
 const mediaLogos = [
-  { name: 'Forbes', src: '/images/forbes.png' },
-  { name: 'TechCrunch', src: '/images/techcrunch.png' },
-  { name: 'CNN', src: '/images/cnn.png' },
+  { name: 'Forbes', src: '/Images/forbes.png' },
+  { name: 'TechCrunch', src: '/Images/techcrunch.png' },
+  { name: 'CNN', src: '/Images/cnn.png' },
 ];
 
 const stats = [
