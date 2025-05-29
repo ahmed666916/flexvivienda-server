@@ -5,27 +5,27 @@ const steps = [
   {
     title: 'Step 1',
     description: 'Calculate Potential Earnings',
-    image: 'images/potential_earning.jpg',
+    image: 'Images/potential_earning.jpg',
   },
   {
     title: 'Step 2',
     description: 'Home Visit',
-    image: 'images/home_visit.jpg',
+    image: 'Images/home_visit.jpg',
   },
   {
     title: 'Step 3',
     description: 'Key Handover',
-    image: 'images/key_handover.jpg',
+    image: 'Images/key_handover.jpg',
   },
   {
     title: 'Step 4',
     description: 'Professional Photography',
-    image: 'images/photography.jpg',
+    image: 'Images/photography.jpg',
   },
   {
     title: 'Step 5',
     description: 'Listing Publication',
-    image: 'images/list.jpg',
+    image: 'Images/list.jpg',
   },
 ];
 

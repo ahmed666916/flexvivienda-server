@@ -5,32 +5,32 @@ const services = [
   {
     title: 'Profile & Listing Management',
     description: 'We list your property on leading platforms in the industry.',
-    image: 'images/profile_man.jpg',
+    image: 'Images/profile_man.jpg',
   },
   {
     title: 'Professional Photography',
     description: 'We enhance your property’s visual appeal with professional photography.',
-    image: 'images/photography.jpg',
+    image: 'Images/photography.jpg',
   },
   {
     title: 'Interior Design Support',
     description: 'We provide interior design solutions with our expert teams.',
-    image: 'images/interior.jpg',
+    image: 'Images/interior.jpg',
   },
   {
     title: 'Price Optimization',
     description: 'We perform daily market analysis to determine the best pricing for your property.',
-    image: 'images/price_optimization.jpg',
+    image: 'Images/price_optimization.jpg',
   },
   {
     title: 'Cleaning & Linen Change',
     description: 'We provide professional cleaning and linen change services for our guests.',
-    image: 'images/cleaning.jpg',
+    image: 'Images/cleaning.jpg',
   },
   {
     title: 'Guest Relations',
     description: 'We offer 24/7 communication support to our guests.',
-    image: 'images/guest_relation.jpg',
+    image: 'Images/guest_relation.jpg',
   },
   {
     title: '24-Hour Check-In',
@@ -40,7 +40,7 @@ const services = [
   {
     title: 'Maintenance & Repair',
     description: 'We take care of your property as if it were our own, resolving any issues promptly.',
-    image: 'images/maintenance.jpg  ',
+    image: 'Images/maintenance.jpg  ',
   },
 ];
 
