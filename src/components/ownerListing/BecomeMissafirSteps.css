@@ -1,32 +1,89 @@
 .steps-section {
-  background-color: #FFFFFF;
-  padding: 40px;
-  color: black;
+  background-color: #fff;
+  padding: 60px 20px;
   text-align: center;
+  overflow: hidden;
 }
 
 .steps-section h2 {
   color: #F22048;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  font-size: 2rem;
 }
 
-.steps-container {
+.steps-row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
+  justify-content: center; /* ✅ CENTER horizontally */
+  align-items: flex-start;
+  gap: 60px; /* more spacing for arrows */
+  overflow-x: auto;
+  padding: 60px 0; /* ✅ vertical space for arrows to show fully */
+  scroll-snap-type: x mandatory;
+  position: relative;
+}
+
+.step-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scroll-snap-align: start;
+  position: relative;
 }
 
 .step-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 180px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  width: 200px;
   padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  z-index: 2;
+}
+
+.step-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Make arrows hidden initially */
+.arrow-svg {
+  position: absolute;
+  left: 230px; /* push to the right of the card */
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+  pointer-events: none;
+   z-index: 3;
+}
+
+.arrow-svg.visible {
+  opacity: 1;
+}
+
+.arrow-svg.top {
+  top: -40px;
+  transform: translateY(0);
+}
+
+.arrow-svg.bottom {
+  bottom: -40px;
+  top: auto;
+  transform: translateY(0);
+}
+
+.arrow-svg svg {
+  display: block;
 }
 
 .step-card img {
   width: 100%;
+  height: auto;
+  border-radius: 8px;
   margin-bottom: 15px;
 }
 
@@ -38,5 +95,27 @@
 
 .step-card p {
   font-size: 14px;
-  color: black;
+  color: #333;
+}
+
+/* Hide scrollbar for aesthetics */
+.steps-row::-webkit-scrollbar {
+  display: none;
+}
+.steps-row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .step-card {
+    width: 160px;
+    padding: 15px;
+  }
+
+  .arrow-svg svg {
+    width: 60px;
+    height: 40px;
+  }
 }
