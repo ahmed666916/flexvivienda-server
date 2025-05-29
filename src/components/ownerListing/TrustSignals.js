@@ -3,7 +3,7 @@ import './TrustSignals.css';
 
 const partnerLogos = [
   { name: 'Airbnb', src: '/Images/airbnb.png' },
-  { name: 'Booking.com', src: '/images/booking.png' },
+  { name: 'Booking.com', src: '/Images/booking.png' },
   { name: 'VRBO', src: '/Images/vrbo.png' },
 ];
 
