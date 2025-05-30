@@ -5,10 +5,10 @@ const SearchBar = () => (
   <div className="search-bar-container">
     <section className="search-bar">
 
-      <select>
+      {/* <select>
         <option>Short Term</option>
         <option>Long Term</option>
-      </select>
+      </select> */}
 
       <input type="text" placeholder="Location" />
       <input type="date" placeholder="Check-in" />

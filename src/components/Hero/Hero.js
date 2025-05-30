@@ -36,6 +36,7 @@ const Hero = () => {
         <p>Flexible rental solutions — short, mid, or long term. Fully managed.</p>
         
       </div>
+      <SearchBar />
     </section>
   );
 };

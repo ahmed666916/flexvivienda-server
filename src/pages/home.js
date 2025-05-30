@@ -13,7 +13,7 @@ const Home = () => {
 
         <>
         <Hero />
-        <SearchBar />
+        {/* <SearchBar /> */}
         <br></br>
         <PropertyList title="Featured Listings" tabs="0"/>
         <br></br>
