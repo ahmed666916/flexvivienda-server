@@ -38,7 +38,7 @@ const About = () => {
             </p>
           </div>
           <div className="about-image">
-            <img src="/images/heritage.jpg" alt="Our Heritage" />
+            <img src="/Images/heritage.jpg" alt="Our Heritage" />
           </div>
         </div>
       </section>
@@ -53,7 +53,7 @@ const About = () => {
             </p>
           </div>
           <div className="about-image">
-            <img src="/images/opportunity.jpg" alt="Opportunity Rises" />
+            <img src="/Images/opportunity.jpg" alt="Opportunity Rises" />
           </div>
         </div>
       </section>
@@ -68,7 +68,7 @@ const About = () => {
             </p>
           </div>
           <div className="about-image">
-            <img src="/images/flex-living.jpg" alt="Flex Living" />
+            <img src="/Images/flex-living.jpg" alt="Flex Living" />
           </div>
         </div>
       </section>
@@ -83,7 +83,7 @@ const About = () => {
             </p>
           </div>
           <div className="about-image">
-            <img src="/images/lifestyle.jpg" alt="A Lifestyle Choice" />
+            <img src="/Images/lifestyle.jpg" alt="A Lifestyle Choice" />
           </div>
         </div>
       </section>
@@ -98,7 +98,7 @@ const About = () => {
             </p>
           </div>
           <div className="about-image">
-            <img src="/images/future-living.jpg" alt="Future of Living" />
+            <img src="/Images/future-living.jpg" alt="Future of Living" />
           </div>
         </div>
       </section>
