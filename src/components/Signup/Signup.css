@@ -1,61 +1,115 @@
-.signup-container {
+.signup-page {
+  min-height: 100vh;
+  background: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4rem 2rem;
-  background-color: #f9f9f9;
-  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  padding: 2rem;
 }
 
-.signup-form {
-  background: #ffffff;
-  padding: 2rem;
+.signup-container {
+  background: white;
+  padding: 3rem 2rem;
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
-  display: flex;
-  flex-direction: column;
+  text-align: center;
 }
 
 .signup-form h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #000000;
+  margin-bottom: 2rem;
+  color: #F22048;
+  font-weight: 700;
 }
 
-.signup-form input {
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* Floating input group */
+.input-group {
+  position: relative;
+  margin-bottom: 1.8rem;
+  text-align: left;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
   font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: transparent;
+  outline: none;
 }
 
-.signup-form input:focus {
-  border-color: #f22048;
-  outline: none;
+.input-group input:focus {
+  border-color: #F22048;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  color: #999;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: 0.3s ease all;
+  background: white;
+  padding: 0 5px;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 8px;
+  font-size: 0.75rem;
+  color: #F22048;
+}
+
+/* Phone field specific */
+.phone-wrapper {
+  position: relative;
+  margin-bottom: 1.8rem;
 }
 
 .phone-input {
   display: flex;
+  align-items: center;
   position: relative;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  padding-right: 0.75rem;
 }
 
 .country-code {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-right: none;
-  background: #ffffff;
-  cursor: pointer;
+  padding: 12px;
+  background: #f9f9f9;
+  border-right: 1px solid #ccc;
   font-size: 1rem;
-  border-radius: 4px 0 0 4px;
+  cursor: pointer;
+  border-radius: 6px 0 0 6px;
+  flex-shrink: 0;
 }
-
 .phone-input input {
   flex: 1;
-  border-left: none;
-  border-radius: 0 4px 4px 0;
+  padding: 12px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  background: transparent;
+}
+
+.phone-input .phone-label {
+  position: absolute;
+  top: 50%;
+  left: 115px; /* adjust depending on expected width of country code */
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #999;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background: white;
+  padding: 0 5px;
 }
 
 .country-dropdown {
@@ -68,6 +122,16 @@
   z-index: 10;
   max-height: 150px;
   overflow-y: auto;
+  border-radius: 0 0 6px 6px;
+}
+
+/* Activate label */
+.phone-input input:focus + .phone-label,
+.phone-input input:not(:placeholder-shown) + .phone-label {
+  top: -8px;
+  left: 40px;
+  font-size: 12px;
+  color: #F22048;
 }
 
 .country-dropdown div {
@@ -80,25 +144,44 @@
   color: #ffffff;
 }
 
-.signup-form button {
-  background-color: #f22048;
-  color: #ffffff;
-  padding: 0.75rem;
+/* Submit button */
+.btn-signup {
+  background-color: #F22048;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  color: white;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
-.signup-form button:hover {
-  background-color: #000000;
+.btn-signup:hover {
+  background-color: #d81b3f;
+}
+
+/* Login link */
+.login-link {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.login-link a {
+  color: #F22048;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }
 
 /* Responsive */
 @media (max-width: 480px) {
-  .signup-form {
-    padding: 1.5rem;
+  .signup-container {
+    padding: 2rem 1rem;
   }
 }

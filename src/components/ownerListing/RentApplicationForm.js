@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import './RentApplicationForm.css';
 
 const faqs = [
@@ -52,15 +52,16 @@ const faqs = [
   },
 ];
 
-const RentApplicationForm = () => {
+const RentApplicationForm = forwardRef((props, ref) => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+
   return (
-    <section className="rent-form-section">
+    <section className="rent-form-section" ref={ref}>
       <div className="rent-form-container">
         {/* Left: Form */}
         <div className="form-left">
@@ -146,6 +147,8 @@ const RentApplicationForm = () => {
       </div>
     </section>
   );
-};
+
+});
+
 
 export default RentApplicationForm;

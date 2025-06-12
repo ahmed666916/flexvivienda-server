@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import './Navbar.css';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -9,10 +10,21 @@ const Navbar = () => {
 
   const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
+
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
-      <Link className="navbar-brand" to="/">Flex Logo</Link>
+      <Link className="navbar-brand logo" to="/">
+  <img src="/images/logo.png" alt="Flex Logo" />
+</Link>
+
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -20,7 +32,7 @@ const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+            <Link className="nav-link" to="/">{t('home')} <span className="sr-only">(current)</span></Link>
           </li>
           
           <li className="nav-item dropdown">
@@ -36,7 +48,7 @@ const Navbar = () => {
           <li className="nav-item">
             <Link className="nav-link" to="/blogs">Blog</Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item"> 
             <Link className="nav-link" to="/about">About Us</Link>
           </li>
           <li className="nav-item">
@@ -45,24 +57,22 @@ const Navbar = () => {
         </ul>
         <div className=" my-2 my-lg-0">
           <ul className="navbar-nav mr-auto">
-          <li className="nav-item" ><Link to="/owner_listing"><button className="btn  my-2 my-sm-0 listPropertyBtn" type="submit">List Your Property</button></Link></li>
-           <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa-solid fa-user icon-color"></i>
-            </a>
-            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <Link className="dropdown-item" to="/login">Login</Link>
-              <Link className="dropdown-item" to="/Signup">Sign Up</Link>
-      
-            </div>
+          <li className="nav-item" ><Link to="/SplitPage"><button className="btn  my-2 my-sm-0 listPropertyBtn" type="submit">Become a Host / Invest</button></Link></li>
+           
+           <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
+          </li>
+          <li className='nav-item'>
+              <Link className="nav-link" to="/Signup">Sign Up</Link>
           </li>
           <li className="nav-item dropdown">
             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              English
+              Language
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">Turkish</a>
-              <a className="dropdown-item" href="#">Arabic</a>
+              <a className="dropdown-item" onClick={(e)=>changeLanguage("en")} href="#">English</a>
+              <a className="dropdown-item" onClick={(e)=>changeLanguage("tr")} href="#">Türkçe</a>
+              <a className="dropdown-item" onClick={(e)=>changeLanguage("ar")} href="#">العربية</a>
             </div>
           </li>
           </ul>

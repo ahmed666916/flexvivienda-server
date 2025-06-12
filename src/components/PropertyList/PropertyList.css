@@ -146,3 +146,28 @@
 .listing-container.dragging * {
   user-select: none;
 }
+
+.property-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #E11D48;
+  color: white;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.map-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}

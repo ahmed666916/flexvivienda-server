@@ -15,9 +15,9 @@ const Home = () => {
         <Hero />
         {/* <SearchBar /> */}
         <br></br>
-        <PropertyList title="Featured Listings" tabs="0"/>
+        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1"/>
         <br></br>
-        <PropertyList title="Perfect Locations" tabs="1"/>
+        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0"/>
          <Experience />
         <Testimonials />
         <Blog />

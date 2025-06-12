@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Hero.css';
 import SearchBar from '../SearchBar/SearchBar';
+import { useTranslation } from 'react-i18next';
 
 const images = [
   '/Images/hero1.jpeg',
@@ -13,6 +14,8 @@ const images = [
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,8 +35,8 @@ const Hero = () => {
     >
       <div className="overlay"></div> {/* Dark overlay */}
       <div className="hero-content">
-        <h1>Your Property. Our Expertise. Maximized Returns</h1>
-        <p>Flexible rental solutions — short, mid, or long term. Fully managed.</p>
+        <h1>{t('heroMessage')}</h1>
+        <p>{t('heroSubtitle')}</p>
         
       </div>
       <SearchBar />

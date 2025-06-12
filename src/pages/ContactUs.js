@@ -15,11 +15,16 @@ const ContactUs = () => {
         <div className="contact-info-box">
           <div className="contact-info-item">
             <FaMapMarkerAlt className="contact-icon" />
-            <p>Levent, Beşiktaş, Istanbul, Turkey</p>
+            <p>Daire 2, kat 1 , block C, onalti dokuz residans, kazliçeşme, zeytinburnu</p>
           </div>
           <div className="contact-info-item">
             <FaPhoneAlt className="contact-icon" />
-            +90 538 680 7740, +905386483175
+            +90 538 680 7740
+          
+          </div>
+          <div className="contact-info-item">
+            <FaPhoneAlt className="contact-icon" />
+            +90 538 648 3175
           </div>
           <div className="contact-info-item">
             <FaEnvelope className="contact-icon" />
@@ -49,7 +54,8 @@ const ContactUs = () => {
       <div className="contact-map">
         <iframe
           title="Google Map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12044.574557431678!2d29.003258149999996!3d41.07660120000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab65b9e5c9c2d%3A0xc90c8b020a0d1b9c!2sLevent%2C%20Be%C5%9Fikta%C5%9F%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1685695201760!5m2!1str!2str"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12044.574557431678!2d28.911352!3d40.990429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDU5JzI1LjAiTiAyOMKwNTQnMTguNSJF!5e0!3m2!1str!2str!4v1685695201760!5m2!1str!2str"
+
           allowFullScreen=""
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"

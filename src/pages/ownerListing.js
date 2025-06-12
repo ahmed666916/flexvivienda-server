@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef } from 'react';
 import RentApplicationForm from '../components/ownerListing/RentApplicationForm'
 import OurServices from '../components/ownerListing/OurServices'
 import PerfectRentalExperience from '../components/ownerListing/PerfectRentalExperience'
@@ -12,18 +12,19 @@ import Blog from '../components/blog/blog';
 
 
 const OwnerListing = () => {
+  const targetRef = useRef(null);
   return (
 
         <>
-        <HeroSection />
-        <ValueProposition />
-        <ROICalculator />
+        <HeroSection scrollToRef={targetRef} />
+        <ValueProposition  />
+        <ROICalculator  />
         <PerfectRentalExperience />
         <Testimonials />
         <BecomeMissafirSteps />
         <TrustSignals />
          <Blog />
-        <RentApplicationForm />
+        <RentApplicationForm ref={targetRef} />
         {/* <OurServices /> */}
         
         

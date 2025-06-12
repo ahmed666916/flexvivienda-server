@@ -6,9 +6,7 @@ const LoginForm = () => {
     <div className="login-page">
       <div className="login-container">
         {/* Logo */}
-        <div className="logo">
-          <img src="/Images/logo.png" alt="Logo" /> {/* Put your logo in public folder as logo.png */}
-        </div>
+       
 
         {/* Login Form */}
         <form className="login-form">

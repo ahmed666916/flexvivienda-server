@@ -6,7 +6,7 @@ const GoogleMap = ({ location }) => {
   return (
     <div className="google-map-container">
       <h2>Location</h2>
-      <iframe
+      <iframe 
         src={mapSrc}
         width="100%"
         height="250"

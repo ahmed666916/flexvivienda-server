@@ -7,7 +7,6 @@ const Signup = () => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
-    // Fetch the country data from the provided JSON
     fetch('https://country-code-au6g.vercel.app/Country.json')
       .then(response => response.json())
       .then(data => setCountries(data))
@@ -15,40 +14,65 @@ const Signup = () => {
   }, []);
 
   return (
-    <div className="signup-container">
-      <form className="signup-form">
-        <h2>Sign Up</h2>
+    <div className="signup-page">
+      <div className="signup-container">
+        <form className="signup-form">
+          <h2>Sign Up</h2>
 
-        <input type="text" placeholder="Full Name" required />
-        <input type="email" placeholder="Email" required />
-
-        <div className="phone-input">
-          <div className="country-code" onClick={() => setShowCodes(!showCodes)}>
-            {countryCode}
+          <div className="input-group">
+            <input type="text" id="fullname" required />
+            <label htmlFor="fullname">Full Name</label>
           </div>
-          {showCodes && (
-            <div className="country-dropdown">
-              {countries.map((country, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    setCountryCode(country.dial_code);
-                    setShowCodes(false);
-                  }}
-                >
-                  {country.flag} {country.name} ({country.dial_code})
-                </div>
-              ))}
+
+          <div className="input-group">
+            <input type="email" id="email" required />
+            <label htmlFor="email">Email</label>
+          </div>
+
+          <div className="input-group phone-wrapper">
+          <div className="phone-input">
+            <div className="country-code" onClick={() => setShowCodes(!showCodes)}>
+              {countryCode}
             </div>
-          )}
-          <input type="tel" placeholder="Phone Number" required />
+            <input type="tel" id="phone" required placeholder=" " />
+            {showCodes && (
+              <div className="country-dropdown">
+                {countries.map((country, index) => (
+                  <div
+                    key={index}
+                    onClick={() => {
+                      setCountryCode(country.dial_code);
+                      setShowCodes(false);
+                    }}
+                  >
+                    {country.flag} {country.name} ({country.dial_code})
+                  </div>
+                ))}
+              </div>
+            )}
+            <label htmlFor="phone" className="phone-label">Phone Number</label>
+          </div>
         </div>
 
-        <input type="password" placeholder="Password" required />
-        <input type="password" placeholder="Confirm Password" required />
 
-        <button type="submit">Create Account</button>
-      </form>
+
+          <div className="input-group">
+            <input type="password" id="password" required />
+            <label htmlFor="password">Password</label>
+          </div>
+
+          <div className="input-group">
+            <input type="password" id="confirm-password" required />
+            <label htmlFor="confirm-password">Confirm Password</label>
+          </div>
+
+          <button type="submit" className="btn-signup">Create Account</button>
+
+          <div className="login-link">
+            Already have an account? <a href="/login">Login</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
