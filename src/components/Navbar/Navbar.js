@@ -22,7 +22,7 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-light">
       <Link className="navbar-brand logo" to="/">
-  <img src="/images/logo.png" alt="Flex Logo" />
+  <img src="/Images/logo.png" alt="Flex Logo" />
 </Link>
 
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

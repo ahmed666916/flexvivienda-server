@@ -6,10 +6,10 @@ import GoogleMap from './GoogleMap';
 
 const PropertyDetail = () => {
   const images = [
-    '/images/house1.jpg',
-    '/images/house2.jpg',
-    '/images/house3.jpg',
-    '/images/house4.jpg',
+    '/Images/house1.jpg',
+    '/Images/house2.jpg',
+    '/Images/house3.jpg',
+    '/Images/house4.jpg',
   ];
 
   return (
