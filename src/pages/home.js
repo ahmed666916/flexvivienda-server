@@ -5,14 +5,17 @@ import PropertyList from '../components/PropertyList/PropertyList';
 import Testimonials from '../components/Testimonial/Testimonial';
 import Experience from '../components/Experience/Experience';
 import Blog from '../components/blog/blog';
+import { useTranslation } from 'react-i18next';
 
 
 
 const Home = () => {
+
+      const { t, i18n } = useTranslation();
   return (
 
         <>
-        <Hero />
+        <Hero heading={t('heroMessage')} subheading={t('heroSubtitle')}/>
         {/* <SearchBar /> */}
         <br></br>
         <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1"/>

@@ -1,6 +1,6 @@
 /* Improve base nav-link styles */
 .navbar-nav .nav-item {
-  margin: 0 0.75rem; /* spacing between items */
+  margin: 3px; /* spacing between items */
 }
 
 .navbar-nav .nav-link {

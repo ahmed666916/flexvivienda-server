@@ -14,6 +14,8 @@ import Blog from './pages/blog'
 import Blog_detail from './pages/blog_details';
 import ContactUs from './pages/ContactUs';
 import SplitPage from './components/splitPage/SplitPage'
+import MidStay from './pages/midStay'
+import LongStay from './pages/longStay'
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
           <Route path="/blog-detail" element={<Blog_detail />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/splitPage" element={<SplitPage />} />
+          <Route path="/midStay" element={<MidStay />} />
+          <Route path="/LongStay" element={<LongStay />} />
         </Routes>
 
 

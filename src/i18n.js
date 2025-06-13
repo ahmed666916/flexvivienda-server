@@ -10,7 +10,11 @@ const resources = {
       home: "Home",
       about: "About Us",
       heroMessage:"Your Property. Our Expertise. Maximized Returns",
-      heroSubtitle:"Flexible rental solutions — short, mid, or long term. Fully managed."
+      heroSubtitle:"Flexible rental solutions — short, mid, or long term. Fully managed.",
+      MidheroMessage:"Explore MidTerm Rental Properties",
+      MidheroSubtitle:"Less Stress, Flexibility and More Savings",
+      LongheroMessage:"Explore Long Term Rental Properties",
+      LongheroSubtitle:"Less Stress, Flexibility and More Savings"
     },
   },
   tr: {
@@ -19,7 +23,11 @@ const resources = {
       home: "Ana Sayfa",
       about: "Hakkımızda",
       heroMessage:"Sizin Mülkünüz. Bizim Uzmanlığımız. Maksimum Getiriler",
-      heroSubtitle:"Esnek kiralama çözümleri — kısa, orta veya uzun vadeli. Tamamen yönetilir."
+      heroSubtitle:"Esnek kiralama çözümleri — kısa, orta veya uzun vadeli. Tamamen yönetilir.",
+      MidheroMessage:"Bizimle Orta Vadeli Kiralık Mülkleri Keşfedin",
+      MidheroSubtitle:"Daha Az Stres, Esneklik ve Daha Fazla Tasarruf",
+      LongheroMessage:"Uzun Dönem Kiralık Mülkleri Keşfedin",
+      LongheroSubtitle:"Daha Az Stres, Esneklik ve Daha Fazla Tasarruf"
     },
   },
   ar: {
@@ -28,7 +36,11 @@ const resources = {
       home: "الصفحة الرئيسية",
       about: "معلومات عنا",
       heroMessage:"عقارك. خبرتنا. عوائد مُجزية",
-      heroSubtitle:"حلول تأجير مرنة - قصيرة، متوسطة، أو طويلة الأجل. إدارة كاملة."
+      heroSubtitle:"حلول تأجير مرنة - قصيرة، متوسطة، أو طويلة الأجل. إدارة كاملة.",
+      MidheroMessage:"استكشف عقارات الإيجار متوسطة الأجل معنا",
+      MidheroSubtitle:"أقل توترًا ومرونة ومدخرات أكثر",
+      LongheroMessage:"استكشف عقارات الإيجار طويلة الأجل",
+      LongheroSubtitle:"أقل توترًا ومرونة ومدخرات أكثر"
     },
   },
 };

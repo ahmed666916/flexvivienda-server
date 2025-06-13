@@ -1,0 +1,45 @@
+.styled-hero-long {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+.styled-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-card-long {
+  position: relative;
+  background: #F22048;
+  border-top-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  padding: 40px;
+  margin: 0 60px;
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  color: #333;
+  text-align: left;
+}
+
+.hero-card-long h1 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+.hero-card-long p {
+  margin-bottom: 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+.hero-card-long .search-bar {
+  margin-top: 1rem;
+}

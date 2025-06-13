@@ -35,10 +35,6 @@ const PropertyDetail = () => {
                 </p>
               </div>
 
-
-            
-        
-
             <div className="property-amenities">
                 
             <h2>Amenities</h2>
@@ -58,9 +54,6 @@ const PropertyDetail = () => {
                 <li>Beach View</li>
               </ul>
             </div>
-
-            
-
             </div>
 
             <div className='col-md-4'>
