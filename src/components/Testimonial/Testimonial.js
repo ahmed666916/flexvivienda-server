@@ -1,31 +1,63 @@
 import React from 'react';
-import './Testimonial.css'; // Create corresponding CSS for styling
+import './Testimonial.css';
 
-const testimonials = [
+
+
+
+
+const Testimonials = () => {
+
+  const bookingLogo = '/Images/airbnb.png'
+const airbnbLogo = '/Images/booking.png'
+
+  const testimonials = [
   {
     id: 1,
     name: 'Yiğit Demiray',
-    feedback: 'Güvenlik açısından çok iyiydi mutfak gereçleri vardı...',
+    feedback: 'Güvenlik açısından çok iyiydi, mutfak gereçleri vardı...',
+    source: 'booking.com'
   },
   {
     id: 2,
     name: 'Sevval Kaya',
     feedback: 'Her şey çok güzeldi ve ev inanılmazdı...',
+    source: 'booking.com'
   },
   {
     id: 3,
     name: 'Sevval Kaya',
-    feedback: 'Her şey çok güzeldi ve ev inanılmazdı...',
-  },
-  // Add more testimonials as needed
+    feedback: 'Ev çok temizdi, lokasyon harikaydı!',
+    source: 'airbnb'
+  }
 ];
 
-const Testimonials = () => (
+const getSourceClass = (source) => {
+  return source === 'airbnb' ? 'airbnb-card' : 'booking-card-testimonial';
+};
+
+const getSourceLogo = (source) => {
+  return source === 'airbnb' ? airbnbLogo : bookingLogo;
+};
+
+  
+
+return (
   <section className="testimonials">
     <h2>Konuklarımızdan Missafir Yorumları</h2>
     <div className="testimonial-cards">
       {testimonials.map((testimonial) => (
-        <div key={testimonial.id} className="testimonial-card">
+        <div
+          key={testimonial.id}
+          className={`testimonial-card ${getSourceClass(testimonial.source)}`}
+        >
+          <div className="source-header">
+            <img
+              src={getSourceLogo(testimonial.source)}
+              alt={testimonial.source}
+              className="source-logo"
+            />
+            <span className="source-name">{testimonial.source}</span>
+          </div>
           <p>"{testimonial.feedback}"</p>
           <h4>- {testimonial.name}</h4>
         </div>
@@ -33,5 +65,5 @@ const Testimonials = () => (
     </div>
   </section>
 );
-
+}
 export default Testimonials;

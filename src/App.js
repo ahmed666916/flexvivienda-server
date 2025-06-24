@@ -16,6 +16,8 @@ import ContactUs from './pages/ContactUs';
 import SplitPage from './components/splitPage/SplitPage'
 import MidStay from './pages/midStay'
 import LongStay from './pages/longStay'
+import 'leaflet/dist/leaflet.css';
+
 
 
 function App() {

@@ -14,25 +14,38 @@ body, html, #root {
   display: flex;
   height: 100vh;
   width: 100vw;
-  gap: 8px; /* Gap between splits */
+  gap: 8px;
   background-color: #f5f5f5;
   padding: 0 4px;
 }
 
-.split {
+.split-link {
   flex: 1;
+  text-decoration: none;
+  height: 100%;
+}
+
+.split {
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .left {
-  background-color: #5baaf8; /* Dodger Blue */
+  background-color: #5baaf8;
 }
 
 .right {
-  background-color: #3daa57; /* Green */
+  background-color: #3daa57;
+}
+
+.hoverable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.05);
 }
 
 .divider {
@@ -68,9 +81,30 @@ p {
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .split-button:hover {
   background-color: #e0e0e0;
+  transform: scale(1.05);
+}
+
+
+/* Remove outline and blue link focus effect */
+.split-container a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+.split-link:focus,
+.split-link:active {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Optional: prevent blue highlight on mobile tap */
+.split-link {
+  -webkit-tap-highlight-color: transparent;
 }

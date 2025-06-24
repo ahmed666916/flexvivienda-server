@@ -1,0 +1,99 @@
+.flex-intro-container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.flex-left {
+  flex: 1;
+  min-width: 300px;
+  font-size: 20px;
+}
+
+.flex-left h2 {
+  font-size: 2rem;
+  color: #b00; /* website red theme */
+  margin-bottom: 0.5rem;
+}
+
+.flex-left h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.flex-left p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.flex-left ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+}
+
+.flex-left li {
+  margin-bottom: 0.75rem;
+}
+
+.flex-right {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thumbnail {
+  width: 70%;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-player {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.thumbnail {
+  width: 80%;
+  display: block;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  float: right;
+}
+
+
+.video-thumbnail-wrapper:hover .thumbnail {
+  transform: scale(1.02);
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.video-thumbnail-wrapper:hover .play-icon {
+  transform: translate(-50%, -50%) scale(1.1);
+  opacity: 1;
+}
+
+.listAboutFlatix li{
+  list-style: none;
+
+}

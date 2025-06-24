@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PropertyList.css';
+import Map from '../map/MyMap'
+import CMap from '../map/MyClusterMap'
 
 const properties = [
   {
@@ -10,6 +12,9 @@ const properties = [
     price: '€120/night',
     image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
     tag: 'Hot Property',
+    bedrooms: 2,
+    bathrooms: 1,
+    size: 75
   },
   {
     id: 2,
@@ -18,6 +23,9 @@ const properties = [
     price: '€200/night',
     image: 'https://duotax.com.au/wp-content/uploads/House.jpg',
     tag: 'Hot Property',
+     bedrooms: 4,
+    bathrooms: 2,
+    size: 200
   },
   {
     id: 3,
@@ -26,6 +34,9 @@ const properties = [
     price: '€90/night',
     image: 'https://www.synchrony.com/syfbank/images/hero-land-lord-life-1140x570.jpg',
      tag: 'Highest Rated',
+      bedrooms: 1,
+    bathrooms: 1,
+    size: 45
   },
   {
     id: 4,
@@ -34,6 +45,9 @@ const properties = [
     price: '€120/night',
     image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
      tag: 'Highest Rated',
+     bedrooms: 4,
+    bathrooms: 2,
+    size: 200
   },
   {
     id: 5,
@@ -42,6 +56,9 @@ const properties = [
     price: '€200/night',
     image: 'https://duotax.com.au/wp-content/uploads/House.jpg',
      tag: 'Highest Rated',
+     bedrooms: 2,
+    bathrooms: 1,
+    size: 75
   },
   {
     id: 6,
@@ -49,6 +66,9 @@ const properties = [
     location: 'Kadıköy, Istanbul',
     price: '€90/night',
     image: 'https://www.synchrony.com/syfbank/images/hero-land-lord-life-1140x570.jpg',
+     bedrooms: 4,
+    bathrooms: 2,
+    size: 200
   },
   // Add more properties as needed
 ];
@@ -102,12 +122,12 @@ const PropertyList = (props) => {
 
   return (
     <>
-    <center><h2 className='heading'>{props.title}</h2></center>
+   
       
       {props.maps === "1" && (
         <>
         <br></br>
-      <div className="map-container">
+      {/* <div className="map-container">
         <iframe
           title="Google Map"
           width="100%"
@@ -116,9 +136,14 @@ const PropertyList = (props) => {
           src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAUERmGeMXxZ6rDvbVYmvy67j4NF9b3Yqs&center=41.0082,28.9784&zoom=12"
           allowFullScreen
         ></iframe>
-      </div>
+      </div> */}
+      <CMap />
       </>
       )}
+
+       <br></br>
+       <center><h2 className='heading'>{props.title}</h2></center>
+      
       <br></br>
       {props.tabs === "1" && (
       <div>
@@ -151,6 +176,13 @@ const PropertyList = (props) => {
           <div className="property-details">
             <h2 className="property-title">{property.title}</h2>
             <p className="property-location">{property.location}</p>
+
+            <div className="property-features">
+            <span><i className="fa-solid fa-bed"></i> {property.bedrooms}</span>
+            <span><i className="fa-solid fa-bath"></i> {property.bathrooms}</span>
+            <span><i className="fa-solid fa-maximize"></i> {property.size} m²</span>
+          </div>
+
             <p className="property-price">{property.price}</p>
           </div>
         </div>

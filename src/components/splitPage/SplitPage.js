@@ -6,23 +6,29 @@ import { FaHome, FaChartLine } from 'react-icons/fa';
 const SplitPage = () => {
   return (
     <div className="split-container">
-      <div className="split left">
-        <div className="content">
-          <FaHome className="icon" />
-          <h1>Become a Host</h1>
-          <p>Share your space and earn income with ease.</p>
-          <Link to={"/owner_listing"}><button className="split-button">Get Started</button></Link>
+      <Link to="/owner_listing" className="split-link">
+        <div className="split left hoverable">
+          <div className="content">
+            <FaHome className="icon" />
+            <h1>Become a Host</h1>
+            <p>Share your space and earn income with ease.</p>
+            <div className="split-button">Get Started</div>
+          </div>
         </div>
-      </div>
+      </Link>
+
       <div className="divider"></div>
-      <div className="split right">
-        <div className="content">
-          <FaChartLine className="icon" />
-          <h1>Invest</h1>
-          <p>Grow your wealth by investing in properties.</p>
-          <button className="split-button">Explore Options</button>
+
+      <Link to="/invest" className="split-link">
+        <div className="split right hoverable">
+          <div className="content">
+            <FaChartLine className="icon" />
+            <h1>Invest</h1>
+            <p>Grow your wealth by investing in properties.</p>
+            <div className="split-button">Explore Options</div>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

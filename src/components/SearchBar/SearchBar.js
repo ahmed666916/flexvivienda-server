@@ -1,36 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SearchBar.css';
 import { Link } from 'react-router-dom';
 import DateRangeDropdown from './DateRangeDropdown';
 
-const SearchBar = () => (
-  <div className="search-bar-container">
-    <section className="search-bar">
-      
-      <div className="input-group">
-       
-        <input id="location-input" type="text" placeholder="Enter location" />
-      </div>
+const cities = [
+  'Istanbul', 'Ankara', 'Izmir', 'Antalya', 'Bursa', 'Adana',
+  'Gaziantep', 'Konya', 'Kayseri', 'Mersin', 'Eskişehir',
+  'Trabzon', 'Samsun', 'Diyarbakır', 'Erzurum', 'Van'
+];
 
-      <div className="input-group">
-       
-        <DateRangeDropdown id="date-range" />
-      </div>
+const SearchBar = ({ className = '' }) => {
+  const [search, setSearch] = useState('');
+  const [showList, setShowList] = useState(false);
 
-      <div className="input-group">
+  const filteredCities = cities.filter(city =>
+    city.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className={`search-bar-container ${className}`}>
+      <section className="search-bar">
         
-        <input id="guests-input" type="number" placeholder="Guests" />
-      </div>
+        <div className="input-group">
 
-      <div className="input-group search-button-group">
-        <label className="invisible-label">Search</label>
-        <Link to="/listing">
-          <button>Search</button>
-        </Link>
-      </div>
+          <input
+            id="location-input"
+            type="text"
+            placeholder="Select or type city"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onFocus={() => setShowList(true)}
+            onBlur={() => setTimeout(() => setShowList(false), 150)} // Delay to allow click
+            autoComplete="off"
+          />
+          {showList && (
+            <ul className="dropdown-list">
+              {filteredCities.length > 0 ? (
+                filteredCities.map((city, index) => (
+                  <li key={index} onClick={() => setSearch(city)}>
+                    {city}
+                  </li>
+                ))
+              ) : (
+                <li className="no-result">No results</li>
+              )}
+            </ul>
+          )}
+        </div>
 
-    </section>
-  </div>
-);
+        <div className="input-group">
+          
+          <DateRangeDropdown id="date-range" />
+        </div>
+
+        <div className="input-group">
+        
+          <input id="guests-input" type="number" placeholder="Guests" />
+        </div>
+
+        <div className="input-group search-button-group">
+          <label className="invisible-label">Search</label>
+          <Link to="/listing">
+            <button>Search</button>
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+};
 
 export default SearchBar;

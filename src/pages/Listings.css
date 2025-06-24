@@ -1,176 +1,100 @@
-/* Layout */
-.listing-page-container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
+.listing-layout {
   position: relative;
+  padding: 20px;
 }
 
-/* Filter section (left) */
-
-/* Professional Filter Sidebar */
-.filter-section {
-  flex: 1;
-  max-width: 280px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  padding: 25px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  position: sticky;
-  top: 20px;
-  height: fit-content;
+.listing-layout a{
+  text-decoration: none;
+  outline: none;
 }
 
-.filter-section h3 {
-  font-size: 20px;
-  color: #333;
+.filter-button-container {
+  margin-bottom: 10px;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 0px;
+}
+
+
+.filter-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #E11D48;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background-color: #c4163b;
+}
+
+.listings-section {
+  display: flex;
+  gap: 10px;
+}
+
+.left-section {
+  flex: 0 0 50%;
+}
+
+.right-section {
+  flex: 0 0 50%;
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.modal-content h3 {
   margin-bottom: 20px;
   border-bottom: 2px solid #E11D48;
   padding-bottom: 10px;
 }
 
-/* Individual filter group */
-.filter-group {
-  margin-bottom: 20px;
-}
-
-.filter-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #444;
-  display: block;
-  margin-bottom: 6px;
-}
-
-.filter-group input[type="range"] {
-  width: 100%;
-}
-
-.filter-group input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-.filter-group select {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  background-color: white;
-  color: #333;
-  outline: none;
-  transition: border 0.2s ease-in-out;
-}
-
-.filter-group select:focus {
-  border-color: #E11D48;
-}
-
-/* Checkbox layout (optional) */
-.filter-group.checkbox {
-  display: flex;
-  align-items: center;
-}
-
-
-/* Listings section (right) */
-.listings-section {
-  flex: 3;
-}
-
-/* Property grid */
-.property-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-/* Property card */
-.property-card {
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  position: relative;
-}
-
-.property-tag {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: #E11D48;
-  color: white;
-  padding: 6px 10px;
-  font-size: 12px;
-  border-radius: 20px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.property-image {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.property-details {
-  padding: 15px;
-}
-
-.property-title {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.property-location {
-  font-size: 14px;
-  color: #555;
-}
-
-.property-price {
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-/* Map view */
-.map-container2 {
-  width: 100%;
-  height: 800px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #ddd;
-}
-
-/* Toggle button popup */
-.toggle-button-popup {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-}
-
-.toggle-button-popup button {
+.close-modal {
+  margin-top: 20px;
   background-color: #E11D48;
   color: white;
   border: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: 25px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  transition: background-color 0.3s ease;
 }
 
-.toggle-button-popup button:hover {
-  background-color: #c4163b;
-}
+/* Keep your property card styles the same */
 
-.listings-section a {
-  text-decoration: none;
-  outline: none;
-}
+

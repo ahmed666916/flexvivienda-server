@@ -171,3 +171,21 @@
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+.property-features {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  margin: 0.4rem 0;
+  color: #555;
+}
+
+.property-features span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.property-features i {
+  font-size: 0.9rem;
+  color: #888;
+}

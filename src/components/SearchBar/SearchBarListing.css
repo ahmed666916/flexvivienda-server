@@ -1,0 +1,377 @@
+.search-bar-container-listing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 5;
+}
+
+.search-bar-listing {
+  display: flex;
+  gap: 1.2rem;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  max-width: 1200px;
+  width: 100%;
+
+  flex-wrap: nowrap;
+  align-items: flex-end;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.input-group label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.search-bar input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-button-group button:hover {
+  background-color: #e11d48;
+}
+
+.invisible-label {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  .search-button-group {
+    width: 100%;
+  }
+
+  .search-button-group button {
+    width: 100%;
+  }
+}
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.dropdown-list li {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.dropdown-list li:hover {
+  background-color: #f5f5f5;
+}
+
+.no-result {
+  padding: 10px 14px;
+  color: #999;
+}
+
+
+input::placeholder {
+  color: #aaa;
+  opacity: 1; /* Make sure placeholder is fully visible */
+}
+
+input {
+  position: relative;
+  background-color: white;
+  z-index: 1;
+}
+
+.input-group label {
+  position: static; /* or remove any absolute/fixed positioning */
+  pointer-events: none; /* so clicks go through to input */
+  z-index: 0;
+}
+
+.search-button-group .button-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.search-button-group .button-row button {
+  flex: 1;
+  height: 44px;
+}
+
+.search-btn {
+  background-color: #f43f5e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.search-btn:hover {
+  background-color: #e11d48;
+}
+
+.filter-button {
+  background-color: #334155;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background-color: #1e293b;
+}
+
+
+.enhanced-filter {
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  border-radius: 20px;
+  background: white;
+}
+
+.filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.filter-section label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.counters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.counter-group {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.counter-icon {
+  color: #f43f5e;
+  font-size: 1.1rem;
+}
+
+.counter-item button {
+  background: #f43f5e;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.counter-item button:hover {
+  background-color: #e11d48;
+}
+
+.counter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f9f9f9;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+}
+.icon-label {
+  min-width: 80px;
+  font-weight: 500;
+}
+
+.counter-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.counter-buttons button {
+  padding: 0.3rem 0.6rem;
+  font-size: 1.1rem;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip-button {
+  padding: 0.5rem 0.9rem;
+  border-radius: 9999px;
+  border: 1px solid #ccc;
+  background: white;
+  color: black;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.chip-button:hover,
+.chip-button.active {
+  background-color: #f43f5e;
+  color: white;
+  border-color: transparent;
+}
+
+.close-modal {
+  margin-top: 2rem;
+  background: #f43f5e;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.price-range-slider {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  background: #f43f5e;
+  border-radius: 10px;
+  outline: none;
+  margin-top: 10px;
+}
+
+.price-range-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #f43f5e;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.price-range-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid #f43f5e;
+  cursor: pointer;
+}
+
+.price-display {
+  text-align: right;
+  font-size: 0.95rem;
+  margin-top: 6px;
+  color: #333;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000; /* High enough to overlay the map controls */
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 2001;
+}
+
+.modal-body {
+  overflow-y: auto;
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.modal-footer {
+  padding: 0.75rem 1.2rem;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+}
+.close-modal {
+  background-color: #f43f5e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  background-color: #e11d48;
+}
+
+.section + .section {
+  margin-top: 1.5rem;
+}
