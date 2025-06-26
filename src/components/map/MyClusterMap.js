@@ -1,4 +1,3 @@
-// MyClusterMap.js
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -27,36 +26,38 @@ const markerData = [
 
 const MyClusterMap = () => {
   return (
-    <MapContainer center={[39.0, 35.0]} zoom={6} scrollWheelZoom={false} style={{ height: '100%', width: '100%' }} 
-    whenCreated={(map) => {
-      const handleWheel = (e) => {
-        if (e.originalEvent.ctrlKey) {
-          map.scrollWheelZoom.enable();
-        } else {
-          map.scrollWheelZoom.disable();
-        }
-      };
+    <div style={{ height: '60vh', width: '100%' }}>
+      <MapContainer
+        center={[39.0, 35.0]}
+        zoom={6}
+        scrollWheelZoom={false}
+        style={{ height: '100%', width: '100%' }}
+        whenCreated={(map) => {
+          const handleWheel = (e) => {
+            if (e.originalEvent.ctrlKey) {
+              map.scrollWheelZoom.enable();
+            } else {
+              map.scrollWheelZoom.disable();
+            }
+          };
+          map.on('wheel', handleWheel);
+          return () => map.off('wheel', handleWheel);
+        }}
+      >
+        <TileLayer
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
+        />
 
-      map.on('wheel', handleWheel);
-
-      // Optional: clean up
-      return () => {
-        map.off('wheel', handleWheel);
-      };
-    }}>
-      <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-        attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
-      />
-
-      <MarkerClusterGroup>
-        {markerData.map((marker, index) => (
-          <Marker key={index} position={marker.position}>
-            <Popup>{marker.city}</Popup>
-          </Marker>
-        ))}
-      </MarkerClusterGroup>
-    </MapContainer>
+        <MarkerClusterGroup>
+          {markerData.map((marker, index) => (
+            <Marker key={index} position={marker.position}>
+              <Popup>{marker.city}</Popup>
+            </Marker>
+          ))}
+        </MarkerClusterGroup>
+      </MapContainer>
+    </div>
   );
 };
 
