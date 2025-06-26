@@ -34,7 +34,7 @@ const Hero = (props) => {
       }}
     >
       <div className="overlay"></div> {/* Dark overlay */}
-      <div className="hero-content">
+      <div className="hero-contents">
         <h1>{props.heading}</h1>
         <p>{props.subheading}</p>
         
