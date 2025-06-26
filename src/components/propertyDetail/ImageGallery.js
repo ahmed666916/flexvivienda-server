@@ -26,15 +26,19 @@ const ImageGallery = ({ images }) => {
         </button>
 
         <div className="dual-image-wrapper">
-          {visibleImages.map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt={`Gallery ${slideIndex + i + 1}`}
-              className="dual-gallery-image"
-              onClick={() => setSelectedIndex((slideIndex + i) % images.length)}
-            />
-          ))}
+          <img
+            src={visibleImages[0]}
+            alt={`Gallery ${slideIndex + 1}`}
+            className="dual-gallery-image"
+            onClick={() => setSelectedIndex(slideIndex)}
+          />
+          <div className="image-divider-vertical"></div>
+          <img
+            src={visibleImages[1]}
+            alt={`Gallery ${slideIndex + 2}`}
+            className="dual-gallery-image"
+            onClick={() => setSelectedIndex((slideIndex + 1) % images.length)}
+          />
         </div>
 
         <button className="nav-arrow right" onClick={handleNext}>
@@ -49,21 +53,17 @@ const ImageGallery = ({ images }) => {
               setSelectedIndex((prev) =>
                 prev === 0 ? images.length - 1 : prev - 1
               )
-            }>
-              &#10094;
-            </button>
+            }>&#10094;</button>
             <img
               src={images[selectedIndex]}
-              alt="Full View"
-              className="image-viewer-image"
+              alt={`Large view ${selectedIndex}`}
+              className="large-image"
             />
             <button className="nav-arrow right" onClick={() =>
               setSelectedIndex((prev) =>
-                prev === images.length - 1 ? 0 : prev + 1
+                (prev + 1) % images.length
               )
-            }>
-              &#10095;
-            </button>
+            }>&#10095;</button>
           </div>
         </div>
       )}

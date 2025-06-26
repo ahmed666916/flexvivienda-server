@@ -298,3 +298,9 @@
 .nav-arrow:hover {
   background: rgba(255, 100, 100, 0.9);
 }
+
+.image-divider-vertical {
+  width: 2px;
+  background-color: #ccc;
+  margin: 0 10px;
+}
