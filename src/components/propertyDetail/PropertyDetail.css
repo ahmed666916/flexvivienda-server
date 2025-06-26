@@ -300,7 +300,10 @@
 }
 
 .image-divider-vertical {
-  width: 2px;
-  background-color: #ccc;
-  margin: 0 10px;
+  width: 1.5px;
+  background: linear-gradient(to bottom, #e0e0e0, #c0c0c0, #e0e0e0);
+  margin: 0 12px;
+  border-radius: 1px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
 }
