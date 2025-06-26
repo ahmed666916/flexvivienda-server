@@ -21,7 +21,7 @@ const OwnerListing = () => {
         <HeroSection scrollToRef={targetRef} />
         <FlexIntro />
         <ValueProposition  />
-        <ROICalculator  />
+        {/* <ROICalculator  /> */}
         <PerfectRentalExperience />
         <BecomeMissafirSteps />
         <SubscriptionPackage />

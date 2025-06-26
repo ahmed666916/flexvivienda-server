@@ -20,11 +20,11 @@ const Home = () => {
         <Hero heading={t('heroMessage')} subheading={t('heroSubtitle')}/>
         {/* <SearchBar /> */}
         <br></br>
-        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1"/>
+        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1"/>
         <br></br>
-        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0"/>
+        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1"/>
         <br></br>
-        <PropertyCitiesList  title="Explore Properties in Cities" tabs="1" tags="1"/>
+        <PropertyCitiesList  title="Explore Properties in Cities" tabs="1" tags="1" short="1"/>
          <Experience />
         <Testimonials />
         <TrustSignals />

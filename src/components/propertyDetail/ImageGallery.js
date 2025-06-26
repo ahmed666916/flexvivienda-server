@@ -32,7 +32,7 @@ const ImageGallery = ({ images }) => {
             className="dual-gallery-image"
             onClick={() => setSelectedIndex(slideIndex)}
           />
-          <div className="image-divider-vertical"></div>
+          
           <img
             src={visibleImages[1]}
             alt={`Gallery ${slideIndex + 2}`}

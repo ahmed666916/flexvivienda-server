@@ -16,6 +16,7 @@ import ContactUs from './pages/ContactUs';
 import SplitPage from './components/splitPage/SplitPage'
 import MidStay from './pages/midStay'
 import LongStay from './pages/longStay'
+import Invest from './pages/invest'
 import 'leaflet/dist/leaflet.css';
 
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/splitPage" element={<SplitPage />} />
           <Route path="/midStay" element={<MidStay />} />
           <Route path="/LongStay" element={<LongStay />} />
+          <Route path="/invest" element={<Invest />} />
         </Routes>
 
 

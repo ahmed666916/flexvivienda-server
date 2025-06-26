@@ -13,7 +13,7 @@ const LongStay = () => {
         <>
             <Hero heading={t('LongheroMessage')} subheading={t('LongheroSubtitle')}/>
             <br></br>
-            <PropertyList title="Long Term Stay Locations" tabs="0" maps="0" tags="0"/>
+            <PropertyList title="Long Term Stay Locations" tabs="0" maps="0" tags="0" short="0"/>
             <LifeTimeExperience />
             <Testimonials />
             <FAQ />

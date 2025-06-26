@@ -264,28 +264,29 @@
   height: 400px; /* or adjust to fit your layout */
   object-fit: cover;
   cursor: pointer;
+  padding: 3px;
 }
 .dual-image-wrapper {
   display: flex;
   width: 100%;
   gap: 0; /* No gap */
 }
-.dual-gallery-image:hover {
-  transform: scale(1.02);
-}
+
 
 .nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   font-size: 2.5rem;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8) !important;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
   z-index: 10;
   border-radius: 50px;
   transition: background 0.3s ease;
+  color:black !important;
+  outline: none;
 }
 
 .nav-arrow.left {
@@ -296,7 +297,16 @@
 }
 
 .nav-arrow:hover {
-  background: rgba(255, 100, 100, 0.9);
+  background: rgba(255, 100, 100, 0.9) !important;
+  outline: none;
+}
+
+.nav-arrow:active {
+  outline: none;
+}
+
+.nav-arrow:focus {
+  outline: none;
 }
 
 .image-divider-vertical {

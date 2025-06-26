@@ -54,8 +54,7 @@ const ContactUs = () => {
       <div className="contact-map">
         <iframe
           title="Google Map"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12044.574557431678!2d28.911352!3d40.990429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDU5JzI1LjAiTiAyOMKwNTQnMTguNSJF!5e0!3m2!1str!2str!4v1685695201760!5m2!1str!2str"
-
+         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1304.6617317990278!2d28.909347242243374!3d40.989237105367806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cabb9ea144f72b%3A0x1ef28e34a03e911b!2sOnalti%20Dokuz%20Istanbul!5e1!3m2!1sen!2ses!4v1750966036006!5m2!1sen!2ses"
           allowFullScreen=""
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"

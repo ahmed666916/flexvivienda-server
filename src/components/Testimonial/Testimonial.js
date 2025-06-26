@@ -36,7 +36,7 @@ const getSourceClass = (source) => {
 };
 
 const getSourceLogo = (source) => {
-  return source === 'airbnb' ? airbnbLogo : bookingLogo;
+  return source === 'airbnb' ?  bookingLogo  :  airbnbLogo;
 };
 
   

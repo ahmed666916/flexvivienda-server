@@ -49,13 +49,27 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.7) !important;
   border: none;
   font-size: 2rem;
   cursor: pointer;
   padding: 8px 14px;
-  border-radius: 50%;
+  border-radius: 50px;
   z-index: 10000;
+  color: black !important;
+}
+
+.nav-arrows:hover {
+  background: rgba(255, 100, 100, 0.9) !important;
+  outline: none;
+}
+
+.nav-arrows:active {
+  outline: none;
+}
+
+.nav-arrows:focus {
+  outline: none;
 }
 
 .nav-arrows.left {

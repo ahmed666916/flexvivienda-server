@@ -19,7 +19,7 @@ const properties = [
   },
   {
     id: 2,
-    title: 'Superb House with Garden in Ortaköy',
+    title: 'Superb House in Ortaköy',
     location: 'Ortaköy, Istanbul',
     price: '€200/night',
     image: 'https://duotax.com.au/wp-content/uploads/House.jpg',
@@ -27,6 +27,7 @@ const properties = [
     bedrooms: 4,
     bathrooms: 2,
     size: 200,
+    persons:4,
     features: ['Garden', 'Swimming Pool']
   },
   {
@@ -39,6 +40,7 @@ const properties = [
     bedrooms: 1,
     bathrooms: 1,
     size: 45,
+     persons:4,
     features: ['Close to Beach']
   },
   {
@@ -51,11 +53,12 @@ const properties = [
     bedrooms: 4,
     bathrooms: 2,
     size: 200,
+     persons:4,
     features: ['Sea view', 'Swimming Pool']
   },
   {
     id: 5,
-    title: 'Superb House with Garden in Ortaköy',
+    title: 'Superb House in Ortaköy',
     location: 'Ortaköy, Istanbul',
     price: '€200/night',
     image: 'https://duotax.com.au/wp-content/uploads/House.jpg',
@@ -63,6 +66,7 @@ const properties = [
     bedrooms: 2,
     bathrooms: 1,
     size: 75,
+     persons:4,
     features: ['Garden']
   },
   {
@@ -74,6 +78,7 @@ const properties = [
     bedrooms: 4,
     bathrooms: 2,
     size: 200,
+     persons:4,
     features: ['Pet friendly']
   },
 ];
@@ -175,11 +180,14 @@ const PropertyList = (props) => {
               <img src={property.image} alt={property.title} className="property-image" />
               <div className="property-details">
                 <h2 className="property-title">{property.title}</h2>
-                <p className="property-location">{property.location}</p>
+                <p className="property-locations">{property.location}</p>
                 <div className="property-features">
                   <span><i className="fa-solid fa-bed"></i> {property.bedrooms}</span>
                   <span><i className="fa-solid fa-bath"></i> {property.bathrooms}</span>
-                  <span><i className="fa-solid fa-maximize"></i> {property.size} m²</span>
+                  <span>
+  <i className={props.short == 1 ? "fa-solid fa-user-group" : "fa-solid fa-maximize"}></i> {props.short == 1 ? property.persons: property.size} 
+</span>
+
                 </div>
                 <p className="property-price">{property.price}</p>
               </div>
