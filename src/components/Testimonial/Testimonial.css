@@ -1,54 +1,104 @@
 .testimonials {
-    background-color: #ffffff;
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  
+  background-color: #ffffff;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 2rem;
+  color: #000;
+  margin-bottom: 2.5rem;
+}
+
+.testimonial-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Source header */
+.source-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.source-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.source-name {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: inherit;
+}
+
+/* Text */
+.testimonial-card p {
+  font-style: italic;
+  color: #222;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.testimonial-card h4 {
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+/* Booking.com style */
+.booking-card-testimonial {
+  background: #51688a;
+  border-left: 5px solid #0071c2;
+}
+
+.booking-card .source-name {
+  color: #0071c2;
+}
+
+.booking-card h4 {
+  color: #0071c2;
+}
+
+/* Airbnb style */
+.airbnb-card {
+  background: #f19696;
+  border-left: 5px solid #ff385c;
+}
+
+.airbnb-card .source-name {
+  color: #ff385c;
+}
+
+.airbnb-card h4 {
+  color: #ff385c;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
   .testimonials h2 {
-    font-size: 2rem;
-    color: #000000;
-    margin-bottom: 2.5rem;
+    font-size: 1.5rem;
   }
-  
-  .testimonial-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
+
   .testimonial-card {
-    background-color: #f9f9f9;
-    border-left: 5px solid #f22048;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    text-align: left;
+    padding: 1rem;
   }
-  
-  .testimonial-card p {
-    font-style: italic;
-    color: #000000;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-  
-  .testimonial-card h4 {
-    color: #f22048;
-    font-size: 0.95rem;
-    font-weight: bold;
-  }
-  
-  /* Responsive */
-  @media (max-width: 600px) {
-    .testimonials h2 {
-      font-size: 1.5rem;
-    }
-  
-    .testimonial-card {
-      padding: 1rem;
-    }
-  }
-  
+}

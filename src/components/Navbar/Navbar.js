@@ -40,9 +40,8 @@ const Navbar = () => {
               Explore Stays
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a className="dropdown-item" href="#">Short Stays</a>
-              <a className="dropdown-item" href="#">Mid Stays</a>
-              <a className="dropdown-item" href="#">Long Stays</a>
+              <Link className="dropdown-item" to="/midStay">Mid Stays</Link>
+              <Link className="dropdown-item" to="/LongStay">Long Stays</Link>
             </div>
           </li>
           <li className="nav-item">

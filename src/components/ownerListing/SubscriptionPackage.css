@@ -57,3 +57,59 @@
   font-size: 24px;
   font-weight: bold;
 }
+
+.subscription-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.subscription-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.subscription-card:hover {
+  transform: translateY(-5px);
+}
+
+.subscription-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.subscription-commission {
+  font-weight: 600;
+  color: #c4302b; /* Your red theme */
+  margin-bottom: 1rem;
+}
+
+.subscription-description {
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.subscription-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subscription-features li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.check-icon {
+  color: #c4302b;
+  margin-right: 0.5rem;
+}

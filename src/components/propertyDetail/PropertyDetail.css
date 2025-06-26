@@ -5,13 +5,14 @@
   margin-bottom: 5px;
   line-height: 1.2;
   padding: 20px;
+    margin-left: 5px;
 }
 
 .property-location {
   font-size: 16px;
   color: #6b7280;
   margin-bottom: 20px;
-  padding-left: 20px;
+  margin-left: 25px;
   padding-bottom: 20px;
 }
 
@@ -248,4 +249,52 @@
 .booking-card .rdrPprevButton:hover i {
   border-color: #d81b3f;
   opacity: 1;
+}
+
+
+.dual-image-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.dual-gallery-image {
+  width: 50vw; /* Each image takes half of full screen width */
+  height: 400px; /* or adjust to fit your layout */
+  object-fit: cover;
+  cursor: pointer;
+}
+.dual-image-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 0; /* No gap */
+}
+.dual-gallery-image:hover {
+  transform: scale(1.02);
+}
+
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50px;
+  transition: background 0.3s ease;
+}
+
+.nav-arrow.left {
+  left: 1rem;
+}
+.nav-arrow.right {
+  right: 1rem;
+}
+
+.nav-arrow:hover {
+  background: rgba(255, 100, 100, 0.9);
 }

@@ -3,10 +3,15 @@ import './PropertyDetail.css';
 import ImageGallery from './ImageGallery';
 import BookingCard from './BookingCard';
 import GoogleMap from './GoogleMap';
+import GridGalleryViewer from './GridGalleryViewer';
 
 const PropertyDetail = () => {
   const images = [
     '/Images/house1.jpg',
+    '/Images/house2.jpg',
+    '/Images/house3.jpg',
+    '/Images/house4.jpg',
+     '/Images/house1.jpg',
     '/Images/house2.jpg',
     '/Images/house3.jpg',
     '/Images/house4.jpg',
@@ -35,10 +40,6 @@ const PropertyDetail = () => {
                 </p>
               </div>
 
-
-            
-        
-
             <div className="property-amenities">
                 
             <h2>Amenities</h2>
@@ -59,8 +60,12 @@ const PropertyDetail = () => {
               </ul>
             </div>
 
+             <div className="property-amenities">
+                  <h2>Images</h2>
+              <GridGalleryViewer images={images} />
+              
+             </div>
             
-
             </div>
 
             <div className='col-md-4'>

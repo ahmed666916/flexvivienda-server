@@ -1,23 +1,29 @@
 import React from 'react';
 import './ValueProposition.css';
-import { FaChartLine, FaHeadset, FaGlobe, FaCogs } from 'react-icons/fa';
+import { FaChartLine, FaBriefcase , FaGlobe, FaCogs,FaHandshake  } from 'react-icons/fa';
+import { CiTimer } from "react-icons/ci";
+import { IoPhonePortrait } from "react-icons/io5";
 
 const valuePoints = [
   {
     icon: <FaChartLine />,
-    title: 'Dynamic Pricing for Higher ROI',
+    title: 'Provides High Return on Investment',
   },
   {
-    icon: <FaHeadset />,
-    title: '24/7 Guest Support',
+    icon: <FaHandshake />,
+    title: 'Offers Stress-Free and Easy Rental Experience',
   },
   {
-    icon: <FaGlobe />,
-    title: 'Multi-platform Listing (Airbnb, Booking.com, etc.)',
+    icon: <CiTimer  />,
+    title: 'Lists Your Property on Every Channel with Multi-Platform Integration',
   },
   {
-    icon: <FaCogs />,
-    title: 'End-to-End Management',
+    icon: <IoPhonePortrait  />,
+    title: 'Easy Management with Synchronized Property Tracking App',
+  },
+  {
+    icon: <FaBriefcase   />,
+    title: 'Provides a High Standard of Service',
   },
 ];
 

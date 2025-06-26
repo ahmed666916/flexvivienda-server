@@ -72,11 +72,75 @@
 
 @media (max-width: 768px) {
   .search-bar {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
     gap: 1rem;
   }
 
   .input-group {
-    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .search-button-group {
+    width: 100%;
+  }
+
+  .search-button-group button {
+    width: 100%;
   }
 }
+
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  color: black;
+}
+
+.dropdown-list li {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.dropdown-list li:hover {
+  background-color: #f5f5f5;
+}
+
+.no-result {
+  padding: 10px 14px;
+  color: #999;
+}
+
+
+input::placeholder {
+  color: #aaa;
+  opacity: 1; /* Make sure placeholder is fully visible */
+}
+
+input {
+  position: relative;
+  background-color: white;
+  z-index: 1;
+}
+
+.input-group label {
+  position: static; /* or remove any absolute/fixed positioning */
+  pointer-events: none; /* so clicks go through to input */
+  z-index: 0;
+}
+
+
+

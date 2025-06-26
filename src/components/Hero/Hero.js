@@ -12,7 +12,7 @@ const images = [
   '/Images/hero4.jpg',
 ];
 
-const Hero = () => {
+const Hero = (props) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const { t, i18n } = useTranslation();
@@ -35,8 +35,8 @@ const Hero = () => {
     >
       <div className="overlay"></div> {/* Dark overlay */}
       <div className="hero-content">
-        <h1>{t('heroMessage')}</h1>
-        <p>{t('heroSubtitle')}</p>
+        <h1>{props.heading}</h1>
+        <p>{props.subheading}</p>
         
       </div>
       <SearchBar />
