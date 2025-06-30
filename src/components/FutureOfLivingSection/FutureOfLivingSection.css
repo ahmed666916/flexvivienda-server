@@ -36,13 +36,18 @@
 
 .feature-card img {
   width: 100%;
-  height: auto;
-  max-height: 200px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 60px 20px 60px 20px; /* TL TR BR BL */
   margin-bottom: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
 }
+
+.feature-card img:hover {
+  transform: scale(1.02);
+}
+
 
 .feature-card h3 {
   font-size: 1.15rem;
