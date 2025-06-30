@@ -1,9 +1,7 @@
 // src/components/Hero/Hero.js
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import './Hero.css';
 import SearchBar from '../SearchBar/SearchBar';
-import { useTranslation } from 'react-i18next';
 
 const images = [
   '/Images/hero1.jpeg',
@@ -12,15 +10,13 @@ const images = [
   '/Images/hero4.jpg',
 ];
 
-const Hero = (props) => {
+const Hero = ({ heading = "Your Property. Our Expertise. Maximized Returns", subheading = "Flexible rental solutions → short, mid, or long term. Fully managed." }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-    const { t, i18n } = useTranslation();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex(prevIndex => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -29,17 +25,17 @@ const Hero = (props) => {
       className="hero"
       style={{
         backgroundImage: `url(${images[currentImageIndex]})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
       }}
     >
-      <div className="overlay"></div> {/* Dark overlay */}
+      <div className="overlay"></div>
+
       <div className="hero-contents">
-        <h1>{props.heading}</h1>
-        <p>{props.subheading}</p>
-        
+        <h1>{heading}</h1>
+        <p>{subheading}</p>
+        <div className="searchbar-wrapper">
+          <SearchBar />
+        </div>
       </div>
-      <SearchBar />
     </section>
   );
 };
