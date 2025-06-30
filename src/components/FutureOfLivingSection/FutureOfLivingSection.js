@@ -1,39 +1,41 @@
 import React from 'react';
 import './FutureOfLivingSection.css';
 
-const cards = [
+const features = [
   {
+    image: '/Images/hero1.jpeg',
     title: 'Hand-picked homes',
-    desc: 'Only the best apartments, buildings, and neighborhoods in the world.',
-    img: '/Images/hero1.jpeg'
+    description: 'Only the best apartments, buildings, and neighborhoods in the world.',
   },
   {
+    image: '/Images/hero2.jpg',
     title: 'Move-in ready',
-    desc: 'Beautifully furnished and curated spaces that are fully equipped from day one.',
-    img: '/Images/hero2.jpg'
+    description: 'Beautifully furnished and curated spaces that are fully equipped from day one.',
   },
   {
+    image: '/Images/hero3.jpg',
     title: 'Flexible terms',
-    desc: 'Modern leases so you can move in and out easily, live month-to-month or stay for a year or less.',
-    img: '/Images/hero3.jpg'
+    description: 'Modern leases so you can move in and out easily, live month-to-month or stay for a year or less.',
   },
   {
+    image: '/Images/future-living.jpg',
     title: 'High-touch service',
-    desc: 'Reliable support and a consistent, quality experience in every location.',
-    img: '/Images/future-living.jpg'
-  }
+    description: 'Reliable support and a consistent, quality experience in every location.',
+  },
 ];
 
 const FutureOfLivingSection = () => (
-  <section className="future-section">
+  <section className="future-living-section">
     <h2>Welcome to the future of living</h2>
-    <p>Find the peace of mind, flexibility, and confidence to start your latest adventure — a new work gig, a home in between leases, or travel fever — with the ease and comfort of a modern home.</p>
-    <div className="cards-grid">
-      {cards.map((card, index) => (
+    <p className="subtitle">
+      Find the peace of mind, flexibility, and confidence to start your latest adventure — a new work gig, a home in between leases, or travel fever — with the ease and comfort of a modern home.
+    </p>
+    <div className="feature-grid">
+      {features.map((feature, index) => (
         <div className="feature-card" key={index}>
-          <img src={card.img} alt={card.title} />
-          <h3>{card.title}</h3>
-          <p>{card.desc}</p>
+          <img src={feature.image} alt={feature.title} />
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
         </div>
       ))}
     </div>
