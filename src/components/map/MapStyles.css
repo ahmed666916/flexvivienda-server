@@ -1,0 +1,13 @@
+.map-wrapper {
+  border: 2px solid #d1d5db; /* slightly darker Tailwind gray-300 */
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease;
+  margin-top: 2rem;
+}
+
+.map-wrapper:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}

@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
+import './MapStyles.css';
 
 // Fix Leaflet's marker icon issue in React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -26,7 +27,7 @@ const markerData = [
 
 const MyClusterMap = () => {
   return (
-    <div style={{ height: '60vh', width: '100%' }}>
+    <div className="map-wrapper" style={{ height: '60vh', width: '100%' }}>
       <MapContainer
         center={[39.0, 35.0]}
         zoom={6}
@@ -48,7 +49,6 @@ const MyClusterMap = () => {
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
         />
-
         <MarkerClusterGroup>
           {markerData.map((marker, index) => (
             <Marker key={index} position={marker.position}>
