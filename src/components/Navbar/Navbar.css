@@ -89,3 +89,18 @@
   object-fit:contain;
   display: block;
 }
+
+/* Animation for Navbar */
+.navbar {
+  animation: fadeInTop 1s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* Keyframes */
+@keyframes fadeInTop {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
