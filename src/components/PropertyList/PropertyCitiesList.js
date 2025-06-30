@@ -86,20 +86,7 @@ const PropertyCitiesList = (props) => {
       <br />
       <center><h2 className='heading'>{props.title}</h2></center>
       <br />
-      {props.tabs === "1" && (
-        <div>
-          <ul className="clusters">
-            <li>Istanbul</li>
-            <li>Ankara</li>
-            <li>Izmir</li>
-            <li>Antalya</li>
-            <li>Bursa</li>
-            <li>Adana</li>
-            <li>Gaziantep</li>
-            <li>Konya</li>
-          </ul>
-        </div>
-      )}
+      
       <br />
       <div className="listing-container" ref={scrollRef}>
         {cities.map((city) => (
