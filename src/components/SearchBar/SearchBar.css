@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 2rem auto;
+  margin-top: 3rem; /* increased top spacing */
   padding: 0 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -12,15 +12,30 @@
 .search-bar {
   display: flex;
   gap: 1.2rem;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.85); /* semi-transparent */
+  backdrop-filter: blur(10px); /* frosted glass effect */
+  -webkit-backdrop-filter: blur(10px);
   padding: 1.5rem;
   border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
   width: 100%;
   box-sizing: border-box;
   flex-wrap: nowrap;
   align-items: flex-end;
+
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .input-group {
@@ -38,16 +53,24 @@
 }
 
 .search-bar input {
-  padding: 0.75rem;
+  padding: 0.55rem 1rem; /* reduced vertical padding */
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 0.95rem;
   width: 100%;
   box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.search-bar input:focus,
+.search-bar input:hover {
+  border-color: #f43f5e;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.2);
 }
 
 .search-button-group button {
-  padding: 0.75rem;
+  padding: 0.7rem 2rem;
   background-color: #f43f5e;
   color: white;
   border: none;
@@ -57,6 +80,7 @@
   cursor: pointer;
   width: 100%;
   height: 44px;
+  transition: background 0.3s ease;
 }
 
 .search-button-group button:hover {
@@ -74,7 +98,7 @@
   .search-bar {
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
   .input-group {
@@ -124,10 +148,9 @@
   color: #999;
 }
 
-
 input::placeholder {
   color: #aaa;
-  opacity: 1; /* Make sure placeholder is fully visible */
+  opacity: 1;
 }
 
 input {
@@ -137,10 +160,7 @@ input {
 }
 
 .input-group label {
-  position: static; /* or remove any absolute/fixed positioning */
-  pointer-events: none; /* so clicks go through to input */
+  position: static;
+  pointer-events: none;
   z-index: 0;
 }
-
-
-
