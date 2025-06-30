@@ -3,6 +3,7 @@ import './SearchBar.css';
 import { Link } from 'react-router-dom';
 import DateRangeDropdown from './DateRangeDropdown';
 
+
 const cities = [
   'Istanbul', 'Ankara', 'Izmir', 'Antalya', 'Bursa', 'Adana',
   'Gaziantep', 'Konya', 'Kayseri', 'Mersin', 'Eskişehir',
