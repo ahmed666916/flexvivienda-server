@@ -1,104 +1,88 @@
-/* Container for the entire listing */
+.heading {
+  color: #d81b3f;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .listing-container {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   gap: 20px;
   padding: 20px;
-  background-color: #FFFFFF;
+  background-color: #fff;
   scroll-behavior: smooth;
   cursor: grab;
-}
-
-.heading{
-  color: #d81b3f;
-  outline: none;
-}
-
-.links a{
-  text-decoration: none;
-  outline: none;
-  color: #E11D48;
 }
 
 .listing-container::-webkit-scrollbar {
   display: none;
 }
 .listing-container {
-  -ms-overflow-style: none;  /* IE/Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.listing-container a{
-  text-decoration: none;
-  flex: 0 0 auto;
-}
-
-/* Individual property card */
 .property-card {
   position: relative;
-  background-color: #FFFFFF;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
   width: 300px;
   flex: 0 0 auto;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .property-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
 }
 
-/* Property image */
 .property-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-/* Details section */
 .property-details {
   padding: 15px;
-  color: black;
+  color: #000;
 }
 
-/* Property title */
 .property-title {
-  font-size: 16px;
-  margin: 0 0 10px 0;
-  color: black;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+  color: #111;
 }
 
-/* Property location */
 .property-locations {
   font-size: 14px;
-  margin: 0 0 0px 0;
-  color: #555;
+  color: #666;
 }
 
-/* Property price */
 .property-price {
   font-size: 16px;
   font-weight: bold;
-  margin: 0 0 15px 0;
-  color: black;
+  margin-top: 10px;
+  color: #111;
 }
 
-/* Book Now button */
 .book-button {
   background-color: #F22048;
-  color: #FFFFFF;
+  color: #fff;
   border: none;
   padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   width: 100%;
   font-size: 16px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
-
 .book-button:hover {
   background-color: #d81b3f;
 }
@@ -107,45 +91,17 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.4);
   border: none;
-  padding: 4px;
+  padding: 6px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
+  border-radius: 50%;
   color: white;
 }
-
 .fav-btn:hover {
-   color: #E11D48;
-}
-
-.clusters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-   justify-content: center; /* center items horizontally */
-}
-
-.clusters li {
-  padding: 10px 20px;
-  background-color: #f0f0f0; /* light gray background */
-  cursor: pointer;
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
-  text-align: center;
-}
-
-.clusters li:hover {
-  background-color: #E11D48;
-  color: white; /* optional: for better contrast */
-}
-
-.listing-container.dragging,
-.listing-container.dragging * {
-  user-select: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #E11D48;
 }
 
 .property-tag {
@@ -155,7 +111,7 @@
   background-color: #E11D48;
   color: white;
   font-size: 12px;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 20px;
   font-weight: bold;
   z-index: 2;
@@ -164,14 +120,6 @@
   letter-spacing: 0.5px;
 }
 
-.map-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
 .property-features {
   display: flex;
   gap: 1rem;
@@ -179,14 +127,42 @@
   margin: 0.4rem 0;
   color: #555;
 }
-
 .property-features span {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-
 .property-features i {
   font-size: 0.9rem;
   color: #888;
+}
+
+.clusters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+}
+.clusters li {
+  padding: 8px 18px;
+  background-color: #f3f4f6;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+.clusters li:hover,
+.clusters li.active {
+  background-color: #E11D48;
+  color: white;
+}
+
+.links a {
+  text-decoration: none;
+  color: #E11D48;
+  font-weight: 500;
 }

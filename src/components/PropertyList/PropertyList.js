@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './PropertyList.css';
-import Map from '../map/MyMap';
 import CMap from '../map/MyClusterMap';
 
 const properties = [
@@ -15,7 +14,8 @@ const properties = [
     bedrooms: 2,
     bathrooms: 1,
     size: 75,
-    features: ['Sea view', 'Pet friendly']
+    persons: 4,
+    features: ['Sea view', 'Pet friendly'],
   },
   {
     id: 2,
@@ -27,8 +27,8 @@ const properties = [
     bedrooms: 4,
     bathrooms: 2,
     size: 200,
-    persons:4,
-    features: ['Garden', 'Swimming Pool']
+    persons: 4,
+    features: ['Garden', 'Swimming Pool'],
   },
   {
     id: 3,
@@ -40,8 +40,8 @@ const properties = [
     bedrooms: 1,
     bathrooms: 1,
     size: 45,
-     persons:4,
-    features: ['Close to Beach']
+    persons: 4,
+    features: ['Close to Beach'],
   },
   {
     id: 4,
@@ -53,8 +53,8 @@ const properties = [
     bedrooms: 4,
     bathrooms: 2,
     size: 200,
-     persons:4,
-    features: ['Sea view', 'Swimming Pool']
+    persons: 4,
+    features: ['Sea view', 'Swimming Pool'],
   },
   {
     id: 5,
@@ -66,8 +66,8 @@ const properties = [
     bedrooms: 2,
     bathrooms: 1,
     size: 75,
-     persons:4,
-    features: ['Garden']
+    persons: 4,
+    features: ['Garden'],
   },
   {
     id: 6,
@@ -78,8 +78,8 @@ const properties = [
     bedrooms: 4,
     bathrooms: 2,
     size: 200,
-     persons:4,
-    features: ['Pet friendly']
+    persons: 4,
+    features: ['Pet friendly'],
   },
 ];
 
@@ -91,8 +91,7 @@ const PropertyList = (props) => {
   useEffect(() => {
     const el = scrollRef.current;
     let isDown = false;
-    let startX;
-    let scrollLeft;
+    let startX, scrollLeft;
 
     const handleMouseDown = (e) => {
       isDown = true;
@@ -100,34 +99,25 @@ const PropertyList = (props) => {
       startX = e.pageX - el.offsetLeft;
       scrollLeft = el.scrollLeft;
     };
-
-    const handleMouseLeave = () => {
+    const handleMouseUpLeave = () => {
       isDown = false;
       el.classList.remove('dragging');
     };
-
-    const handleMouseUp = () => {
-      isDown = false;
-      el.classList.remove('dragging');
-    };
-
     const handleMouseMove = (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - el.offsetLeft;
-      const walk = (x - startX) * 2;
-      el.scrollLeft = scrollLeft - walk;
+      el.scrollLeft = scrollLeft - (x - startX) * 2;
     };
 
     el.addEventListener('mousedown', handleMouseDown);
-    el.addEventListener('mouseleave', handleMouseLeave);
-    el.addEventListener('mouseup', handleMouseUp);
+    el.addEventListener('mouseup', handleMouseUpLeave);
+    el.addEventListener('mouseleave', handleMouseUpLeave);
     el.addEventListener('mousemove', handleMouseMove);
-
     return () => {
       el.removeEventListener('mousedown', handleMouseDown);
-      el.removeEventListener('mouseleave', handleMouseLeave);
-      el.removeEventListener('mouseup', handleMouseUp);
+      el.removeEventListener('mouseup', handleMouseUpLeave);
+      el.removeEventListener('mouseleave', handleMouseUpLeave);
       el.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
@@ -145,28 +135,20 @@ const PropertyList = (props) => {
           <CMap />
         </>
       )}
-
       <br />
       <center><h2 className='heading'>{props.title}</h2></center>
       <br />
 
       {props.tabs === "1" && (
-        <div>
-          <ul className="clusters">
-            {filters.map((filter, index) => (
-              <li
-                key={index}
-                className={activeFilter === filter ? 'active' : ''}
-                onClick={() => setActiveFilter(filter)}
-              >
-                {filter}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="clusters">
+          {filters.map((filter, idx) => (
+            <li key={idx} className={activeFilter === filter ? 'active' : ''} onClick={() => setActiveFilter(filter)}>
+              {filter}
+            </li>
+          ))}
+        </ul>
       )}
 
-      <br />
       <div className="listing-container" ref={scrollRef}>
         {filteredProperties.map((property) => (
           <Link to="/property_detail" key={property.id}>
@@ -185,9 +167,9 @@ const PropertyList = (props) => {
                   <span><i className="fa-solid fa-bed"></i> {property.bedrooms}</span>
                   <span><i className="fa-solid fa-bath"></i> {property.bathrooms}</span>
                   <span>
-  <i className={props.short == 1 ? "fa-solid fa-user-group" : "fa-solid fa-maximize"}></i> {props.short == 1 ? property.persons: property.size} 
-</span>
-
+                    <i className={props.short === "1" ? "fa-solid fa-user-group" : "fa-solid fa-maximize"}></i>
+                    {props.short === "1" ? property.persons : property.size}
+                  </span>
                 </div>
                 <p className="property-price">{property.price}</p>
               </div>
@@ -195,7 +177,6 @@ const PropertyList = (props) => {
           </Link>
         ))}
       </div>
-
       <center><span className='links'><Link to="/listing">See All Listings</Link></span></center>
     </>
   );
