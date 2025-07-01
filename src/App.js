@@ -18,6 +18,8 @@ import MidStay from './pages/midStay'
 import LongStay from './pages/longStay'
 import Invest from './pages/invest'
 import 'leaflet/dist/leaflet.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 

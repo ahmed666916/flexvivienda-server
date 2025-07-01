@@ -1,9 +1,35 @@
-/* Improve base nav-link styles */
-.navbar-nav .nav-item {
-  margin: 3px; /* spacing between items */
+/* Animation */
+@keyframes fadeInTop {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.navbar-nav .nav-link {
+/* Navbar Base */
+.navbar-custom {
+  background-color: white;
+  padding: 1rem 2.5rem;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  animation: fadeInTop 0.7s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* Logo Image */
+.navbar-logo {
+  height: 48px;           /* Adjust to visually match the text */
+  object-fit: contain;
+  margin-top: 2px;        /* Fine-tuning */
+}
+
+
+
+
+/* Nav Links */
+.navbar-custom .nav-link,
+.navbar-custom .dropdown-toggle {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   font-weight: 500;
@@ -12,95 +38,64 @@
   transition: all 0.2s ease;
 }
 
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-item.active .nav-link {
+.navbar-custom .nav-link:hover,
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .nav-link.active {
   color: #E11D48 !important;
   background-color: transparent;
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 
-/* Dropdown menu alignment fix */
-.navbar-nav .dropdown-menu {
-  margin-top: 0.5rem;
-  border-radius: 0.5rem;
+/* Dropdown Menu */
+.navbar-custom .dropdown-menu {
+  border-radius: 8px;
   border: 1px solid #eee;
   min-width: 180px;
   font-size: 0.95rem;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+  margin-top: 10px;
 }
 
-.dropdown-item {
+.navbar-custom .dropdown-item {
   padding: 0.5rem 1rem;
-  transition: background-color 0.2s;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.2s ease;
 }
 
-.dropdown-item:hover {
+.navbar-custom .dropdown-item:hover {
   background-color: #f8f9fa;
   color: #E11D48;
 }
 
-/* Optional: slight increase in spacing for visual balance */
-.navbar {
-  padding: 1rem 2.5rem;
+.navbar-custom .dropdown-item:active,
+.navbar-custom .dropdown-item:focus {
+  background-color: #E11D48 !important;
+  color: white !important;
 }
 
-.icon-color{
-  color:#E11D48 !important;
-}
-
-.listPropertyBtn{
-  margin: 10px;
-  background-color: #E11D48;
-  color: white;
-  font-weight: bold;
+/* CTA Button */
+.listPropertyBtn {
+  background-color: #E11D48 !important;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 18px;
   border: none;
-  border-color: transparent;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3);
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
 }
 
-.listPropertyBtn:hover{
-  margin: 10px;
-  background-color: #BEAE51;
-  color: white;
-  font-weight: bold;
-  border-color: transparent;
+.listPropertyBtn:hover {
+  background-color: #be1a40 !important;
+  color: #fff !important;
+  transform: translateY(-1px);
 }
 
 .listPropertyBtn:focus {
-  box-shadow: none;
   outline: none;
-}
-
-.dropdown-item:active,
-.dropdown-item:focus {
-  background-color: #E11D48 !important;
-  color: #fff !important; /* Optional: make text white for contrast */
-}
-
-.navbar-brand{
-  width: 150px !important;
-  height: 60px !important;
-  
-}
-
-/* Logo styles */
-.navbar-brand.logo img {
-  height: 100%; /* Keep navbar height consistent */
-  width: 100%; /* Increase width to make it appear larger */
-  object-fit:contain;
-  display: block;
-}
-
-/* Animation for Navbar */
-.navbar {
-  animation: fadeInTop 1s ease-out forwards;
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-/* Keyframes */
-@keyframes fadeInTop {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  box-shadow: none;
 }
