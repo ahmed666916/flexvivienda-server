@@ -15,7 +15,7 @@ const StyledHero = ({ heading, subheading }) => {
 
   useEffect(() => {
     const iv = setInterval(() => {
-      setCurrent(i => (i + 1) % images.length);
+      setCurrent((i) => (i + 1) % images.length);
     }, 5000);
     return () => clearInterval(iv);
   }, []);
@@ -29,7 +29,14 @@ const StyledHero = ({ heading, subheading }) => {
       <div className="hero-card">
         <h1>{heading}</h1>
         <p>{subheading}</p>
-        <SearchBar />
+        <p className="description">
+          Midterm stays are ideal for those seeking flexible rental solutions — longer
+          than a typical vacation but shorter than a traditional lease. Perfect for
+          remote workers, digital nomads, or families relocating.
+        </p>
+        <div className="search-bar-wrapper">
+          <SearchBar />
+        </div>
       </div>
     </section>
   );

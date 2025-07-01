@@ -19,9 +19,9 @@
 
 /* Logo Image */
 .navbar-logo {
-  height: 48px;           /* Adjust to visually match the text */
+  height: 48px;          
   object-fit: contain;
-  margin-top: 2px;        /* Fine-tuning */
+  margin-top: 2px;        
 }
 
 
