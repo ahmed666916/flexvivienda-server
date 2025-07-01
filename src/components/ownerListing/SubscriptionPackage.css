@@ -1,61 +1,19 @@
 .subscription-card {
-  background-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.85); /* semi-transparent white */
   border: 2px solid #F22048;
   border-radius: 16px;
   padding: 40px;
   max-width: 600px;
   margin: 40px auto;
   color: black;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px); /* blur behind card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.subscription-title {
-  color: #F22048;
-  font-size: 28px;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.subscription-description {
-  font-size: 16px;
-  color: black;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.subscription-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 30px 0;
-}
-
-.subscription-features li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  font-size: 15px;
-  color: black;
-}
-
-.check-icon {
-  color: #F22048;
-  margin-right: 10px;
-}
-
-.subscription-price {
-  text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-}
-
-.subscription-price h3 {
-  color: #F22048;
-  font-size: 20px;
-}
-
-.subscription-price span {
-  font-size: 24px;
-  font-weight: bold;
+.subscription-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
 }
 
 .subscription-grid {
@@ -65,34 +23,27 @@
   padding: 2rem 1rem;
 }
 
-.subscription-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-  padding: 2rem;
-  transition: transform 0.3s ease;
-}
-
-.subscription-card:hover {
-  transform: translateY(-5px);
-}
-
 .subscription-title {
-  font-size: 1.5rem;
+  color: #F22048;
+  font-size: 28px;
+  margin-bottom: 15px;
+  text-align: center;
   font-weight: bold;
-  margin-bottom: 0.25rem;
 }
 
 .subscription-commission {
   font-weight: 600;
-  color: #c4302b; /* Your red theme */
+  color: #c4302b;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
 .subscription-description {
-  color: #555;
-  margin-bottom: 1rem;
-  line-height: 1.5;
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.6;
 }
 
 .subscription-features {
@@ -110,6 +61,6 @@
 }
 
 .check-icon {
-  color: #c4302b;
+  color: #F22048;
   margin-right: 0.5rem;
 }
