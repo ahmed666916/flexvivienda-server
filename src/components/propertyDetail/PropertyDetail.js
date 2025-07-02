@@ -58,7 +58,24 @@ const PropertyDetail = () => {
                 <li>Free Parking</li>
                 <li>Beach View</li>
               </ul>
+              <ul>
+                <li>Hangers</li>
+              <li>Iron</li>
+              <li>Smoke detector</li>
+              <li>Washer/dryer in unit</li>
+              <li>Elevator</li>
+              </ul>
             </div>
+
+            <section className="property-info">
+            <h2>Things to Know</h2>
+            <ul>
+              <li>Move in after 2 PM | Move out before 12 PM</li>
+              <li>No smoking allowed</li>
+              <li>No pets allowed</li>
+              <li>No parties or events</li>
+            </ul>
+          </section>
 
              <div className="property-amenities">
                   <h2>Images</h2>

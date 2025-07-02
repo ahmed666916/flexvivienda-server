@@ -317,3 +317,44 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   opacity: 0.8;
 }
+
+.property-info {
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.property-info h2 {
+  color: #F22048;
+  margin-bottom: 10px;
+  padding-left: 5px;
+}
+
+.property-info ul {
+  list-style: none;
+  padding-left: 20px;
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.property-info ul li {
+  font-size: 15px;
+  color: #374151;
+  display: flex;
+  align-items: flex-start; /* Fix: align icon with top of multiline text */
+  gap: 8px; /* Optional: space between icon and text */
+  line-height: 1.6;
+}
+
+
+.property-info ul li::before {
+  content: '🔔';
+  color: #F22048;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-top: 3px; /* Optional fine-tune */
+}
+
