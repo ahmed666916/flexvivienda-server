@@ -1,4 +1,4 @@
-// src/components/StyledHero/StyledHero.js
+// src/components/midstay/hero/MidTermHero/StyledHero.js
 import React, { useEffect, useState } from 'react';
 import './StyledHero.css';
 import SearchBar from '../../../SearchBar/SearchBar';
@@ -28,11 +28,12 @@ const StyledHero = ({ heading, subheading }) => {
       <div className="styled-overlay"></div>
       <div className="hero-card">
         <h1>{heading}</h1>
-        <p>{subheading}</p>
+        <p className="subheading">{subheading}</p>
         <p className="description">
-          Midterm stays are ideal for those seeking flexible rental solutions — longer
-          than a typical vacation but shorter than a traditional lease. Perfect for
-          remote workers, digital nomads, or families relocating.
+          Midterm stays are ideal for individuals seeking flexible rental solutions — longer than a vacation, yet shorter than a traditional lease. 
+          Perfect for remote workers, digital nomads, corporate travelers, or families in transition. These fully furnished rentals offer the comfort 
+          of home with the convenience of a hotel. All utilities, internet, and monthly bills are included — so you can simply move in and start enjoying 
+          your stay without setup or maintenance worries.
         </p>
         <div className="search-bar-wrapper">
           <SearchBar />
