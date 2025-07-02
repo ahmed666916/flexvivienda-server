@@ -36,7 +36,7 @@ const teamMembers = [
   {
     id: 6,
     name: 'Taha Gondal',
-    position: 'Data Specialist',
+    position: 'Data Analyst',
     image: '/Images/taha.JPG',
   },
   {
