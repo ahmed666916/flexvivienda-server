@@ -10,6 +10,8 @@ import { useTranslation } from 'react-i18next';
 import TrustSignals from '../components/ownerListing/TrustSignals';
 import FutureOfLivingSection from '../components/FutureOfLivingSection/FutureOfLivingSection';
 import BetterHomeSlider from '../components/BetterHomeSlider/BetterHomeSlider';
+import './home.css';
+
 
 
 
@@ -23,11 +25,15 @@ const Home = () => {
         <>
         <Hero heading={t('heroMessage')} subheading={t('heroSubtitle')}/>
         {/* <SearchBar /> */}
-        <br></br>
-        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1"/>
-        <br></br>
-        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1"/>
-        <br></br>
+       <div className="section-block featured-section">
+      <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1"/>
+      </div>
+
+
+      <div className="section-block">
+      <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1"/>
+      </div>
+
         <PropertyCitiesList  title="Explore Properties in Cities" tabs="1" tags="1" short="1"/>
         <FutureOfLivingSection />
         <BetterHomeSlider />

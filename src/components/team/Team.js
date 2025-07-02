@@ -16,22 +16,23 @@ const teamMembers = [
   },
   {
     id: 3,
+    name: 'Sude Ceylan',
+    position: 'Operations Team Leader',
+    image: '/Images/sudeceylan.jpeg',
+  },
+  {
+    id: 4,
     name: 'Arez Odabasi',
     position: 'Account Manager',
     image: '/Images/arez.JPG',
   },
   {
-    id: 4,
+    id: 5,
     name: 'Abdullah Mücahitoğlu',
     position: 'Supply Chain Manager',
     image: '/Images/abdullah.JPG',
   },
-  {
-    id: 5,
-    name: 'Eda Karadan',
-    position: 'Content Creator',
-    image: '/Images/eda.JPG',
-  },
+  
   {
     id: 6,
     name: 'Taha Gondal',
@@ -44,12 +45,7 @@ const teamMembers = [
     position: 'Content Creator',
     image: '/Images/turkankirmaz.jpeg',
   },
-  {
-    id: 8,
-    name: 'Sude Ceylan',
-    position: 'Operations Team Leader',
-    image: '/Images/sudeceylan.jpeg',
-  },
+  
 ];
 
 const Team = () => {
