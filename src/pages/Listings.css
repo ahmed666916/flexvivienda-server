@@ -3,25 +3,40 @@
   padding: 20px;
 }
 
-.listing-layout a{
+.listing-layout a {
   text-decoration: none;
   outline: none;
 }
 
-.filter-button-container {
-  margin-bottom: 10px;
-}
-
 .property-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  gap: 0px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
+.listings-section {
+  display: flex;
+  gap: 20px;
+  padding: 0 15px;
+}
 
+.left-section,
+.right-section {
+  flex: 1;
+}
+
+.right-section {
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+/* Fix buttons */
 .filter-button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   background-color: #E11D48;
   color: white;
@@ -30,76 +45,53 @@
   border-radius: 25px;
   font-size: 16px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .filter-button:hover {
   background-color: #c4163b;
 }
 
-.listings-section {
-  display: flex;
-  gap: 10px;
-}
-
-.left-section {
-  flex: 0 0 50%;
-}
-
-.right-section {
-  flex: 0 0 50%;
-  height: auto;
-  border-radius: 8px;
+/* Property Card */
+.property-card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #ddd;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease;
 }
 
-/* Modal styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+.property-card:hover {
+  transform: translateY(-4px);
+}
+
+.property-image {
   width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  height: 200px;
+  object-fit: cover;
 }
 
-.modal-content {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  overflow-y: auto;
-  max-height: 90vh;
+.property-details {
+  padding: 16px;
+  color: black;
 }
 
-.modal-content h3 {
-  margin-bottom: 20px;
-  border-bottom: 2px solid #E11D48;
-  padding-bottom: 10px;
+.property-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #1f2937;
 }
 
-.close-modal {
-  margin-top: 20px;
-  background-color: #E11D48;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
+.property-locations {
   font-size: 14px;
-  cursor: pointer;
+  color: #6b7280;
+  margin-bottom: 10px;
 }
 
-.section-block {
-  margin-top: 60px;
+.property-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
 }
-
-
-/* Keep your property card styles the same */
-
-

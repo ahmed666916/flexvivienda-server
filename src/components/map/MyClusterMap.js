@@ -13,24 +13,18 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-// Mock data across different parts of Turkey
-const markerData = [
-  { position: [41.0082, 28.9784], city: 'Istanbul' },
-  { position: [39.9208, 32.8541], city: 'Ankara' },
-  { position: [38.4192, 27.1287], city: 'Izmir' },
-  { position: [36.8969, 30.7133], city: 'Antalya' },
-  { position: [37.0, 35.3213], city: 'Adana' },
-  { position: [40.1826, 29.0665], city: 'Bursa' },
-  { position: [38.7312, 35.4787], city: 'Kayseri' },
-  { position: [37.7648, 30.5566], city: 'Isparta' },
-];
+const cityCoordinates = {
+  'Beyoğlu, Istanbul': [41.0369, 28.9760],
+  'Ortaköy, Istanbul': [41.0431, 29.0222],
+  'Kadıköy, Istanbul': [40.9902, 29.0275],
+};
 
-const MyClusterMap = () => {
+const ClusterMap = ({ properties }) => {
   return (
     <div className="map-wrapper" style={{ height: '60vh', width: '100%' }}>
       <MapContainer
-        center={[39.0, 35.0]}
-        zoom={6}
+        center={[41.0151, 28.9795]} // Istanbul center
+        zoom={12}
         scrollWheelZoom={false}
         style={{ height: '100%', width: '100%' }}
         whenCreated={(map) => {
@@ -50,15 +44,24 @@ const MyClusterMap = () => {
           attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
         />
         <MarkerClusterGroup>
-          {markerData.map((marker, index) => (
-            <Marker key={index} position={marker.position}>
-              <Popup>{marker.city}</Popup>
-            </Marker>
-          ))}
+          {properties.map((property, idx) => {
+            const position = cityCoordinates[property.location];
+            if (!position) return null;
+
+            return (
+              <Marker key={idx} position={position}>
+                <Popup>
+                  <strong>{property.title}</strong><br />
+                  {property.location}<br />
+                  {property.price}
+                </Popup>
+              </Marker>
+            );
+          })}
         </MarkerClusterGroup>
       </MapContainer>
     </div>
   );
 };
 
-export default MyClusterMap;
+export default ClusterMap;
