@@ -8,6 +8,8 @@
 
 /* Navbar Base */
 .navbar-custom {
+  display: flex;
+  align-items: center;
   background-color: white;
   padding: 1rem 2.5rem;
   z-index: 1000;
@@ -19,7 +21,7 @@
 
 /* Logo Image */
 .navbar-logo {
-  height: 48px;          
+  height: 64px;          
   object-fit: contain;
   margin-top: 2px;        
 }
