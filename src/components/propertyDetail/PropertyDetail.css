@@ -558,3 +558,74 @@
 .map-section {
   margin-top: 40px;
 }
+
+.property-info, .property-cancellation, .property-neighborhood {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.property-info h2,
+.property-cancellation h2,
+.property-neighborhood h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  align-items: start;
+  gap: 12px;
+  font-size: 15px;
+  color: #444;
+}
+
+.info-item .icon {
+  font-size: 18px;
+}
+
+.cancel-list {
+  list-style: disc;
+  padding-left: 20px;
+  font-size: 15px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.cancel-list a {
+  color: #dc143c;
+  text-decoration: underline;
+}
+
+.property-neighborhood p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.neighborhood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.neighborhood-grid div {
+  font-size: 14px;
+  color: #333;
+}
+
+.neighborhood-grid span {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 5px;
+}
+
