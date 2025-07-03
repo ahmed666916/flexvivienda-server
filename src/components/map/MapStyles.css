@@ -1,14 +1,16 @@
 .map-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem auto;          /* center with vertical space */
+  padding: 0 15px;            /* small side paddings */
   border: 2px solid #d1d5db;
   border-radius: 16px;
   overflow: hidden;
   background-color: white;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.3s ease;
-  margin: 2rem auto 3rem auto;
-  max-width: 1350px; /* wider than before */
-  width: 98%; /* reduces side space on small screens */
 }
+
 
 
 .map-wrapper:hover {
