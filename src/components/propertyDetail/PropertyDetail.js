@@ -57,7 +57,6 @@ const PropertyDetail = () => {
           </section>
 
           <section className="map-section">
-            <h2>Location</h2>
             <GoogleMap />
           </section>
         </div>
