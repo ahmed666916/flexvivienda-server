@@ -95,3 +95,25 @@
   font-weight: 700;
   color: #111827;
 }
+
+/* Scoped only to homepage property cards */
+.home-property-section .property-card {
+  transform: scale(0.965); /* slightly bigger than previous 0.92 */
+  transition: transform 0.3s ease;
+}
+
+.home-property-section .property-image {
+  height: 180px;
+}
+
+.home-property-section .property-details {
+  padding: 14px;
+}
+
+.home-property-section .property-title {
+  font-size: 16px;
+}
+
+.home-property-section .property-price {
+  font-size: 15px;
+}

@@ -35,14 +35,14 @@ const Home = () => {
       </div>
       
 
-       <div className="section-block featured-section">
-      <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1"/>
+       <div className="section-block featured-section home-property-section">
+        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1"/>
       </div>
 
-
-      <div className="section-block">
-      <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1"/>
+      <div className="section-block home-property-section">
+        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1"/>
       </div>
+
 
         <PropertyCitiesList  title="Explore Properties in Cities" tabs="1" tags="1" short="1"/>
         <FutureOfLivingSection />
