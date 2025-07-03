@@ -67,15 +67,50 @@ const PropertyDetail = () => {
               </ul>
             </div>
 
-            <section className="property-info">
-            <h2>Things to Know</h2>
-            <ul>
-              <li>Move in after 2 PM | Move out before 12 PM</li>
-              <li>No smoking allowed</li>
-              <li>No pets allowed</li>
-              <li>No parties or events</li>
-            </ul>
-          </section>
+            <div className="property-info">
+          <h2>Things to Know</h2>
+          <ul className="things-to-know-list">
+            <li>
+              <span className="icon">🕒</span>
+              <span className="text">
+                <strong>Move in after 2 PM</strong><br />
+                <strong>Move out before 12 PM</strong>
+              </span>
+            </li>
+            <li>
+              <span className="icon">🚭</span>
+              <span className="text">No smoking allowed</span>
+            </li>
+            <li>
+              <span className="icon">🎉</span>
+              <span className="text">No parties or events allowed</span>
+            </li>
+            <li>
+              <span className="icon">🐾</span>
+              <span className="text">No pets allowed</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="property-cancellation">
+        <h2>Cancellation & Early Termination</h2>
+        <ul>
+          <li>
+            <strong>If 30+ days</strong> before move-in, charge of 10% of the booking value (and any card processing fees are non-refundable).
+          </li>
+          <li>
+            <strong>If less than 30 days</strong> before move-in, one month’s rent charge (and no service/booking or card processing fee refund).
+          </li>
+          <li>
+            <a href="#">See our cancellation and early termination policies</a>
+          </li>
+          <li>
+            Partners reserve the right to conduct secure ID and background checks. If a booking is canceled as a result of these checks, a full refund will be offered.
+          </li>
+        </ul>
+      </div>
+
+
 
              <div className="property-amenities">
                   <h2>Images</h2>
