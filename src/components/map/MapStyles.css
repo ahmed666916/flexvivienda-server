@@ -5,6 +5,8 @@
   padding: 0 15px;            /* small side paddings */
   border: 2px solid #d1d5db;
   border-radius: 16px;
+  margin-top: 0;
+  margin-bottom: 4rem;
   overflow: hidden;
   background-color: white;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
@@ -16,3 +18,18 @@
 .map-wrapper:hover {
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
 }
+
+.map-section {
+  margin: 0 auto;
+  padding: 0 20px;
+  max-width: 1200px;
+}
+
+.map-heading {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #be123c;
+  text-align: center;
+  margin: 2rem 0 0.5rem; /* reduced bottom margin from 1.5rem */
+}
+
