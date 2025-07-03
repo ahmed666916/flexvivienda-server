@@ -446,4 +446,49 @@
   margin: 0;
 }
 
+/* === Booking Card Wrapper Styling (Blueground-style) === */
+.booking-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.12);
+  max-width: 360px;
+  width: 100%;
+  margin-left: auto;
+  margin-top: 40px;
+  position: relative;
+}
+
+.booking-card h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #F22048;
+  margin-bottom: 20px;
+}
+
+.booking-card .book-button {
+  background-color: #F22048;
+  color: #fff;
+  border: none;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.booking-card .book-button:hover {
+  background-color: #d81b3f;
+}
+
+/* Make card sticky (like Blueground) */
+@media (min-width: 1024px) {
+  .booking-card {
+    position: sticky;
+    top: 100px;
+  }
+}
 
