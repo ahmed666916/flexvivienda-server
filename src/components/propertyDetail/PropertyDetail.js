@@ -110,6 +110,25 @@ const PropertyDetail = () => {
         </ul>
       </div>
 
+          <div className="property-neighborhood">
+      <h2>About the Neighborhood</h2>
+      <p>
+        Located on Boğazkesen, the officially declared Cultural Street of Istanbul, this apartment connects Galataport to the famous Istiklal Street, offering shopping, vibrant nightlife, and the best of local cuisine. It’s a minute’s walk to the historic Orphelinat Saint-Joseph, 5 minutes to the antique district, and 10 minutes to either the Galata Tower or Taksim Square. Topkapı Palace, the Blue Mosque, Hagia Sophia, the Grand Bazaar, and other historic sites are only 15 minutes away by tram. For a Bosphorus tour or a visit to the Asian side, it’s just a 10-minute walk to the ferry port.
+      </p>
+
+      <div className="neighborhood-icons">
+        <div><span role="img" aria-label="supermarkets">🛒</span><p>Supermarkets</p></div>
+        <div><span role="img" aria-label="parking">🅿️</span><p>Parking lots</p></div>
+        <div><span role="img" aria-label="gym">🏋️‍♂️</span><p>Gyms</p></div>
+        <div><span role="img" aria-label="school">🏫</span><p>Schools/Universities</p></div>
+        <div><span role="img" aria-label="restaurant">🍽️</span><p>Restaurants</p></div>
+        <div><span role="img" aria-label="cafe">☕</span><p>Cafes</p></div>
+        <div><span role="img" aria-label="bars">🍸</span><p>Bars</p></div>
+        <div><span role="img" aria-label="shops">🛍️</span><p>Shops</p></div>
+      </div>
+    </div>
+
+
 
 
              <div className="property-amenities">
