@@ -3,14 +3,13 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import './MapStyles.css';
 
-// Fix Leaflet's marker icon
+// Fix Leaflet marker icons
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png').default,
+  iconUrl: require('leaflet/dist/images/marker-icon.png').default,
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png').default,
 });
 
 const cityCoordinates = {
@@ -19,59 +18,50 @@ const cityCoordinates = {
   'Kadıköy, Istanbul': [40.9902, 29.0275],
 };
 
-const testProperties = [
-  { id: 1, title: 'Apartment 1', location: 'Beyoğlu, Istanbul', price: '$1000' },
-  // ... other test data with unique ids
-];
-
-const ClusterMap = ({ properties = testProperties }) => {
+const MyClusterMap = ({ properties = [], onLoad }) => {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
-    if (!map) return;
-
-    const handleWheel = (e) => {
-      if (e.originalEvent.ctrlKey) {
-        map.scrollWheelZoom.enable();
-      } else {
-        map.scrollWheelZoom.disable();
+    if (map && onLoad) {
+      onLoad();
+    }
+    return () => {
+      if (map) {
+        map.off();
+        map.remove();
       }
     };
-
-    map.on('wheel', handleWheel);
-    return () => map.off('wheel', handleWheel);
-  }, [map]);
+  }, [map, onLoad]);
 
   return (
-    <div className="map-wrapper" style={{ height: '60vh', width: '100%' }}>
+    <div className="cluster-map" style={{ height: '500px', width: '100%' }}>
       <MapContainer
         center={[41.0151, 28.9795]}
         zoom={12}
-        scrollWheelZoom={false}
         style={{ height: '100%', width: '100%' }}
         whenCreated={setMap}
       >
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
+          attribution='&copy; OpenStreetMap contributors'
         />
-
         <MarkerClusterGroup>
-          {properties
-            .filter(property => cityCoordinates[property.location])
-            .map((property) => (
-              <Marker key={property.id} position={cityCoordinates[property.location]}>
+          {properties.map((property) => {
+            const position = cityCoordinates[property.location];
+            return position ? (
+              <Marker key={property.id} position={position}>
                 <Popup>
-                  <strong>{property.title}</strong><br />
+                  <b>{property.title}</b><br />
                   {property.location}<br />
                   {property.price}
                 </Popup>
               </Marker>
-            ))}
+            ) : null;
+          })}
         </MarkerClusterGroup>
       </MapContainer>
     </div>
   );
 };
 
-export default ClusterMap;
+export default MyClusterMap;
