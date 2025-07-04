@@ -1,9 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './PropertyList.css';
-
-// Import the map component with dynamic import to prevent SSR issues
-const CMap = React.lazy(() => import('../map/MyClusterMap'));
+import CMap from '../map/MyClusterMap';
 
 const properties = [
   {
@@ -88,60 +86,55 @@ const properties = [
 const PropertyList = (props) => {
   const scrollRef = useRef();
   const [activeFilter, setActiveFilter] = useState('All');
-  const [mapLoaded, setMapLoaded] = useState(false);
   const filters = ['All', 'Sea view', 'Swimming Pool', 'Garden', 'Close to Beach', 'Pet friendly'];
 
-  // Horizontal scroll effect
   useEffect(() => {
     const el = scrollRef.current;
-    if (!el) return;
+    let isDown = false;
+    let startX, scrollLeft;
 
     const handleMouseDown = (e) => {
+      isDown = true;
       el.classList.add('dragging');
-      const startX = e.pageX - el.offsetLeft;
-      const scrollLeft = el.scrollLeft;
-
-      const handleMouseMove = (e) => {
-        e.preventDefault();
-        const x = e.pageX - el.offsetLeft;
-        el.scrollLeft = scrollLeft - (x - startX) * 2;
-      };
-
-      const handleMouseUp = () => {
-        el.classList.remove('dragging');
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    };
+    const handleMouseUpLeave = () => {
+      isDown = false;
+      el.classList.remove('dragging');
+    };
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      el.scrollLeft = scrollLeft - (x - startX) * 2;
     };
 
     el.addEventListener('mousedown', handleMouseDown);
-    return () => el.removeEventListener('mousedown', handleMouseDown);
+    el.addEventListener('mouseup', handleMouseUpLeave);
+    el.addEventListener('mouseleave', handleMouseUpLeave);
+    el.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      el.removeEventListener('mousedown', handleMouseDown);
+      el.removeEventListener('mouseup', handleMouseUpLeave);
+      el.removeEventListener('mouseleave', handleMouseUpLeave);
+      el.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   const filteredProperties =
     activeFilter === 'All'
       ? properties
-      : properties.filter((p) => p.features?.includes(activeFilter));
+      : properties.filter((p) => p.features && p.features.includes(activeFilter));
 
   return (
     <>
-      {/* Map Section - Only render when needed and properly loaded */}
       {props.maps === "1" && (
-        <div className="map-section" style={{ display: mapLoaded ? 'block' : 'none' }}>
-          <h2 className="map-heading">Live Map of Available Properties</h2>
-          <React.Suspense fallback={<div>Loading map...</div>}>
-            <CMap 
-              properties={properties} 
-              onLoad={() => setMapLoaded(true)}
-            />
-          </React.Suspense>
-        </div>
+        <>
+          <br />
+          <CMap />
+        </>
       )}
-
-      {/* Rest of your component remains the same */}
       <br />
       <center><h2 className='heading'>{props.title}</h2></center>
       <br />
@@ -149,11 +142,7 @@ const PropertyList = (props) => {
       {props.tabs === "1" && (
         <ul className="clusters">
           {filters.map((filter, idx) => (
-            <li 
-              key={idx} 
-              className={activeFilter === filter ? 'active' : ''} 
-              onClick={() => setActiveFilter(filter)}
-            >
+            <li key={idx} className={activeFilter === filter ? 'active' : ''} onClick={() => setActiveFilter(filter)}>
               {filter}
             </li>
           ))}
@@ -162,7 +151,7 @@ const PropertyList = (props) => {
 
       <div className="listing-container" ref={scrollRef}>
         {filteredProperties.map((property) => (
-          <Link to={`/property_detail/${property.id}`} key={property.id}>
+          <Link to="/property_detail" key={property.id}>
             <div className="property-card">
               {props.tags === "1" && property.tag && (
                 <span className="property-tag">{property.tag}</span>
@@ -188,12 +177,7 @@ const PropertyList = (props) => {
           </Link>
         ))}
       </div>
-
-      <center>
-        <span className='links'>
-          <Link to="/listing">See All Listings</Link>
-        </span>
-      </center>
+      <center><span className='links'><Link to="/listing">See All Listings</Link></span></center>
     </>
   );
 };

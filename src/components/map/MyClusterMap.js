@@ -1,17 +1,27 @@
+// src/components/MyClusterMap.js
+
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import L from 'leaflet';
+import './MapStyles.css'; // Make sure this contains your .map-wrapper and .map-heading styles
 
-// Fix Leaflet marker icons
+// Leaflet marker icon fix
+import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png').default,
-  iconUrl: require('leaflet/dist/images/marker-icon.png').default,
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png').default,
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
 });
 
+// Coordinates map
 const cityCoordinates = {
   'Beyoğlu, Istanbul': [41.0369, 28.9760],
   'Ortaköy, Istanbul': [41.0431, 29.0222],
@@ -22,9 +32,7 @@ const MyClusterMap = ({ properties = [], onLoad }) => {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
-    if (map && onLoad) {
-      onLoad();
-    }
+    if (map && onLoad) onLoad();
     return () => {
       if (map) {
         map.off();
@@ -34,33 +42,44 @@ const MyClusterMap = ({ properties = [], onLoad }) => {
   }, [map, onLoad]);
 
   return (
-    <div className="cluster-map" style={{ height: '500px', width: '100%' }}>
-      <MapContainer
-        center={[41.0151, 28.9795]}
-        zoom={12}
-        style={{ height: '100%', width: '100%' }}
-        whenCreated={setMap}
-      >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; OpenStreetMap contributors'
-        />
-        <MarkerClusterGroup>
-          {properties.map((property) => {
-            const position = cityCoordinates[property.location];
-            return position ? (
-              <Marker key={property.id} position={position}>
-                <Popup>
-                  <b>{property.title}</b><br />
-                  {property.location}<br />
-                  {property.price}
-                </Popup>
-              </Marker>
-            ) : null;
-          })}
-        </MarkerClusterGroup>
-      </MapContainer>
-    </div>
+    <section className="map-wrapper">
+            <div style={{ height: '500px', width: '100%' }}>
+        <MapContainer
+          center={[41.0151, 28.9795]}
+          zoom={12}
+          style={{ height: '100%', width: '100%' }}
+          whenCreated={setMap}
+        >
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
+          />
+
+          <MarkerClusterGroup chunkedLoading>
+            {properties.map((property, index) => {
+              const baseCoords = cityCoordinates[property.location];
+              if (!baseCoords) return null;
+
+              const jitter = (Math.random() - 0.5) * 0.005;
+              const position = [baseCoords[0] + jitter, baseCoords[1] + jitter];
+
+              return (
+                <Marker
+                  key={property.id || `${property.title}-${index}`}
+                  position={position}
+                >
+                  <Popup>
+                    <b>{property.title}</b><br />
+                    {property.location}<br />
+                    {property.price}
+                  </Popup>
+                </Marker>
+              );
+            })}
+          </MarkerClusterGroup>
+        </MapContainer>
+      </div>
+    </section>
   );
 };
 
