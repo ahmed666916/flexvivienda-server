@@ -1,6 +1,6 @@
 // src/components/MyMap.js
 import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './MapStyles.css';
@@ -12,6 +12,18 @@ L.Icon.Default.mergeOptions({
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
+
+// Component that uses Leaflet context safely
+const MapEffect = () => {
+  const map = useMap(); // or useLeafletContext()
+
+  // Example: Log center on mount
+  React.useEffect(() => {
+    console.log('Map center:', map.getCenter());
+  }, [map]);
+
+  return null; // this component doesn't render anything visually
+};
 
 const MyMap = () => {
   return (
@@ -28,6 +40,8 @@ const MyMap = () => {
               A pretty popup.<br /> Easily customizable.
             </Popup>
           </Marker>
+
+          <MapEffect /> {/* Custom logic that safely uses hooks */}
         </MapContainer>
       </div>
     </section>
