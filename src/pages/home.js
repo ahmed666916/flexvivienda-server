@@ -26,33 +26,33 @@ const Home = () => {
       const { t, i18n } = useTranslation();
   return (
 
-        <>
-        <Hero heading={t('heroMessage')} subheading={t('heroSubtitle')}/>
-        {/* <SearchBar /> */}
-      {/* Map Section */}
-      <div className="map-heading-container">
-      <h2 className="map-heading">Live Map of Available Properties</h2>
-      </div>
-      
+       <>
+  <Hero heading={t('heroMessage')} subheading={t('heroSubtitle')} />
+  <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1" />
+  <div className="section-block home-property-section">
+    <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1" />
+  </div>
+  <PropertyCitiesList title="Explore Properties in Cities" tabs="1" tags="1" short="1" />
+  <FutureOfLivingSection />
+  <BetterHomeSlider />
+  <Testimonials />
+  <TrustSignals />
+  <Blog />
 
-       <div className="section-block featured-section home-property-section">
-        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1"/>
-      </div>
-
-      <div className="section-block home-property-section">
-        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1"/>
-      </div>
-
-
-        <PropertyCitiesList  title="Explore Properties in Cities" tabs="1" tags="1" short="1"/>
-        <FutureOfLivingSection />
-        <BetterHomeSlider />
-        <Testimonials />
-        <TrustSignals />
-        <Blog />
-
-
-        </>
+  {/* WhatsApp Floating Button */}
+  <a
+    href="https://wa.me/905386807740"
+    className="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img
+      src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"
+      alt="Chat on WhatsApp"
+      className="whatsapp-icon"
+    />
+  </a>
+</>
 
   );
 };

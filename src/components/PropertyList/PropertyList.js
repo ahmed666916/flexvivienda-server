@@ -131,7 +131,7 @@ const PropertyList = (props) => {
     <>
       {props.maps === "1" && (
         <>
-          <br />
+           <h2 className="map-heading">Live Map of Available Properties</h2>
           <CMap />
         </>
       )}

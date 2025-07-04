@@ -61,27 +61,50 @@
   color: #999;
 }
 
-.nav {
+/* === NAVIGATION ARROWS (Copied and unified with first CSS) === */
+.nav,
+.nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 2rem;
-  background: rgba(255, 255, 255, 0.7);
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.8) !important;
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  border-radius: 50%;
-  z-index: 2;
+  z-index: 10;
+  border-radius: 50px;
+  transition: background 0.3s ease;
+  color: black !important;
+  outline: none;
 }
 
-.nav.left {
-  left: 1rem;
+.nav.left,
+.nav-arrow.left {
+  left: 1em;
+  padding: 5px;
 }
 
-.nav.right {
+.nav.right,
+.nav-arrow.right {
   right: 1rem;
+  padding: 5px;
 }
 
+.nav:hover,
+.nav-arrow:hover {
+  background: rgba(255, 100, 100, 0.9) !important;
+}
+
+.nav:focus,
+.nav:active,
+.nav-arrow:focus,
+.nav-arrow:active {
+  outline: none;
+}
+
+/* Responsive adjustment */
 @media (max-width: 768px) {
   .slide {
     justify-content: center;

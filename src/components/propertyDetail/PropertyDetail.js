@@ -4,6 +4,7 @@ import ImageGallery from './ImageGallery';
 import BookingCard from './BookingCard';
 import GoogleMap from './GoogleMap';
 import GridGalleryViewer from './GridGalleryViewer';
+import CMap from '../map/MyClusterMap';
 
 import { FaBed, FaBath, FaRulerCombined, FaWifi, FaCar, FaSwimmer, FaSnowflake, FaEye } from 'react-icons/fa';
 
@@ -96,7 +97,7 @@ const PropertyDetail = () => {
 
 
           <section className="map-section">
-            <GoogleMap />
+            <CMap />
           </section>
         </div>
 

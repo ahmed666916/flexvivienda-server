@@ -57,7 +57,7 @@
 }
 
 .property-title {
-  font-size: 18px;         /* Slightly bigger like homepage */
+  font-size: 15px !important;         /* Slightly bigger like homepage */
   font-weight: 700;        /* Bolder for emphasis */
   color: #1f2937;
   margin-bottom: 8px;
@@ -110,7 +110,7 @@
   padding: 4px;
   cursor: pointer;
   font-size: 18px;
-  border-radius: 50%;
+  border-radius: 100px;
   color: #E11D48;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
 }

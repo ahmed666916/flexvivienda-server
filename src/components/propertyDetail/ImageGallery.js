@@ -23,7 +23,7 @@ const ImageGallery = ({ images }) => {
       <div className="dual-image-gallery">
         <button className="nav-arrow left" onClick={handlePrev}>
           &#10094;
-        </button>
+        </button> 
 
         <div className="dual-image-wrapper">
           <img

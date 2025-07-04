@@ -1,6 +1,6 @@
 /* HeroSection.css */
 
-.hero-section {
+.hero-sections {
   position: relative;
   height: 100vh;
   background-image:url('/public/Images/hero5.jpeg');
@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow: hidden; 
 }
 
 .hero-overlay {
@@ -32,7 +32,11 @@
   opacity: 0;
   transform: translateY(30px);
   animation-delay: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Optional for horizontal centering */
 }
+
 
 .hero-title {
   font-size: 2.5rem;

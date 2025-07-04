@@ -16,22 +16,47 @@ const FlexIntro = () => {
     <div className="flex-intro-container">
       <div className="flex-left">
        
-        <h3>About Flex</h3>
+        <h2>About Flex</h2>
         <p>
           Flex makes short-term rentals effortless for you. Your listings appear on all platforms,
           and all processes can be followed from a single app. From cleaning to guest communication,
           every step is handled with high quality—so all you have to do is enjoy the profit!
         </p>
 
-        <ul className='listAboutFlatix'>
-          <li><MdOutlineCleanHands /> <strong>Priority on Hygiene and Attention to Detail:</strong> Every cleaning undergoes inspection.</li>
-          <li><MdOutlineWorkspacePremium />
-<strong> Premium Guest Experience:</strong> We provide 5-star service to every guest!</li>
-          <li><MdOutlinePersonalInjury /> <strong>Personalized Service Packages:</strong> Rental solutions customized for different needs!</li>
-          <li><GoGraph />
-<strong> Transparent Reporting:</strong> Earnings, costs, and occupancy rates are always at your fingertips!</li>
-          <li><FaRocketchat /> <strong>24/7 Guest Communication:</strong> Guest questions and needs are responded to instantly!</li>
-        </ul>
+        <ul className="listAboutFlatix">
+        <li>
+          <span className="icon"><MdOutlineCleanHands /></span>
+          <div>
+            <strong>Priority on Hygiene and Attention to Detail:</strong> Every cleaning undergoes inspection.
+          </div>
+        </li>
+        <li>
+          <span className="icon"><MdOutlineWorkspacePremium /></span>
+          <div>
+            <strong>Premium Guest Experience:</strong> We provide 5-star service to every guest!
+          </div>
+        </li>
+        <li>
+          <span className="icon"><MdOutlinePersonalInjury /></span>
+          <div>
+            <strong>Personalized Service Packages:</strong> Rental solutions customized for different needs!
+          </div>
+        </li>
+        <li>
+          <span className="icon"><GoGraph /></span>
+          <div>
+            <strong>Transparent Reporting:</strong> Earnings, costs, and occupancy rates are always at your fingertips!
+          </div>
+        </li>
+        <li>
+          <span className="icon"><FaRocketchat /></span>
+          <div>
+            <strong>24/7 Guest Communication:</strong> Guest questions and needs are responded to instantly!
+          </div>
+        </li>
+      </ul>
+
+        
       </div>
 
       <div className="flex-right">

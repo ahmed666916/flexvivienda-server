@@ -15,12 +15,11 @@ const ContactUs = () => {
         <div className="contact-info-box">
           <div className="contact-info-item">
             <FaMapMarkerAlt className="contact-icon" />
-            <p>Daire 2, kat 1 , block C, onalti dokuz residans, kazliçeşme, zeytinburnu</p>
+            Daire 2, kat 1 , block C, onalti dokuz residans, kazliçeşme, zeytinburnu
           </div>
           <div className="contact-info-item">
             <FaPhoneAlt className="contact-icon" />
             +90 538 680 7740
-          
           </div>
           <div className="contact-info-item">
             <FaPhoneAlt className="contact-icon" />

@@ -13,7 +13,7 @@ const CustomNavbar = () => {
 
   return (
     <Navbar expand="lg" className="navbar-custom" sticky="top">
-      <Container className="d-flex justify-content-between align-items-center">
+      
         <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img src="/Images/logo.png" alt="Flex Logo" className="navbar-logo" />
         </Navbar.Brand>
@@ -45,7 +45,7 @@ const CustomNavbar = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-      </Container>
+      
     </Navbar>
   );
 };

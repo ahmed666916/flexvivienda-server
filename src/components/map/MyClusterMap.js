@@ -1,9 +1,9 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import MarkerClusterGroup from 'react-leaflet-cluster';
-import './MapStyles.css';
+import './MapStyles.css'; // Optional: include if you add custom styling
 
 // Fix Leaflet's marker icon issue in React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -18,14 +18,22 @@ const cityCoordinates = {
   'Beyoğlu, Istanbul': [41.0369, 28.9760],
   'Ortaköy, Istanbul': [41.0431, 29.0222],
   'Kadıköy, Istanbul': [40.9902, 29.0275],
-  // You can add more mappings here
 };
 
-const ClusterMap = ({ properties = [] }) => {
+// Test data (you can replace this with props from your backend)
+const testProperties = [
+  { title: 'Apartment 1', location: 'Beyoğlu, Istanbul', price: '$1000' },
+  { title: 'Apartment 2', location: 'Beyoğlu, Istanbul', price: '$1100' },
+  { title: 'Apartment 3', location: 'Beyoğlu, Istanbul', price: '$1200' },
+  { title: 'Loft 1', location: 'Ortaköy, Istanbul', price: '$1300' },
+  { title: 'Loft 2', location: 'Ortaköy, Istanbul', price: '$1350' },
+];
+
+const ClusterMap = ({ properties = testProperties }) => {
   return (
     <div className="map-wrapper" style={{ height: '60vh', width: '100%' }}>
       <MapContainer
-        center={[41.0151, 28.9795]} // Istanbul center
+        center={[41.0151, 28.9795]}
         zoom={12}
         scrollWheelZoom={false}
         style={{ height: '100%', width: '100%' }}
@@ -50,7 +58,10 @@ const ClusterMap = ({ properties = [] }) => {
           {Array.isArray(properties) &&
             properties.map((property, idx) => {
               const position = cityCoordinates[property.location];
-              if (!position) return null;
+              if (!position) {
+                console.warn('Unknown location:', property.location);
+                return null;
+              }
 
               return (
                 <Marker key={idx} position={position}>

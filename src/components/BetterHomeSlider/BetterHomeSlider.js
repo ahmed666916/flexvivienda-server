@@ -33,7 +33,7 @@ const BetterHomeSlider = () => {
     <section className="slider-section">
       <h2>Home, but better</h2>
       <div className="slider">
-        <button className="nav left" onClick={prevSlide}>&lt;</button>
+        <button className="nav left" onClick={prevSlide}> &#10094;</button>
         <div
           className="slide"
           style={{ backgroundImage: `url(${slides[current].img})` }}
@@ -45,7 +45,7 @@ const BetterHomeSlider = () => {
             {slides[current].note && <small>{slides[current].note}</small>}
           </div>
         </div>
-        <button className="nav right" onClick={nextSlide}>&gt;</button>
+        <button className="nav right" onClick={nextSlide}>  &#10095;</button>
       </div>
     </section>
   );

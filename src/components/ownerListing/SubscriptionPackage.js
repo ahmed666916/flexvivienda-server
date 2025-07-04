@@ -12,7 +12,7 @@ const subscriptions = [
       'Purchase of the Building',
       'Renovation Service',
       'Furnishing Service',
-      '* Full management package service options are included.'
+      '* Full management package service options are included.',
     ],
   },
   {
@@ -25,7 +25,7 @@ const subscriptions = [
       'Guest Communication',
       'Cleaning Service',
       'Maintenance and Repair Service',
-      'Monthly Reporting'
+      'Monthly Reporting',
     ],
   },
   {
@@ -36,7 +36,7 @@ const subscriptions = [
       'Photography and Listing',
       'Multi-Platform Integration',
       'Guest Communication',
-      'Monthly Reporting'
+      'Monthly Reporting',
     ],
   },
   {
@@ -46,35 +46,34 @@ const subscriptions = [
     features: [
       'Elite Corporate Client Network',
       'Lease Contract Management',
-      '* Full management package service options are included.'
+      '* Full management package service options are included.',
     ],
   },
 ];
 
 const SubscriptionPackages = () => {
   return (
-   <>
-    <h2 className='subscription-title'>Packages & Service Details </h2>
-   
-    <div className="subscription-grid">
-      
-      {subscriptions.map((pkg, index) => (
-        <div className="subscription-card" key={index}>
-          <h2 className="subscription-title">{pkg.title}</h2>
-          <p className="subscription-commission">{pkg.commission}</p>
-          <p className="subscription-description">{pkg.description}</p>
-          <ul className="subscription-features">
-            {pkg.features.map((feature, idx) => (
-              <li key={idx}>
-                <CheckCircle className="check-icon" size={18} />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-    </>
+    <section className="subscription-section">
+      <h2 className="subscription-header">Packages & Service Details</h2>
+
+      <div className="subscription-grid">
+        {subscriptions.map((pkg, index) => (
+          <div className="subscription-card" key={index}>
+            <h2>{pkg.title}</h2>
+            <p className="subscription-commission">{pkg.commission}</p>
+            <p className="subscription-description">{pkg.description}</p>
+            <ul className="subscription-features">
+              {pkg.features.map((feature, idx) => (
+                <li key={idx}>
+                  <CheckCircle className="check-icon" size={18} />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

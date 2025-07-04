@@ -1,63 +1,68 @@
+.subscription-section {
+  background: linear-gradient(to bottom, #fff, #fdf0f3);
+  padding: 4rem 2rem;
+}
+
+.subscription-header {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #F22048;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+}
+
+.subscription-grid {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding: 2rem 1rem;
+  scroll-snap-type: x mandatory;
+}
+
 .subscription-card {
-  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
-  border: 2px solid rgba(242, 32, 72, 0.4);
-  border-radius: 16px;
-  padding: 40px;
-  max-width: 600px;
-  margin: 40px auto;
-  color: #222;
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(10px);
+  border: 1px solid #f6d4d9;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
-.subscription-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: url('https://www.transparenttextures.com/patterns/pw-maze-white.png'); /* optional pattern */
-  opacity: 0.05;
-  z-index: 0;
-}
-
-
-
 .subscription-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
-.subscription-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 2rem 1rem;
-}
-
-.subscription-title {
+.subscription-card h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
   color: #F22048;
-  font-size: 28px;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
-  font-weight: bold;
 }
 
 .subscription-commission {
+  font-size: 1rem;
   font-weight: 600;
-  color: #c4302b;
-  margin-bottom: 1rem;
+  color: #b31830;
+  background-color: #ffe3e6;
+  display: inline-block;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  margin: 0 auto 1.5rem;
   text-align: center;
 }
 
 .subscription-description {
-  font-size: 16px;
-  color: #333;
-  text-align: center;
-  margin-bottom: 30px;
+  font-size: 1rem;
   line-height: 1.6;
+  color: #444;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .subscription-features {
@@ -68,13 +73,16 @@
 
 .subscription-features li {
   display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
+  align-items: start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
   font-size: 0.95rem;
   color: #333;
+  line-height: 1.4;
 }
 
 .check-icon {
   color: #F22048;
-  margin-right: 0.5rem;
+  margin-top: 3px;
+  flex-shrink: 0;
 }
