@@ -134,7 +134,7 @@
 .heading {
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
   text-align: center;
 }
 
@@ -149,7 +149,7 @@
 .heading-subtext {
   font-size: 15px;
   color: #6b7280;
-  margin-top: -6px;
+  margin-top: 8px;
   margin-bottom: 15px;
   max-width: 650px;
   text-align: center;
