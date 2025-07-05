@@ -90,7 +90,7 @@ const properties = [
     title: 'Stylish Retreat with Jacuzzi',
     location: 'Şişli, Istanbul',
     price: '€220/night',
-    image: 'https://images.unsplash.com/photo-1600585153828-1f7fe1017053',
+    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
     tag: 'Hot Property',
     bedrooms: 2,
     bathrooms: 2,
