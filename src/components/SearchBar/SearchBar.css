@@ -1,47 +1,44 @@
-.missafir-searchbar-wrapper {
+.searchbar-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 1.5rem;
   padding: 0 1rem;
-  margin-top: 1rem;
+  box-sizing: border-box;
 }
 
-.missafir-searchbar {
-  background: #fff;
-  border-radius: 50px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-  padding: 12px;
+.searchbar-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
+  background: white;
+  border-radius: 40px;
+  padding: 14px 20px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
   width: 100%;
-  max-width: 960px;
-  flex-wrap: wrap;
+  z-index: 5;
 }
 
 .search-item {
+  flex: 1;
   display: flex;
   align-items: center;
-  flex: 1;
-  background: #fdf2f8; /* light pink */
+  background: #fdf2f8;
   border-radius: 30px;
-  padding: 12px 18px;
-  gap: 12px;
-  transition: box-shadow 0.3s ease;
-}
-
-.search-item:hover {
-  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.2);
+  padding: 10px 16px;
+  gap: 10px;
+  position: relative;
 }
 
 .search-item input {
   border: none;
   background: transparent;
-  width: 100%;
   font-size: 15px;
-  color: #1f2937;
-  font-family: 'Inter', sans-serif;
+  width: 100%;
   outline: none;
+  color: #1f2937;
 }
 
 .icon {
@@ -54,7 +51,7 @@
   color: white;
   border: none;
   border-radius: 30px;
-  padding: 12px 28px;
+  padding: 12px 24px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -65,17 +62,69 @@
   background-color: #be123c;
 }
 
-/* Mobile responsiveness */
+/* Dropdown list */
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 0 0 10px 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-list li {
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #fce7ef;
+}
+
+.no-result {
+  padding: 10px 14px;
+  font-style: italic;
+  color: gray;
+}
+
+/* Guest Counter */
+.guest-counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.guest-counter svg {
+  cursor: pointer;
+  color: #e11d48;
+  background: #fce7ef;
+  border-radius: 50%;
+  padding: 5px;
+  width: 26px;
+  height: 26px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .missafir-searchbar {
+  .searchbar-container {
     flex-direction: column;
     border-radius: 24px;
     gap: 14px;
-    padding: 16px;
   }
 
-  .search-item,
   .search-button {
+    width: 100%;
+  }
+
+  .search-item {
     width: 100%;
   }
 }
