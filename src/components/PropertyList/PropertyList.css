@@ -131,13 +131,30 @@
   letter-spacing: 0.5px;
 }
 
-/* Heading */
 .heading {
-  color: #E11D48;
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+  text-align: center;
 }
+
+.heading-primary {
+  color: #E11D48;
+}
+
+.heading-secondary {
+  color: #1f2937;
+}
+
+.heading-subtext {
+  font-size: 15px;
+  color: #6b7280;
+  margin-top: -6px;
+  margin-bottom: 15px;
+  max-width: 650px;
+  text-align: center;
+}
+
 
 /* "See All Listings" link */
 .links a {
