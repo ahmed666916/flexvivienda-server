@@ -2,6 +2,18 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './PropertyList.css';
 import CMap from '../map/MyClusterMap';
+import {
+  FaWater, FaUmbrellaBeach, FaTree, FaDog, FaSpa, FaHeart
+} from 'react-icons/fa';
+
+const filters = [
+  { name: 'All', icon: <FaHeart /> },
+  { name: 'Sea view', icon: <FaWater /> },
+  { name: 'Swimming Pool', icon: <FaSpa /> },
+  { name: 'Garden', icon: <FaTree /> },
+  { name: 'Close to Beach', icon: <FaUmbrellaBeach /> },
+  { name: 'Pet friendly', icon: <FaDog /> },
+];
 
 const properties = [
   {
@@ -86,7 +98,6 @@ const properties = [
 const PropertyList = (props) => {
   const scrollRef = useRef();
   const [activeFilter, setActiveFilter] = useState('All');
-  const filters = ['All', 'Sea view', 'Swimming Pool', 'Garden', 'Close to Beach', 'Pet friendly'];
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -140,13 +151,18 @@ const PropertyList = (props) => {
       <br />
 
       {props.tabs === "1" && (
-        <ul className="clusters">
+        <div className="category-bar">
           {filters.map((filter, idx) => (
-            <li key={idx} className={activeFilter === filter ? 'active' : ''} onClick={() => setActiveFilter(filter)}>
-              {filter}
-            </li>
+            <button
+              key={idx}
+              className={`category-button ${activeFilter === filter.name ? 'active' : ''}`}
+              onClick={() => setActiveFilter(filter.name)}
+            >
+              <span className="category-icon">{filter.icon}</span>
+              <span className="category-label">{filter.name}</span>
+            </button>
           ))}
-        </ul>
+        </div>
       )}
 
       <div className="listing-container" ref={scrollRef}>
