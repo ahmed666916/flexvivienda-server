@@ -117,3 +117,51 @@
   border-color: #d81b3f;
   opacity: 1;
 }
+
+.date-dropdown-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.date-input {
+  width: 100%;
+  padding: 0.55rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.date-picker-popup {
+  position: absolute;
+  top: 55px; /* controls vertical spacing */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  max-width: 95vw;
+}
+
+/* Optional customizations */
+.rdrCalendarWrapper {
+  font-family: 'Inter', sans-serif;
+  border-radius: 12px;
+}
+.rdrDayHovered {
+  background: rgba(225, 29, 72, 0.1);
+}
+.rdrDayToday .rdrDayNumber span {
+  color: #e11d48;
+}
+.rdrStartEdge,
+.rdrEndEdge,
+.rdrInRange {
+  background: #e11d48 !important;
+}
