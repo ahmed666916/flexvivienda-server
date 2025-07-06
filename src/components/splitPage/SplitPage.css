@@ -37,12 +37,15 @@ body, html, #root {
   overflow: hidden;
 }
 
-.left {
-  background: linear-gradient(to right, #5baaf8, #3498db);
+.left, .right {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
 }
 
-.right {
-  background: linear-gradient(to right, #3daa57, #2ecc71);
+.content {
+  display: none;
 }
 
 .hoverable:hover {
