@@ -12,25 +12,26 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  background: linear-gradient(to right, #111827 20%, #e11d48 80%);
-  border-radius: 10px 50px 50px 50px;
+  background: #fff; /* White background like Missafir */
+  border-radius: 40px;
   padding: 14px 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
   max-width: 1000px;
   width: 100%;
   z-index: 5;
+  border: 1px solid #e5e7eb; /* Light gray border */
 }
 
 .search-item {
   flex: 1;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: #f9fafb; /* Light input bg */
+  border: 1px solid #e5e7eb;
   border-radius: 30px;
   padding: 10px 16px;
   gap: 10px;
   position: relative;
-  transition: box-shadow 0.3s ease;
 }
 
 .search-item:hover {
@@ -47,43 +48,37 @@
 }
 
 .icon {
-  color: #e11d48;
+  color: #6b7280; 
   font-size: 16px;
 }
 
+
+
 .search-button {
-  background-color: white;
-  color: #e11d48;
+  background: linear-gradient(to right, #FF007A, #C20059); /* Gradient */
+  color: white;
   border: none;
   border-radius: 30px;
   padding: 12px 24px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
+
 .search-button:hover {
-  background-color: #e11d48;
-  color: white;
+  opacity: 0.9;
 }
+
 
 /* Dropdown list */
 .dropdown-list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: white;
-  border-radius: 0 0 10px 10px;
-  max-height: 200px;
-  overflow-y: auto;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
+
 
 .dropdown-list li {
   padding: 10px 14px;
@@ -108,12 +103,8 @@
 }
 
 .guest-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #fdf2f8;
-  border-radius: 30px;
-  padding: 6px 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
 }
 
 .guest-controls button {
