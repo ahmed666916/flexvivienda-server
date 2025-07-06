@@ -28,7 +28,7 @@
 }
 
 .section-block:first-of-type {
-  margin-top: 40px;
+  margin-top: 10px; /* REDUCED */
 }
 
 .section-block h2.heading {
@@ -55,7 +55,6 @@
   padding: 60px 0;
 }
 
-
 .section-divider {
   height: 1px;
   background: #e5e7eb;
@@ -65,4 +64,3 @@
 .trust-wrapper {
   padding: 60px 0;
 }
-

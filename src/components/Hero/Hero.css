@@ -11,6 +11,8 @@
   overflow: hidden;
   background-size: cover;
   background-position: center;
+  margin-bottom: 0; /* NEW */
+  padding-bottom: 0; /* NEW */
 }
 
 /* Dark overlay for better text readability */
@@ -28,7 +30,7 @@
   position: relative;
   z-index: 1;
   max-width: 800px;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem; /* REDUCED */
 }
 
 .hero-contents h1 {
