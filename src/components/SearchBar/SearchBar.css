@@ -2,144 +2,158 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   padding: 0 1rem;
   box-sizing: border-box;
 }
 
 .searchbar-container {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  background: #fff; /* White background like Missafir */
-  border-radius: 40px;
-  padding: 14px 20px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 12px 20px;
   max-width: 1000px;
   width: 100%;
-  z-index: 5;
-  border: 1px solid #e5e7eb; /* Light gray border */
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .search-item {
   flex: 1;
   display: flex;
   align-items: center;
-  background: #f9fafb; /* Light input bg */
-  border: 1px solid #e5e7eb;
-  border-radius: 30px;
-  padding: 10px 16px;
   gap: 10px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
   position: relative;
-}
-
-.search-item:hover {
-  box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.2);
+  cursor: pointer;
+  font-size: 15px;
+  color: #111;
 }
 
 .search-item input {
   border: none;
   background: transparent;
-  font-size: 15px;
   width: 100%;
+  font-size: 15px;
   outline: none;
-  color: #1f2937;
+  color: #111;
+  cursor: text;
 }
 
 .icon {
-  color: #6b7280; 
+  color: #888;
   font-size: 16px;
 }
 
-
-
-.search-button {
-  background: linear-gradient(to right, #FF007A, #C20059); /* Gradient */
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 12px 24px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-
-.search-button:hover {
-  opacity: 0.9;
-}
-
-
-/* Dropdown list */
 .dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
   background: #fff;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
-
 
 .dropdown-list li {
   padding: 10px 14px;
-  font-size: 14px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
 }
 
 .dropdown-list li:hover {
   background-color: #fce7ef;
 }
 
-.no-result {
-  padding: 10px 14px;
-  font-style: italic;
-  color: gray;
+/* Guest Dropdown */
+.guest-selector {
+  position: relative;
 }
 
-.guest-picker {
+.guest-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border-radius: 12px;
+  width: 280px;
+  z-index: 999;
+}
+
+.guest-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  margin-bottom: 12px;
 }
 
-.guest-controls {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
+.guest-labels strong {
+  display: block;
 }
 
-.guest-controls button {
+.guest-labels small {
+  color: #888;
+  font-size: 12px;
+}
+
+.guest-buttons button {
   background: none;
   border: none;
-  font-size: 20px;
-  color: #e11d48;
-  cursor: pointer;
-  font-weight: bold;
-  line-height: 1;
-}
-
-.guest-count {
   font-size: 16px;
-  font-weight: 600;
-  color: #1f2937;
-  min-width: 24px;
-  text-align: center;
+  color: #f22048;
+  padding: 4px 8px;
+  cursor: pointer;
 }
 
-.guest-label {
+.guest-buttons span {
   font-size: 14px;
-  color: #6b7280;
+  min-width: 24px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+
+.search-button {
+  background: linear-gradient(to right, #f22048, #c20059);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.search-button:hover {
+  opacity: 0.9;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .searchbar-container {
     flex-direction: column;
-    border-radius: 24px;
-    gap: 14px;
+    align-items: stretch;
   }
 
-  .search-button,
-  .search-item {
+  .search-item,
+  .search-button {
     width: 100%;
+  }
+
+  .guest-dropdown {
+    right: auto;
+    left: 0;
   }
 }
