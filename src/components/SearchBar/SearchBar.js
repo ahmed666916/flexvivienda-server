@@ -13,7 +13,7 @@ const cities = [
 const SearchBar = () => {
   const [search, setSearch] = useState('');
   const [showList, setShowList] = useState(false);
-  const [guestCount, setGuestCount] = useState(1);
+  const [guestCount, setGuestCount] = useState(2);
 
   const filteredCities = cities.filter(city =>
     city.toLowerCase().includes(search.toLowerCase())
@@ -52,15 +52,16 @@ const SearchBar = () => {
           <DateRangeDropdown />
         </div>
 
-        {/* Guest Count */}
-        <div className="search-item guest-item">
-          <FaUser className="icon" />
-          <div className="guest-counter">
-            <FaMinus onClick={() => setGuestCount(Math.max(1, guestCount - 1))} />
-            <span>{guestCount} guest{guestCount > 1 ? 's' : ''}</span>
-            <FaPlus onClick={() => setGuestCount(guestCount + 1)} />
-          </div>
+        <div className="search-item guest-picker">
+        <FaUser className="icon" />
+        <div className="guest-controls">
+          <button onClick={() => setGuestCount(Math.max(1, guestCount - 1))}>−</button>
+          <span className="guest-count">{guestCount}</span>
+          <button onClick={() => setGuestCount(guestCount + 1)}>+</button>
         </div>
+        <span className="guest-label">guests</span>
+      </div>
+
 
         {/* Search Button */}
         <Link to="/listing">

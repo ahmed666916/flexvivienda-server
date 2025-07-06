@@ -95,22 +95,44 @@
   color: gray;
 }
 
-/* Guest Counter */
-.guest-counter {
+.guest-picker {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.guest-counter svg {
-  cursor: pointer;
-  color: #e11d48;
-  background: #fce7ef;
-  border-radius: 50%;
-  padding: 5px;
-  width: 26px;
-  height: 26px;
+.guest-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fdf2f8;
+  border-radius: 30px;
+  padding: 6px 12px;
 }
+
+.guest-controls button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #e11d48;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.guest-count {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  min-width: 24px;
+  text-align: center;
+}
+
+.guest-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
