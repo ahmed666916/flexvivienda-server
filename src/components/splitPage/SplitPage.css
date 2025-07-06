@@ -14,9 +14,9 @@ body, html, #root {
   display: flex;
   height: 100vh;
   width: 100vw;
-  gap: 8px;
+  gap: 12px;
   background-color: #f5f5f5;
-  padding: 0 4px;
+  padding: 0 16px;
 }
 
 .split-link {
@@ -31,46 +31,57 @@ body, html, #root {
   justify-content: center;
   color: white;
   height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 20px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .left {
-  background-color: #5baaf8;
+  background: linear-gradient(to right, #5baaf8, #3498db);
 }
 
 .right {
-  background-color: #3daa57;
+  background: linear-gradient(to right, #3daa57, #2ecc71);
 }
 
 .hoverable:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  filter: brightness(1.05);
+  transform: scale(1.03);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
 }
 
-.divider {
-  width: 8px;
-  background-color: transparent;
+.hoverable:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
 }
 
 .content {
   text-align: center;
   max-width: 80%;
+  padding: 1rem;
 }
 
 .icon {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.6rem;
+  border-radius: 50%;
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   margin-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 p {
   font-size: 1.1rem;
-  margin-bottom: 1.5rem;
+  opacity: 0.95;
+  line-height: 1.6;
 }
 
 .split-button {
@@ -79,9 +90,10 @@ p {
   background-color: white;
   color: #333;
   font-weight: bold;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   display: inline-block;
+  margin-top: 1rem;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -89,7 +101,6 @@ p {
   background-color: #e0e0e0;
   transform: scale(1.05);
 }
-
 
 /* Remove outline and blue link focus effect */
 .split-container a {
@@ -104,7 +115,27 @@ p {
   box-shadow: none;
 }
 
-/* Optional: prevent blue highlight on mobile tap */
 .split-link {
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .split-container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+  }
+
+  .split {
+    height: 50vh;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
 }
