@@ -82,48 +82,52 @@ const MyClusterMap = ({ properties = defaultProperties, onLoad }) => {
   }, [map, onLoad]);
 
   return (
-    <section className="map-wrapper">
+    <section className="section-block">
       <center>
         <h2 className="heading">
           <span className="heading-primary">Live</span>{' '}
           <span className="heading-secondary">Map</span>
         </h2>
+        <p className="heading-subtext">Explore our property distribution across Istanbul</p>
       </center>
-      <div style={{ height: '500px', width: '100%' }}>
-        <MapContainer
-          center={[41.0151, 28.9795]}
-          zoom={11}
-          style={{ height: '100%', width: '100%' }}
-          whenCreated={setMap}
-        >
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-            attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
-          />
 
-          <MarkerClusterGroup chunkedLoading>
-            {properties.map((property, index) => {
-              const coords = cityCoordinates[property.location];
-              if (!coords) return null;
+      <div className="map-wrapper">
+        <div style={{ height: '500px', width: '100%' }}>
+          <MapContainer
+            center={[41.0151, 28.9795]}
+            zoom={11}
+            style={{ height: '100%', width: '100%' }}
+            whenCreated={setMap}
+          >
+            <TileLayer
+              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
+            />
 
-              const jitter = (Math.random() - 0.5) * 0.005;
-              const position = [coords[0] + jitter, coords[1] + jitter];
+            <MarkerClusterGroup chunkedLoading>
+              {properties.map((property, index) => {
+                const coords = cityCoordinates[property.location];
+                if (!coords) return null;
 
-              return (
-                <Marker
-                  key={property.id || `${property.title}-${index}`}
-                  position={position}
-                >
-                  <Popup>
-                    <b>{property.title}</b><br />
-                    {property.location}<br />
-                    {property.price}
-                  </Popup>
-                </Marker>
-              );
-            })}
-          </MarkerClusterGroup>
-        </MapContainer>
+                const jitter = (Math.random() - 0.5) * 0.005;
+                const position = [coords[0] + jitter, coords[1] + jitter];
+
+                return (
+                  <Marker
+                    key={property.id || `${property.title}-${index}`}
+                    position={position}
+                  >
+                    <Popup>
+                      <b>{property.title}</b><br />
+                      {property.location}<br />
+                      {property.price}
+                    </Popup>
+                  </Marker>
+                );
+              })}
+            </MarkerClusterGroup>
+          </MapContainer>
+        </div>
       </div>
     </section>
   );
