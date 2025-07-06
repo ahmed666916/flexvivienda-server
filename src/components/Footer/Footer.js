@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import { Link } from 'react-router-dom';
-import { FaInstagram, FaLinkedin, FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaFacebook, FaWhatsapp, FaEnvelope, FaPhone } from 'react-icons/fa';
 
 const Footer = () => (
   <footer className="footer">
@@ -9,8 +9,7 @@ const Footer = () => (
 
       {/* Left: Logo + Mission Statement */}
       <div className="footer-left">
-        {/* <img src="/logo.png" alt="Missafir Logo" className="footer-logo" /> */}
-        <h1>Flex Logo</h1>
+        <img src="/Images/logo.png" alt="Flex Logo" className="footer-logo" />
         <p>Empowering modern stays with smart hospitality solutions.</p>
       </div>
 
@@ -30,16 +29,16 @@ const Footer = () => (
       {/* Right: Contact Info */}
       <div className="footer-right">
         <h4>Contact Us</h4>
-        <p>Email: flex@flatix.com</p>
-        <p>Phone: +905386807740</p>
-        <Link
-          to="https://wa.me/905386483175"
+        <p><FaEnvelope /> flex@flatix.com</p>
+        <p><FaPhone /> +905386807740</p>
+        <a
+          href="https://wa.me/905386483175"
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-btn"
         >
           <FaWhatsapp /> WhatsApp Us
-        </Link>
+        </a>
         <div className="footer-socials">
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
           <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
@@ -48,6 +47,7 @@ const Footer = () => (
       </div>
 
     </div>
+
     <div className="footer-bottom">
       <p>&copy; {new Date().getFullYear()} Flex. All rights reserved.</p>
     </div>
