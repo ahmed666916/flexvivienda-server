@@ -13,7 +13,7 @@ const cities = [
 const SearchBar = () => {
   const [search, setSearch] = useState('');
   const [showList, setShowList] = useState(false);
-  const [guestCount, setGuestCount] = useState(2);
+  const [guestCount, setGuestCount] = useState(1);
 
   const filteredCities = cities.filter(city =>
     city.toLowerCase().includes(search.toLowerCase())
