@@ -72,18 +72,32 @@ input::placeholder {
 }
 
 .search-btn {
-  background-color: #f43f5e;
+  background-color: #ef3b5c; /* Airbnb-style pink */
   color: white;
   border: none;
   border-radius: 10px;
-  font-weight: bold;
-  font-size: 0.95rem;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   cursor: pointer;
+  height: 48px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .search-btn:hover {
-  background-color: #e11d48;
+  background-color: #d72c4e;
 }
+
+.search-btn svg {
+  font-size: 16px;
+  margin-top: -1px;
+}
+
 
 .filter-button {
   background-color: #334155;
