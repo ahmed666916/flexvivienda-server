@@ -23,7 +23,12 @@
 }
 
 .navbar-brand {
+  margin-right: 8px;
   padding-left: 0;
+}
+
+.navbar-custom .navbar-collapse .nav {
+  gap: 8px; /* Reduce horizontal gap between logo and first link */
 }
 
 /* Logo Image - bigger and aligned */
@@ -32,16 +37,17 @@
   width: auto;
   object-fit: contain;
   margin-right: 2rem;
+  margin-left: 30px; 
 }
 
 /* Nav Links */
 .navbar-custom .nav-link,
 .navbar-custom .dropdown-toggle {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #111 !important;
-  padding: 10px !important; /* More horizontal spacing */
+  padding: 11px !important; /* More horizontal spacing */
   transition: all 0.2s ease;
 }
 
