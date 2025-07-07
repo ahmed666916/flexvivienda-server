@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
 @keyframes fadeInTop {
   to {
     opacity: 1;
@@ -13,36 +16,41 @@
   animation: fadeInTop 0.7s ease-out forwards;
   opacity: 0;
   transform: translateY(-20px);
-  width: 100% !important; /* ✅ Add this line */
+  width: 100% !important;
+  padding: 0.75rem 2rem;
 }
 
-/* Push logo to extreme left */
+/* Container fix */
 .navbar-custom .container {
   padding-left: 0 !important;
   width: 100% !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navbar-brand {
-  padding-left: 0;
+  padding-left: 8px;
 }
 
-/* Logo Image - bigger and aligned */
+/* Logo */
 .navbar-logo {
-  height: 70px;
+  height: 90px;
   width: auto;
   object-fit: contain;
   margin-right: 2rem;
+  margin-left: 1rem;
 }
 
-/* Nav Links */
 .navbar-custom .nav-link,
 .navbar-custom .dropdown-toggle {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
   color: #111 !important;
-  padding: 10px !important; /* More horizontal spacing */
-  transition: all 0.2s ease;
+  padding: 12px 18px !important;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease-in-out;
 }
 
 .navbar-custom .nav-link:hover,
@@ -52,6 +60,17 @@
   background-color: transparent;
   text-decoration: underline;
   text-underline-offset: 5px;
+}
+
+
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .dropdown-item:hover,
+.navbar-custom .nav-link.active {
+  color: #E11D48 !important;
+  background-color: rgba(225, 29, 72, 0.05);
+  border-radius: 6px;
+  text-decoration: none;
 }
 
 /* Dropdown Menu */
@@ -93,29 +112,24 @@
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(225, 29, 72, 0.3);
   transition: all 0.3s ease-in-out;
-  opacity: 1;
   margin-left: 12px;
   outline: none !important;
 }
 
 .listPropertyBtn:hover {
   background-color: #be1a40 !important;
-  color: #fff !important;
   transform: translateY(-1px);
 }
 
-.listPropertyBtn:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* Mobile Fix */
+/* Responsive */
 @media (max-width: 991px) {
   .navbar-custom .nav-link {
-    padding: 0.5rem 0;
+    padding: 0.5rem 1rem !important;
+    font-size: 15px;
   }
 
   .listPropertyBtn {
     margin-top: 10px;
+    width: 100%;
   }
 }
