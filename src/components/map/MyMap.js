@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
 const MyMap = () => {
   return (
     <section className="map-section">
-      <h2 className="map-heading">Live Map</h2>
+     
       <div className="map-wrapper" aria-label="Interactive map">
         <MapContainer 
           center={[39.0, 35.0]} 

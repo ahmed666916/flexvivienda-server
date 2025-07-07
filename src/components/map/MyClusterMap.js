@@ -7,7 +7,6 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import L from 'leaflet';
 import './MapStyles.css';
 
-// Leaflet marker icon fix
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -19,7 +18,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-// Coordinates map
 const cityCoordinates = {
   'Beyoğlu, Istanbul': [41.0369, 28.9760],
   'Ortaköy, Istanbul': [41.0431, 29.0222],
@@ -68,7 +66,7 @@ const defaultProperties = [
   },
 ];
 
-const MyClusterMap = ({ properties = defaultProperties, onLoad }) => {
+const MyClusterMap = ({ properties = defaultProperties, onLoad, showHeading = true }) => {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
@@ -82,16 +80,18 @@ const MyClusterMap = ({ properties = defaultProperties, onLoad }) => {
   }, [map, onLoad]);
 
   return (
-    <section className="section-block">
-      <center>
-        <h2 className="heading">
-          <span className="heading-primary">Live</span>{' '}
-          <span className="heading-secondary">Map</span>
-        </h2>
-        <p className="heading-subtext">Explore our property distribution across Turkey</p>
-      </center>
+    <section className={`section-block ${!showHeading ? 'listing-map-wrapper' : ''}`}>
+      {showHeading && (
+        <center>
+          <h2 className="heading">
+            <span className="heading-primary">Live</span>{' '}
+            <span className="heading-secondary">Map</span>
+          </h2>
+          <p className="heading-subtext">Explore our property distribution across Turkey</p>
+        </center>
+      )}
 
-      <div className="map-wrapper">
+      <div className={`map-wrapper ${!showHeading ? 'map-no-heading' : ''}`}>
         <div style={{ height: '500px', width: '100%' }}>
           <MapContainer
             center={[41.0151, 28.9795]}

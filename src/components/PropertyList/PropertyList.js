@@ -148,7 +148,7 @@ const PropertyList = (props) => {
       {props.maps === "1" && (
         <>
           <br />
-          <CMap />
+          <CMap properties={properties} showHeading={props.showHeading === "1"} />
         </>
       )}
       <br />
