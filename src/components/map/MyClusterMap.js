@@ -88,7 +88,7 @@ const MyClusterMap = ({ properties = defaultProperties, onLoad }) => {
           <span className="heading-primary">Live</span>{' '}
           <span className="heading-secondary">Map</span>
         </h2>
-        <p className="heading-subtext">Explore our property distribution across Istanbul</p>
+        <p className="heading-subtext">Explore our property distribution across Turkey</p>
       </center>
 
       <div className="map-wrapper">

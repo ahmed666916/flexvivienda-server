@@ -28,6 +28,7 @@
 }
 
 .section-block:first-of-type {
+  padding-top: 20px;
   margin-top: 10px; /* REDUCED */
 }
 
