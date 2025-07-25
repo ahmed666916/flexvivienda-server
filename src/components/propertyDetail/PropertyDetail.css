@@ -352,7 +352,7 @@
 }
 
 .property-cancellation {
-  padding: 20px;
+  padding: 20px 0;
   background-color: #fff;
   border-radius: 8px;
   margin: 20px 0;
@@ -361,7 +361,6 @@
 .property-cancellation h2 {
   color: #F22048;
   margin-bottom: 10px;
-  padding-left: 5px;
 }
 
 .property-cancellation ul {
@@ -395,7 +394,7 @@
 }
 
 .property-neighborhood {
-  padding: 20px;
+  padding: 20px 0;
   background-color: #fff;
   border-radius: 8px;
   margin: 30px 0;
@@ -404,7 +403,6 @@
 .property-neighborhood h2 {
   color: #F22048;
   margin-bottom: 10px;
-  padding-left: 5px;
 }
 
 .property-neighborhood p {
@@ -569,8 +567,9 @@
 .property-cancellation h2,
 .property-neighborhood h2 {
   font-size: 2rem;
-  margin-bottom: 15px;
+  margin: 0 0 15px 0; /* Remove left margin */
   color: #222;
+  padding-left: 0;     /* Remove any inherited padding */
 }
 
 .info-grid {
