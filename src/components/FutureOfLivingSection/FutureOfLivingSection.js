@@ -25,11 +25,15 @@ const features = [
 ];
 
 const FutureOfLivingSection = () => (
-  <section className="future-living-section">
-    <h2>Welcome to the future of living</h2>
-    <p className="subtitle">
-      Find the peace of mind, flexibility, and confidence to start your latest adventure — a new work gig, a home in between leases, or travel fever — with the ease and comfort of a modern home.
-    </p>
+  <section className="future-living-section section-block">
+    <div className="heading-container future-of-living">
+      <h2 className="heading">
+        <span className="red">Welcome</span> <span className="black">to the future of living</span>
+      </h2>
+      <p className="heading-subtext">
+        Find the peace of mind, flexibility, and confidence to start your latest adventure — a new work gig, a home in between leases, or travel fever — with the ease and comfort of a modern home.
+      </p>
+    </div>
     <div className="feature-grid">
       {features.map((feature, index) => (
         <div className="feature-card" key={index}>

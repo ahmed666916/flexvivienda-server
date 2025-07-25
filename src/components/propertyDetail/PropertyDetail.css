@@ -1,20 +1,13 @@
 .property-title-detail {
-  font-size: 36px;
-  font-weight: 700;
-  color: #F22048;
-  margin-bottom: 5px;
+ font-size: 36px;
+  font-weight: 800;
+  color: #1f2937; /* Dark gray-blue for premium look */
+  margin-bottom: 6px;
   line-height: 1.2;
-  padding: 20px;
-    margin-left: 5px;
+  font-family: 'Inter', sans-serif;
 }
 
-.property-location {
-  font-size: 16px;
-  color: #6b7280;
-  margin-bottom: 20px;
-  margin-left: 25px;
-  padding-bottom: 20px;
-}
+
 
 .property-description {
   background-color: #fff;
@@ -500,15 +493,22 @@
 }
 
 .property-title {
-  font-size: 32px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-size: 62px;
+  font-weight: 900;
+  color: #c8102e; /* Strong deep red */
+  margin-bottom: 8px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  font-family: 'Inter', sans-serif;
 }
 
 .property-location {
-  color: #777;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #6b7280; /* Subtle gray */
   margin-bottom: 30px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.2px;
 }
 
 .gallery-section {
@@ -568,7 +568,7 @@
 .property-info h2,
 .property-cancellation h2,
 .property-neighborhood h2 {
-  font-size: 22px;
+  font-size: 2rem;
   margin-bottom: 15px;
   color: #222;
 }
