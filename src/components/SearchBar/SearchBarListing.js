@@ -31,6 +31,10 @@ const SearchBar = ({ className = '' }) => {
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content enhanced-filter">
+          <button className="modal-close-button" onClick={toggleModal}>
+            &times;
+          </button>
+          
             <div className="modal-body">
               <h2>Filters</h2>
 

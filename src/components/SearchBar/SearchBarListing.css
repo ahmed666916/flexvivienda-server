@@ -436,3 +436,23 @@ input[type="radio"]:checked::before {
   margin-bottom: 1.8rem;
 }
 
+.modal-close-button {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #6b7280; /* Tailwind's gray-500 */
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.modal-close-button:hover {
+  color: #f43f5e; /* Your primary accent color */
+}
+
+
