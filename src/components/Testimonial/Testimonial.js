@@ -36,7 +36,13 @@ const getSourceLogo = (source) => {
 const Testimonials = () => {
   return (
     <section className="testimonials">
-      <h2>Konuklarımızdan Missafir Yorumları</h2>
+      <h2 className="heading">
+        <span className="heading-black">Konuklarımızdan</span>{' '}
+        <span className="heading-red">Missafir Yorumları</span>
+      </h2>
+      <p className="heading-subtext">Gerçek kullanıcı deneyimlerine göz atın</p>
+
+
       <div className="testimonial-cards">
         {testimonials.map((testimonial) => (
           <div

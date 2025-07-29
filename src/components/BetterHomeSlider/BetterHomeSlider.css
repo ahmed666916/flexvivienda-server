@@ -3,10 +3,16 @@
   background: #fff;
   text-align: center;
 }
+.heading-black {
+  color: #000;
+}
 
-.slider-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+.heading-red {
+  color: #ef3b5c;
+}
+
+.slider-section .heading-subtext {
+  margin-bottom: 2rem;
 }
 
 .slider {

@@ -1,4 +1,11 @@
 
+.heading-black {
+  color: #000;
+}
+
+.heading-red {
+  color: #ef3b5c; /* Matches Missafir style */
+}
 
 .blog-container::-webkit-scrollbar {
   display: none;

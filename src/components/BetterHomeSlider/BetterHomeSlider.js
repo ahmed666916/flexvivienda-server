@@ -31,7 +31,12 @@ const BetterHomeSlider = () => {
 
   return (
     <section className="slider-section">
-      <h2>Home, but better</h2>
+      <h2 className="heading">
+  <span className="heading-black">Home,</span> <span className="heading-red">but better</span>
+  </h2>
+
+      <p className="heading-subtext">Where comfort meets smart living</p>
+
       <div className="slider">
         <button className="nav left" onClick={prevSlide}> &#10094;</button>
         <div
