@@ -1,5 +1,4 @@
 .slider-section {
-  padding: 4rem 0;
   background: #fff;
   text-align: center;
 }
@@ -12,7 +11,7 @@
 }
 
 .slider-section .heading-subtext {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .slider {

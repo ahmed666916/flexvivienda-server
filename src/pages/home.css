@@ -4,11 +4,11 @@
   padding: 20px;
 }
 
-
 .featured-section {
   margin-top: 80px; 
 }
 
+/* WhatsApp floating button */
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
@@ -30,11 +30,12 @@
   height: 48px;
 }
 
-/* Consistent section spacing */
+/* ✅ Consistent section spacing */
 .section-block {
-  padding: 80px 0; /* Apply uniform top and bottom spacing */
-  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 80px;
   max-width: 1280px;
+  margin: 0 auto;
   padding-left: 16px;
   padding-right: 16px;
 }
@@ -52,27 +53,32 @@
   margin-bottom: 20px;
 }
 
-/* Light background block for contrast */
+/* ✅ Optional background for specific section (no padding override) */
 .home-property-section {
   background-color: #f9fafb;
-  padding: 60px 0;
 }
 
-.city-explorer,
-.future-of-living,
-.experience-slider,
-.testimonial-section,
-.trust-section,
-.blog-section {
-  padding: 60px 0;
-}
-
+/* ✅ Divider if needed */
 .section-divider {
   height: 1px;
   background: #e5e7eb;
   margin: 60px 0;
 }
 
-.trust-wrapper {
-  padding: 60px 0;
+/* Optional override for testimonial/trust/blog if spacing feels off */
+.testimonial-section,
+.trust-wrapper,
+.blog-section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/* Spacing below headings */
+.section-block h2.heading {
+  margin-bottom: 10px;
+}
+
+.section-block .heading-subtext {
+  margin-top: 4px;
+  margin-bottom: 24px;
 }
