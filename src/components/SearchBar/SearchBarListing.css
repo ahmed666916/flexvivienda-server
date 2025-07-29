@@ -244,29 +244,35 @@ input::placeholder {
 .counter-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: #f9f9f9;
+  gap: 0.8rem;
+  background: #f9fafb;
   padding: 0.6rem 1rem;
   border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
 }
 
 .counter-item button {
   background: #f43f5e;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 0.4rem 0.7rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 6px;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 .counter-item button:hover {
   background-color: #e11d48;
 }
 
+
 .counter-icon {
   color: #f43f5e;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 /* === Chip Button (filters) === */
@@ -299,30 +305,34 @@ input::placeholder {
   width: 100%;
   height: 6px;
   appearance: none;
-  background: #f43f5e;
+  background: #e5e7eb; /* Lighter grey track for contrast */
   border-radius: 10px;
   outline: none;
   margin-top: 10px;
+  position: relative;
 }
 
 .price-range-slider::-webkit-slider-thumb {
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: white;
-  border: 3px solid #f43f5e;
+  background: #f43f5e;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #f43f5e;
   cursor: pointer;
 }
 
 .price-range-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: white;
-  border: 3px solid #f43f5e;
+  background: #f43f5e;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px #f43f5e;
   cursor: pointer;
 }
+
 
 .price-display {
   text-align: right;
@@ -351,3 +361,78 @@ input::placeholder {
     width: 100%;
   }
 }
+
+.modal-content h3,
+.filter-section label {
+  color: #1f2937;
+}
+
+.modal-content,
+.modal-content * {
+  background-color: #ffffff !important;
+}
+
+.enhanced-filter {
+  background-color: #ffffff !important;
+}
+
+.modal-overlay .modal-content {
+  background-color: #ffffff !important;
+}
+
+
+/* === Fix for Price Range Circle (Radio Button Lookalike) === */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f43f5e;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  background-color: white;
+}
+
+input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  background-color: #f43f5e;
+  border-radius: 50%;
+}
+
+/* === Ensure slider labels are visible === */
+.price-display {
+  color: #1f2937;
+  font-weight: 500;
+}
+
+/* === Counter labels fix (Rooms, Beds, Baths) === */
+.counter-label {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+/* === Apply uniform background for all inputs/selects inside modal === */
+.modal-content input,
+.modal-content select {
+  background-color: white;
+  color: #1f2937;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.95rem;
+}
+
+/* === Increase spacing in modal layout === */
+.modal-content .filter-section {
+  margin-bottom: 1.8rem;
+}
+
