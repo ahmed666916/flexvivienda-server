@@ -14,64 +14,45 @@ const Signup = () => {
   }, []);
 
   return (
-    <div className="signup-page">
-      <div className="signup-container">
+    <div className="signup-wrapper">
+      <div className="signup-left">
         <form className="signup-form">
-          <h2>Sign Up</h2>
+          <h2>Sign up now</h2>
 
-          <div className="input-group">
-            <input type="text" id="fullname" required />
-            <label htmlFor="fullname">Full Name</label>
+          <div className="form-row">
+            <input type="text" placeholder="First name" required />
+            <input type="text" placeholder="Last name" required />
           </div>
 
-          <div className="input-group">
-            <input type="email" id="email" required />
-            <label htmlFor="email">Email</label>
+          <div className="form-group">
+            <input type="email" placeholder="Email address" required />
           </div>
 
-          <div className="input-group phone-wrapper">
-          <div className="phone-input">
-            <div className="country-code" onClick={() => setShowCodes(!showCodes)}>
-              {countryCode}
+          <div className="form-group">
+            <input type="password" placeholder="Password" required />
+          </div>
+
+          <div className="checkbox-row">
+            <input type="checkbox" id="newsletter" />
+            <label htmlFor="newsletter">Subscribe to our newsletter</label>
+          </div>
+
+          <button type="submit" className="btn-signup">Sign Up</button>
+
+          <div className="social-signup">
+            <p>or sign up with:</p>
+            <div className="icons">
+              <i className="fab fa-facebook-f"></i>
+              <i className="fab fa-google"></i>
+              <i className="fab fa-twitter"></i>
+              <i className="fab fa-github"></i>
             </div>
-            <input type="tel" id="phone" required placeholder=" " />
-            {showCodes && (
-              <div className="country-dropdown">
-                {countries.map((country, index) => (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      setCountryCode(country.dial_code);
-                      setShowCodes(false);
-                    }}
-                  >
-                    {country.flag} {country.name} ({country.dial_code})
-                  </div>
-                ))}
-              </div>
-            )}
-            <label htmlFor="phone" className="phone-label">Phone Number</label>
-          </div>
-        </div>
-
-
-
-          <div className="input-group">
-            <input type="password" id="password" required />
-            <label htmlFor="password">Password</label>
-          </div>
-
-          <div className="input-group">
-            <input type="password" id="confirm-password" required />
-            <label htmlFor="confirm-password">Confirm Password</label>
-          </div>
-
-          <button type="submit" className="btn-signup">Create Account</button>
-
-          <div className="login-link">
-            Already have an account? <a href="/login">Login</a>
           </div>
         </form>
+      </div>
+
+      <div className="signup-right">
+        <img src="/Images/phone.jpg" alt="Signup Visual" />
       </div>
     </div>
   );
