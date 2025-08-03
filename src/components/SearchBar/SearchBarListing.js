@@ -3,7 +3,7 @@ import './SearchBarListing.css';
 import { Link } from 'react-router-dom';
 import DateRangeDropdown from './DateRangeDropdown';
 import { FaFilter, FaSearch } from 'react-icons/fa';
-import FilterModal from '../FilterModal/FilterModal'; // 👈 Import the new FilterModal
+import FilterModal from '../FilterModal/FilterModal'; 
 
 const cities = [
   'Istanbul', 'Ankara', 'Izmir', 'Antalya', 'Bursa', 'Adana',
