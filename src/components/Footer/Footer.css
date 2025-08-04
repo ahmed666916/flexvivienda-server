@@ -1,8 +1,10 @@
-.footer {
-  background-color: #0a0a0a;
+footer {
+  background: linear-gradient(rgba(239, 59, 92, 0.88), rgba(239, 59, 92, 0.88));
+  backdrop-filter: blur(2px);
   color: #fff;
   padding: 2rem 1rem;
   font-family: 'Poppins', sans-serif;
+  position: relative;
 }
 
 .footer-container {
@@ -21,12 +23,13 @@
 }
 
 .footer-logo {
-  width: 140px;
+  width: 160px;
   margin-bottom: 1rem;
+  filter: brightness(0) invert(1); /* Makes dark logos white-ish */
 }
 
 .footer-left p {
-  color: #ccc;
+  color: #ffeef2;
   line-height: 1.6;
   max-width: 300px;
 }
@@ -35,6 +38,7 @@
 .footer-right h4 {
   margin-bottom: 1rem;
   font-size: 1.1rem;
+  color: #fff;
 }
 
 .footer-links {
@@ -54,7 +58,7 @@
 }
 
 .footer a:hover {
-  color: #f22048;
+  color: #ffd8e4;
 }
 
 .footer-right p {
@@ -62,7 +66,7 @@
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 0.4rem;
-  color: #ccc;
+  color: #ffeef2;
 }
 
 .footer-socials {
@@ -72,13 +76,13 @@
 }
 
 .footer-socials a {
-  color: #ccc;
+  color: #ffeef2;
   font-size: 1.3rem;
   transition: color 0.3s;
 }
 
 .footer-socials a:hover {
-  color: #f22048;
+  color: #fff;
 }
 
 .whatsapp-btn {
@@ -102,9 +106,9 @@
 
 .footer-bottom {
   text-align: center;
-  color: #aaa;
+  color: #ffeef2;
   margin-top: 2rem;
-  border-top: 1px solid #333;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
   padding-top: 1rem;
   font-size: 0.85rem;
 }

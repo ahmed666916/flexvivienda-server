@@ -31,6 +31,7 @@ const BetterHomeSlider = () => {
 
   return (
     <section className="slider-section">
+    
       <h2 className="heading">
   <span className="heading-black">Home,</span> <span className="heading-red">but better</span>
   </h2>
