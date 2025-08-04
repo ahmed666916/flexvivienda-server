@@ -12,16 +12,17 @@ import {
 
 const Footer = () => (
   <footer
-    className="footer"
-    style={{
-      backgroundImage: 'url("/Images/logo-bg.png")',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-      position: 'relative',
-      zIndex: 0,
-    }}
-  >
+  className="footer"
+  style={{
+    backgroundImage: 'url("/Images/logo-bg.png")',
+    backgroundSize: '85%', // Smaller background image
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    position: 'relative',
+    zIndex: 0,
+  }}
+>
+
     {/* Overlay tint */}
     <div className="footer-overlay" />
 
@@ -31,13 +32,20 @@ const Footer = () => (
         <p>Empowering modern stays with smart hospitality solutions.</p>
       </div>
 
-      {/* Center: Logo + Overlay Text */}
       <div className="footer-center footer-logo-block">
-        <div className="footer-logo-overlay">
-          <img src="/Images/logo.png" alt="Flex Logo" className="footer-bg-logo" />
-          <p className="footer-overlay-text">Smart | Connected | Traditional | Modern</p>
-        </div>
-      </div>
+  <div className="footer-nav-links">
+    <Link to="/" className="footer-link">Home</Link>
+    <Link to="/explore" className="footer-link">Explore</Link>
+    <Link to="/blog" className="footer-link">Blog</Link>
+    <Link to="/contact" className="footer-link">Contact</Link>
+    <Link to="/about" className="footer-link">About Us</Link>
+  </div>
+
+  <div className="footer-logo-overlay">
+    <img src="/Images/logo.png" alt="Flex Logo" className="footer-bg-logo" />
+  </div>
+</div>
+
 
       {/* Right: Contact Info */}
       <div className="footer-right">

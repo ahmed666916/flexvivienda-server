@@ -6,13 +6,24 @@
   position: relative;
 }
 
-.footer-overlay {
+/* Pink overlay + background dimming */
+.footer::before {
+  content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(239, 59, 92, 0.25); /* light pink tint */
+  background-color: rgba(239, 59, 92, 0.25); /* light pink */
   z-index: 1;
   pointer-events: none;
 }
+
+.footer-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25); /* was 0.15 before */
+  z-index: 1;
+  pointer-events: none;
+}
+
 
 .footer-container {
   display: flex;
@@ -54,13 +65,14 @@
 
 .footer-bg-logo {
   width: 100%;
-  opacity: 0.08;
+  opacity: 0.06; /* was 0.08 before */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
+
 
 .footer-overlay-text {
   position: relative;
@@ -69,7 +81,16 @@
   font-weight: 600;
   z-index: 1;
   white-space: nowrap;
-  margin-top: 120px; /* Push text below logo */
+  margin-top: 120px;
+}
+
+/* Pushing contact section more to the right */
+.footer-right {
+  padding-right: 4rem;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
 }
 
 .footer-right h4 {
@@ -152,4 +173,33 @@
   .footer-overlay-text {
     margin-top: 100px;
   }
+
+  .footer-right {
+    padding-right: 0;
+    text-align: left;
+    align-items: flex-start;
+  }
 }
+
+.footer-nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  z-index: 2;
+  position: relative;
+}
+
+.footer-link {
+  color: #ffeef2;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
