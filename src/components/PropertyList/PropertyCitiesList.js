@@ -34,7 +34,7 @@ const cities = [
   }
 ];
 
-const PropertyCitiesList = (props) => {
+const PropertyCitiesList = () => {
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -82,12 +82,18 @@ const PropertyCitiesList = (props) => {
   }, []);
 
   return (
-    <>
-      <br />
-      <center><h2 className='heading'>{props.title}</h2></center>
-      <br />
-      
-      <br />
+    <div className="city-section-wrapper">
+      <div className="section-header">
+        <h2 className="heading">
+          <span className="heading-primary">Explore</span>{' '}
+          <span className="heading-secondary">Properties in Cities</span>
+        </h2>
+        <p className="heading-subtext">
+          Discover handpicked short-term rental homes in Turkey's most popular cities
+        </p>
+      </div>
+
+
       <div className="listing-container" ref={scrollRef}>
         {cities.map((city) => (
           <div key={city.id} className="property-card">
@@ -99,8 +105,13 @@ const PropertyCitiesList = (props) => {
           </div>
         ))}
       </div>
-      <center><span className='links'><a href="/listing">See All Listings</a></span></center>
-    </>
+
+      <center>
+        <span className="links">
+          <a href="/listing">See All Listings</a>
+        </span>
+      </center>
+    </div>
   );
 };
 

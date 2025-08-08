@@ -1,12 +1,19 @@
 .slider-section {
-  padding: 4rem 0;
   background: #fff;
   text-align: center;
 }
 
-.slider-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+
+.heading-black {
+  color: #000;
+}
+
+.heading-red {
+  color: #ef3b5c;
+}
+
+.slider-section .heading-subtext {
+  margin-bottom: 1rem;
 }
 
 .slider {

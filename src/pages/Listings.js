@@ -91,7 +91,7 @@ const Listings = () => {
         </div>
 
         <div className="right-section">
-          <ClusterMap properties={properties} />
+          <ClusterMap properties={properties} showHeading={false} />
         </div>
       </div>
     </div>

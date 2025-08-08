@@ -131,13 +131,33 @@
   letter-spacing: 0.5px;
 }
 
-/* Heading */
 .heading {
-  color: #E11D48;
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
+  text-align: center;
 }
+
+.heading-primary {
+  color: #E11D48;
+}
+
+.heading-secondary {
+  color: #1f2937;
+}
+
+.heading-subtext {
+  font-size: 15px;
+  color: #6b7280;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  max-width: 650px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
 
 /* "See All Listings" link */
 .links a {
@@ -206,4 +226,16 @@
   font-size: 20px;
   margin-bottom: 5px;
 }
+
+.section-heading-wrapper {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+
 

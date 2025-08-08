@@ -12,86 +12,39 @@ body, html, #root {
 
 .split-container {
   display: flex;
-  height: 100vh;
-  width: 100vw;
-  gap: 8px;
-  background-color: #f5f5f5;
-  padding: 0 4px;
+  flex-direction: row;
+  height: 80vh; /* Full viewport height */
+  width: 100%;
+  gap: 12px;
+  padding: 0 16px;
+  margin-top: 40px;
+  margin-bottom: 60px;
 }
 
 .split-link {
   flex: 1;
-  text-decoration: none;
+  display: block;
   height: 100%;
 }
 
 .split {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+  width: 100%;
   height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.left {
-  background-color: #5baaf8;
-}
-
-.right {
-  background-color: #3daa57;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .hoverable:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  filter: brightness(1.05);
+  transform: scale(1.03);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
 }
 
-.divider {
-  width: 8px;
-  background-color: transparent;
-}
-
-.content {
-  text-align: center;
-  max-width: 80%;
-}
-
-.icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-h1 {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
-}
-
-p {
-  font-size: 1.1rem;
-  margin-bottom: 1.5rem;
-}
-
-.split-button {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  background-color: white;
-  color: #333;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.split-button:hover {
-  background-color: #e0e0e0;
-  transform: scale(1.05);
-}
-
-
-/* Remove outline and blue link focus effect */
+/* Remove blue highlight */
 .split-container a {
   text-decoration: none;
   color: inherit;
@@ -104,7 +57,57 @@ p {
   box-shadow: none;
 }
 
-/* Optional: prevent blue highlight on mobile tap */
 .split-link {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .split-container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+    gap: 16px;
+  }
+
+  .split {
+    height: 50vh;
+  }
+}
+
+.overlay-content {
+  position: absolute;
+  z-index: 2;
+  color: white;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.overlay-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.overlay-content h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.overlay-content p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .split-container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+    gap: 16px;
+    margin-bottom: 80px; /* Optional for mobile */
+  }
+}
+

@@ -4,18 +4,37 @@
   background-color: #fff;
 }
 
-.future-living-section h2 {
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 0.5rem;
+/* Shared heading container and style (reused across sections) */
+.heading-container {
+  background-color: #f9fafb;
+  padding: 40px 16px 30px;
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.future-living-section .subtitle {
-  max-width: 800px;
-  margin: 0 auto 3rem;
-  font-size: 1.1rem;
-  color: #666;
+.heading {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.heading span.red {
+  color: #dc2626;
+}
+
+.heading span.black {
+  color: #111827;
+}
+
+.heading-subtext {
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0 auto;
+  max-width: 750px;
   line-height: 1.6;
 }
 
@@ -48,7 +67,6 @@
   transform: scale(1.02);
 }
 
-
 .feature-card h3 {
   font-size: 1.15rem;
   font-weight: 600;
@@ -62,7 +80,7 @@
   line-height: 1.4;
 }
 
-/* Responsive */
+/* Responsive layout */
 @media (max-width: 768px) {
   .feature-grid {
     grid-template-columns: 1fr;

@@ -20,7 +20,6 @@ const DateRangeDropdown = ({ onChange }) => {
   const inputRef = useRef(null);
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
-  // Close on click outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -35,12 +34,11 @@ const DateRangeDropdown = ({ onChange }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Calculate position of popup on open
   useEffect(() => {
     if (open && inputRef.current) {
       const rect = inputRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.bottom + window.scrollY + 8, // 8px gap below input
+        top: rect.bottom + window.scrollY + 8,
         left: rect.left + window.scrollX,
         width: rect.width,
       });
@@ -54,35 +52,35 @@ const DateRangeDropdown = ({ onChange }) => {
     });
 
   const popup = (
-  <div
-    id="date-range-popup"
-    className="date-picker-popup"
-    style={{
-      position: 'absolute',
-      top: position.top,
-      left: position.left,
-      minWidth: 320,          // set a min-width instead of fixed width
-      zIndex: 9999,
-      backgroundColor: 'white',
-      borderRadius: '12px',
-      boxShadow: '0 8px 30px rgba(0, 0, 0, 0.15)',
-    }}
-  >
-    <DateRange
-      locale={enUS}
-      editableDateInputs={true}
-      onChange={(item) => {
-        setState([item.selection]);
-        onChange?.(item.selection);
+    <div
+      id="date-range-popup"
+      className="date-picker-popup"
+      style={{
+        position: 'absolute',
+        top: position.top,
+        left: position.left,
+        minWidth: 320,
+        zIndex: 9999,
+        backgroundColor: 'white',
+        borderRadius: '12px',
+        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.15)',
       }}
-      moveRangeOnFirstSelection={false}
-      ranges={state}
-      months={1}
-      direction="horizontal"
-      className="calendar-range"
-    />
-  </div>
-);
+    >
+      <DateRange
+        locale={enUS}
+        editableDateInputs={true}
+        onChange={(item) => {
+          setState([item.selection]);
+          onChange?.(item.selection);
+        }}
+        moveRangeOnFirstSelection={false}
+        ranges={state}
+        months={1}
+        direction="horizontal"
+        className="calendar-range"
+      />
+    </div>
+  );
 
   return (
     <>

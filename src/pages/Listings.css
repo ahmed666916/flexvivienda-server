@@ -26,11 +26,28 @@
 }
 
 .right-section {
-  height: auto;
-  border-radius: 8px;
+  position: sticky;
+  top: 100px; /* distance from top of viewport */
+  height: calc(100vh - 120px); /* Adjust if needed */
   overflow: hidden;
-  border: 1px solid #ddd;
 }
+
+
+.right-section .section-block {
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100%;
+}
+
+.right-section .map-wrapper {
+  height: 100%;
+}
+
+.right-section .map-wrapper > div {
+  height: 100%;
+}
+
+
 
 /* Fix buttons */
 .filter-button {

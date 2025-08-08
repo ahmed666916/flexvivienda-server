@@ -1,37 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './LoginForm.css';
 
 const LoginForm = () => {
   return (
-    <div className="login-page">
-      <div className="login-container">
-        {/* Logo */}
-       
+    <div className="login-wrapper">
+      <div className="login-left">
+        <img src="/Images/lifestyle.jpg" alt="Login Visual" />
+      </div>
+      <div className="login-right">
+        <div className="form-box">
+          <div className="logo">🧱 <strong>Logo</strong></div>
+          <h2>Sign into your account</h2>
 
-        {/* Login Form */}
-        <form className="login-form">
-          <h2>Login</h2>
+          <form>
+            <div className="form-group">
+              <input type="email" placeholder="Email address" required />
+            </div>
 
-          <div className="input-group">
-            <input type="email" id="email" required />
-            <label htmlFor="email">Email</label>
-          </div>
+            <div className="form-group">
+              <input type="password" placeholder="Password" required />
+            </div>
 
-          <div className="input-group">
-            <input type="password" id="password" required />
-            <label htmlFor="password">Password</label>
-          </div>
+            <button type="submit" className="btn-login">LOGIN</button>
 
-          <div className="forgot-password">
-            <a href="/forgot-password">Forgot password?</a>
-          </div>
+            <div className="form-links">
+              <a href="/forgot-password">Forgot password?</a>
+              <p>
+                Don’t have an account? <a href="/signup">Register here</a>
+              </p>
+            </div>
 
-          <button type="submit" className="btn-login">Login</button>
-
-          <div className="signup-link">
-            Don't have an account? <a href="/signup">Sign up</a>
-          </div>
-        </form>
+            <div className="terms">
+              <a href="/terms">Terms of use</a>. <a href="/privacy">Privacy policy</a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

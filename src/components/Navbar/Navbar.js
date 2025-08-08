@@ -32,7 +32,7 @@ const CustomNavbar = () => {
             <Nav.Link as={Link} to="/contact">Contact Us</Nav.Link>
           </Nav>
 
-          <Nav className="align-items-center">
+          <Nav className="align-items-center ">
             <Nav.Link as={Link} to="/SplitPage">
               <Button className="listPropertyBtn">Become a Host / Invest</Button>
             </Nav.Link>

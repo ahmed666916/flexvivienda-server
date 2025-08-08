@@ -1,7 +1,14 @@
+.page-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .featured-section {
   margin-top: 80px; 
 }
 
+/* WhatsApp floating button */
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
@@ -22,3 +29,58 @@
   width: 48px;
   height: 48px;
 }
+
+/* ✅ Consistent section spacing */
+.section-block {
+  padding-top: 40px;
+  padding-bottom: 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.section-block:first-of-type {
+  padding-top: 40px;
+}
+
+.section-block h2.heading {
+  margin-bottom: 10px;
+}
+
+.section-block .heading-subtext {
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+/* ✅ Optional background for specific section (no padding override) */
+.home-property-section {
+  background-color: #f9fafb;
+}
+
+/* ✅ Divider if needed */
+.section-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 60px 0;
+}
+
+/* Optional override for testimonial/trust/blog if spacing feels off */
+.testimonial-section,
+.trust-wrapper,
+.blog-section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/* Spacing below headings */
+.section-block h2.heading {
+  margin-bottom: 10px;
+}
+
+.section-block .heading-subtext {
+  margin-top: 4px;
+  margin-bottom: 24px;
+}
+
+

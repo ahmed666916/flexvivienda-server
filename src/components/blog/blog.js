@@ -84,7 +84,15 @@ const Blog = () => {
 
   return (
     <>
-      <center><h2 className="blog-section-title">Latest Blog Posts</h2></center>
+      <center>
+      <center>
+        <h2 className="blog-section-title heading">
+          <span className="heading-black">Latest</span>{' '}
+          <span className="heading-red">Blog Posts</span>
+        </h2>
+      </center>
+
+      </center>
       <div className="blog-container" ref={scrollRef}>
         {blogs.map((blog) => (
           <Link to="/blog-detail" key={blog.id} className="blog-card">

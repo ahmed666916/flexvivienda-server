@@ -1,134 +1,135 @@
-/* Full page background */
-.login-page {
-  min-height: 100vh;
-  background: #f9f9f9;
+.login-wrapper {
   display: flex;
-  justify-content: center;
+  height: 100vh;
+  background-color: #8f5d66; /* outer background */
+}
+
+.login-left {
+  flex: 1;
+  display: flex;
   align-items: center;
-  font-family: 'Arial', sans-serif;
+  justify-content: center;
+  background-color: #8f5d66;
   padding: 2rem;
 }
 
-/* Center container */
-.login-container {
-  background: white;
-  padding: 3rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+.login-left img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.login-right {
+  flex: 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  padding: 2rem;
+}
+
+.form-box {
   width: 100%;
-  max-width: 400px;
+  max-width: 360px;
   text-align: center;
 }
 
-/* Logo */
-.logo img {
-  width: 120px;
-  margin-bottom: 2rem;
-}
-
-/* Form heading */
-.login-form h2 {
-  margin-bottom: 2rem;
+.logo {
+  font-size: 2rem;
+  margin-bottom: 1rem;
   color: #F22048;
-  font-weight: 700;
 }
 
-/* Input group for floating labels */
-.input-group {
-  position: relative;
-  margin-bottom: 1.8rem;
+h2 {
+  font-weight: 500;
+  margin-bottom: 2rem;
+  color: #111;
 }
 
-.input-group input {
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input {
   width: 100%;
-  padding: 12px 12px 12px 12px;
+  padding: 12px 14px;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background: transparent;
   outline: none;
 }
 
-.input-group input:focus {
-  border-color: #F22048;
+.form-group input:focus {
+  border-color: #333;
 }
 
-/* Floating label style */
-.input-group label {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  color: #999;
-  pointer-events: none;
-  transform: translateY(-50%);
-  transition: 0.3s ease all;
-  background: white;
-  padding: 0 5px;
-}
-
-/* When input is focused or has value, move label up */
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-  top: -8px;
-  left: 8px;
-  font-size: 0.75rem;
-  color: #F22048;
-}
-
-/* Forgot password */
-.forgot-password {
-  text-align: right;
-  margin-bottom: 2rem;
-}
-
-.forgot-password a {
-  color: #F22048;
-  font-size: 0.9rem;
-  text-decoration: none;
-}
-
-.forgot-password a:hover {
-  text-decoration: underline;
-}
-
-/* Login button */
 .btn-login {
-  background-color: #F22048;
-  border: none;
-  color: white;
-  padding: 12px 0;
   width: 100%;
+  padding: 12px;
+  background-color: #2c2523;
+  color: white;
+  font-weight: bold;
+  border: none;
   border-radius: 6px;
-  font-size: 1.1rem;
-  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: background 0.3s ease;
 }
 
 .btn-login:hover {
-  background-color: #d81b3f;
+  background-color: #1e1a19;
 }
 
-/* Signup link */
-.signup-link {
+.form-links {
   margin-top: 1.5rem;
   font-size: 0.9rem;
-  color: #333;
+  color: #555;
 }
 
-.signup-link a {
-  color: #F22048;
+.form-links a {
+  color: #2734ce;
   text-decoration: none;
-  font-weight: 600;
 }
 
-.signup-link a:hover {
+.form-links a:hover {
   text-decoration: underline;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .login-container {
+.terms {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.terms a {
+  color: #888;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+
+  .login-left,
+  .login-right {
+    flex: unset;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
     padding: 2rem 1rem;
   }
 }

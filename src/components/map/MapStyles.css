@@ -1,14 +1,28 @@
 .map-wrapper {
   max-width: 1200px;
   width: 100%;
-  margin: 2rem auto;          /* center with vertical space */
+  margin: 0 auto 4rem; /* top margin removed */
   border: 2px solid #d1d5db;
   border-radius: 16px;
-  margin-top: 0;
-  margin-bottom: 4rem;
   overflow: hidden;
   background-color: white;
 }
+
+/* Used for map on listing page only */
+.map-wrapper.map-no-heading {
+  margin-top: 0;
+  border: none;
+  background-color: transparent;
+  padding-top: 0;
+}
+
+/* Optional: tighter spacing on listing page */
+.listing-map-wrapper {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+
 
 .marker-cluster-small,
 .marker-cluster-medium,
@@ -24,6 +38,7 @@
   font-weight: 700;
   color: #be123c;
   text-align: center;
-  margin: 2rem 0 0.5rem; /* reduced bottom margin from 1.5rem */
+  margin: 1.5rem 0 1rem; /* Adjusted spacing */
 }
+
 

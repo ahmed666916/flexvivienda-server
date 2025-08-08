@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import './PropertyList.css';
 import CMap from '../map/MyClusterMap';
 import {
-  FaWater, FaUmbrellaBeach, FaTree, FaDog, FaSpa, FaHeart
+  FaWater, FaUmbrellaBeach, FaTree, FaDog, FaSpa, FaHeart,
+  FaBuilding, FaCity, FaHotTub
 } from 'react-icons/fa';
 
 const filters = [
@@ -13,6 +14,9 @@ const filters = [
   { name: 'Garden', icon: <FaTree /> },
   { name: 'Close to Beach', icon: <FaUmbrellaBeach /> },
   { name: 'Pet friendly', icon: <FaDog /> },
+  { name: 'Residence', icon: <FaBuilding /> },
+  { name: 'Central', icon: <FaCity /> },
+  { name: 'Jacuzzi', icon: <FaHotTub /> },
 ];
 
 const properties = [
@@ -27,7 +31,7 @@ const properties = [
     bathrooms: 1,
     size: 75,
     persons: 4,
-    features: ['Sea view', 'Pet friendly'],
+    features: ['Sea view', 'Pet friendly', 'Central', 'Jacuzzi'],
   },
   {
     id: 2,
@@ -40,7 +44,7 @@ const properties = [
     bathrooms: 2,
     size: 200,
     persons: 4,
-    features: ['Garden', 'Swimming Pool'],
+    features: ['Garden', 'Swimming Pool', 'Residence'],
   },
   {
     id: 3,
@@ -53,46 +57,47 @@ const properties = [
     bathrooms: 1,
     size: 45,
     persons: 4,
-    features: ['Close to Beach'],
+    features: ['Close to Beach', 'Residence'],
   },
   {
     id: 4,
-    title: 'Modern Flat near Istiklal Street',
-    location: 'Beyoğlu, Istanbul',
-    price: '€120/night',
-    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
+    title: 'Sea View Apartment in Bakırköy',
+    location: 'Bakırköy, Istanbul',
+    price: '€150/night',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
     tag: 'Highest Rated',
-    bedrooms: 4,
+    bedrooms: 3,
     bathrooms: 2,
-    size: 200,
+    size: 110,
     persons: 4,
-    features: ['Sea view', 'Swimming Pool'],
+    features: ['Sea view', 'Swimming Pool', 'Jacuzzi'],
   },
   {
     id: 5,
-    title: 'Superb House in Ortaköy',
-    location: 'Ortaköy, Istanbul',
-    price: '€200/night',
-    image: 'https://duotax.com.au/wp-content/uploads/House.jpg',
-    tag: 'Highest Rated',
+    title: 'Luxury Central Flat',
+    location: 'Taksim, Istanbul',
+    price: '€250/night',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
+    tag: 'Luxury Stay',
     bedrooms: 2,
     bathrooms: 1,
-    size: 75,
+    size: 90,
     persons: 4,
-    features: ['Garden'],
+    features: ['Central', 'Pet friendly', 'Residence'],
   },
   {
     id: 6,
-    title: 'Cozy Studio in Kadıköy',
-    location: 'Kadıköy, Istanbul',
-    price: '€90/night',
-    image: 'https://www.synchrony.com/syfbank/images/hero-land-lord-life-1140x570.jpg',
-    bedrooms: 4,
+    title: 'Stylish Retreat with Jacuzzi',
+    location: 'Şişli, Istanbul',
+    price: '€220/night',
+    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
+    tag: 'Hot Property',
+    bedrooms: 2,
     bathrooms: 2,
-    size: 200,
+    size: 120,
     persons: 4,
-    features: ['Pet friendly'],
-  },
+    features: ['Jacuzzi', 'Garden', 'Central'],
+  }
 ];
 
 const PropertyList = (props) => {
@@ -143,11 +148,19 @@ const PropertyList = (props) => {
       {props.maps === "1" && (
         <>
           <br />
-          <CMap />
+          <CMap properties={properties} showHeading={props.showHeading === "1"} />
         </>
       )}
       <br />
-      <center><h2 className='heading'>{props.title}</h2></center>
+      <center>
+        <h2 className="heading">
+          <span className="heading-primary">{props.title.split(' ')[0]}</span>{' '}
+          <span className="heading-secondary">{props.title.split(' ').slice(1).join(' ')}</span>
+        </h2>
+        <p className="heading-subtext">
+          We've curated the finest rental homes for your vacations, business trips, and a variety of other experiences.
+        </p>
+      </center>
       <br />
 
       {props.tabs === "1" && (
