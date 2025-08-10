@@ -1,29 +1,37 @@
 .footer {
+  position: relative;
   color: #fff;
   padding: 2rem 1rem;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
-  position: relative;
+
+  /* image comes from Footer.jsx inline style */
+  background-size: 85%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  z-index: 0;
 }
 
-/* Pink overlay + background dimming */
+/* Pink tint */
 .footer::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(239, 59, 92, 0.25); /* light pink */
+  background-color: rgba(239, 59, 92, 0.25);
   z-index: 1;
   pointer-events: none;
 }
 
-.footer-overlay {
+/* Dark dim overlay */
+.footer::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.25); /* was 0.15 before */
+  background-color: rgba(0, 0, 0, 0.25);
   z-index: 1;
   pointer-events: none;
 }
-
 
 .footer-container {
   display: flex;
@@ -45,7 +53,7 @@
 .footer-left p {
   color: #ffeef2;
   line-height: 1.6;
-  max-width: 300px;
+  max-width: 320px;
   margin: 0.6rem 0;
 }
 
@@ -65,7 +73,7 @@
 
 .footer-bg-logo {
   width: 100%;
-  opacity: 0.06; /* was 0.08 before */
+  opacity: 0.06;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -73,23 +81,11 @@
   pointer-events: none;
 }
 
-
-.footer-overlay-text {
-  position: relative;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  z-index: 1;
-  white-space: nowrap;
-  margin-top: 120px;
-}
-
-/* Pushing contact section more to the right */
 .footer-right {
   padding-right: 4rem;
-  align-items: flex-end;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   text-align: right;
 }
 
@@ -107,6 +103,16 @@
   color: #ffeef2;
 }
 
+.footer-mail,
+.footer-phone {
+  color: #ffeef2;
+  text-decoration: none;
+}
+.footer-mail:hover,
+.footer-phone:hover {
+  color: #fff;
+}
+
 .footer-socials {
   margin-top: 1rem;
   display: flex;
@@ -116,11 +122,13 @@
 .footer-socials a {
   color: #ffeef2;
   font-size: 1.3rem;
-  transition: color 0.3s;
+  transition: color 0.3s, transform 0.2s;
 }
-
-.footer-socials a:hover {
+.footer-socials a:hover,
+.footer-socials a:focus {
   color: #fff;
+  transform: translateY(-1px);
+  outline: none;
 }
 
 .whatsapp-btn {
@@ -136,12 +144,13 @@
   font-weight: 600;
   transition: background-color 0.3s ease;
 }
-
-.whatsapp-btn:hover {
+.whatsapp-btn:hover,
+.whatsapp-btn:focus {
   background-color: #1ebe5d;
-  color: #fff !important;
+  outline: none;
 }
 
+/* Bottom */
 .footer-bottom {
   text-align: center;
   color: #ffeef2;
@@ -153,34 +162,7 @@
   z-index: 2;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .footer-left,
-  .footer-center,
-  .footer-right {
-    flex: 1 1 100%;
-  }
-
-  .footer-socials {
-    justify-content: flex-start;
-  }
-
-  .footer-overlay-text {
-    margin-top: 100px;
-  }
-
-  .footer-right {
-    padding-right: 0;
-    text-align: left;
-    align-items: flex-start;
-  }
-}
-
+/* Nav */
 .footer-nav-links {
   display: flex;
   flex-wrap: wrap;
@@ -198,8 +180,26 @@
   font-size: 0.95rem;
   transition: color 0.3s ease;
 }
-
-.footer-link:hover {
+.footer-link:hover,
+.footer-link:focus {
   color: #ffffff;
+  outline: none;
 }
 
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+  .footer { background-size: 110%; }
+}
+
+@media (max-width: 768px) {
+  .footer-container { flex-direction: column; align-items: flex-start; }
+  .footer-left, .footer-center, .footer-right { flex: 1 1 100%; }
+  .footer-right { padding-right: 0; text-align: left; align-items: flex-start; }
+  .footer-socials { justify-content: flex-start; }
+  .footer { background-size: 160%; }
+}
+
+/* Respect reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
