@@ -19,6 +19,7 @@ import LongStay from './pages/longStay'
 import Invest from './pages/invest'
 import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ApiTest from './components/ApiTest';
 
 
 
@@ -28,6 +29,7 @@ function App() {
     <>
       <Router>
        <Navbar />
+       <ApiTest />  {/* temporary sanity check */}
 
         <Routes>
           <Route path="/" element={<Home />} />
