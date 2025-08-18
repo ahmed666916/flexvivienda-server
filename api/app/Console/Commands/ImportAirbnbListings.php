@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Facades\Schema;
+
 use App\Models\{City, Property, PropertyImage, Amenity, Category};
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -49,35 +51,47 @@ class ImportAirbnbListings extends Command
                     'country' => $it['country'] ?? 'Turkey',
                 ]);
 
-                // make a stable unique slug (avoids collision)
-                $base = Str::slug(($it['title'] ?? 'property').'-'.($it['id'] ?? Str::random(6)));
-                $slug = $base; $i = 1;
-                while (Property::where('slug', $slug)->exists()) {
-                    $slug = "{$base}-{$i}";
-                    $i++;
-                }
+              
 
-                $p = Property::updateOrCreate(
-                    ['slug' => $slug],
-                    [
-                        'city_id'         => $city->id,
-                        'title'           => $it['title'] ?? 'Untitled',
-                        'summary'         => $it['summary'] ?? null,
-                        'description'     => $it['description'] ?? null,
-                        'address'         => $it['address'] ?? null,
-                        'lat'             => $it['lat'] ?? null,
-                        'lng'             => $it['lng'] ?? null,
-                        'bedrooms'        => $it['bedrooms'] ?? null,
-                        'beds'            => $it['beds'] ?? null,
-                        'bathrooms'       => $it['bathrooms'] ?? null,
-                        'max_guests'      => $it['guests'] ?? null,
-                        'price_per_night' => $it['price'] ?? null,
-                        'is_featured'     => (bool)($it['is_featured'] ?? false),
-                        'listing_source'  => 'airbnb',
-                        'status'          => 'published',
-                        'raw'             => $it,
-                    ]
-                );
+        // inside the loop
+        $externalId = $it['id'] ?? ($it['url'] ?? null); // fallback to URL if no numeric id
+
+        
+        // build a stable slug that won’t change between runs
+        $base = Str::slug(($it['title'] ?? 'property').'-'.($it['id'] ?? Str::slug(parse_url($it['url'] ?? '', PHP_URL_PATH) ?? 'x')));
+        $slug = $base; $i = 1;
+        while (Property::where('slug', $slug)->exists()) { $slug = "{$base}-{$i}"; $i++; }
+
+        // Use external_id only if column exists
+        $hasExternalId = Schema::hasColumn('properties', 'external_id');
+
+        $lookup = ($hasExternalId && $externalId)
+            ? ['listing_source' => 'airbnb', 'external_id' => (string)$externalId]
+            : ['slug' => $slug];
+
+        $p = Property::updateOrCreate(
+            $lookup,
+            [
+                'slug'             => $slug,
+                'city_id'          => $city->id,
+                'title'            => $it['title'] ?? 'Untitled',
+                'summary'          => $it['summary'] ?? null,
+                'description'      => $it['description'] ?? null,
+                'address'          => $it['address'] ?? null,
+                'lat'              => $it['lat'] ?? null,
+                'lng'              => $it['lng'] ?? null,
+                'bedrooms'         => $it['bedrooms'] ?? null,
+                'beds'             => $it['beds'] ?? null,
+                'bathrooms'        => $it['bathrooms'] ?? null,
+                'max_guests'       => $it['guests'] ?? null,
+                'price_per_night'  => $it['price'] ?? null,
+                'is_featured'      => (bool)($it['is_featured'] ?? false),
+                'listing_source'   => 'airbnb',
+                'status'           => 'published',
+                'raw'              => $it,
+            ]
+        );
+
 
                 foreach (($it['images'] ?? []) as $pos => $url) {
                     PropertyImage::firstOrCreate([
