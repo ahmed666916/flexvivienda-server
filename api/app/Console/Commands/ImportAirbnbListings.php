@@ -2,129 +2,193 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Facades\Schema;
-
-use App\Models\{City, Property, PropertyImage, Amenity, Category};
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use App\Models\Property;
+use App\Models\PropertyImage;
+use Illuminate\Support\Facades\DB;
 
 class ImportAirbnbListings extends Command
 {
-    protected $signature = 'import:airbnb {path=storage/app/seed/airbnb_listings.json}';
-    protected $description = 'Import Airbnb listings from JSON';
+    protected $signature = 'import:airbnb {path : Path to airbnb_listings.js/.json} {--limit=0}';
+    protected $description = 'Import/Upsert Airbnb listings JSON into properties & property_images';
 
-    public function handle(): int
+    public function handle()
     {
-        $argPath = $this->argument('path');
-
-        // Resolve path: allow absolute Windows paths AND relative project paths
-        if (preg_match('/^[A-Za-z]:\\\\/', $argPath) || str_starts_with($argPath, '/')) {
-            $path = $argPath; // absolute
-        } else {
-            // tip: for your default "storage/app/seed/..." a clearer choice is storage_path()
-            $path = str_starts_with($argPath, 'storage/')
-                ? base_path($argPath)
-                : storage_path('app/seed/airbnb_listings.json');
+        $path = $this->argument('path');
+        if (!File::exists($path)) {
+            $this->error("File not found: {$path}");
+            return static::FAILURE;
         }
 
-        if (!file_exists($path)) {
-            $this->error("File not found: $path");
-            return self::FAILURE;
+        // Handle .js that contains a JS array or one-object-per-line; try to extract JSON
+        $raw = File::get($path);
+        $json = $this->toJsonArray($raw);
+        if (!is_array($json)) {
+            $this->error('Could not parse JSON. Ensure the file contains a valid JSON array.');
+            return static::FAILURE;
         }
 
-        $items = json_decode(file_get_contents($path), true);
-        if (!is_array($items)) {
-            $this->error('JSON could not be decoded or is not an array.');
-            return self::FAILURE;
-        }
+        $limit = (int)$this->option('limit');
+        $count = 0;
 
-        $bar = $this->output->createProgressBar(count($items));
-        $bar->start();
+        DB::transaction(function () use ($json, $limit, &$count) {
+            foreach ($json as $item) {
+                if ($limit && $count >= $limit) break;
 
-        $count = 0; $errors = 0;
+                // --- Map core fields ---
+                $extId   = (string)($item['id'] ?? '');
+                $title   = trim((string)($item['title'] ?? ''));
+                $city    = $this->guessCity($item);
+                $lat     = $item['latitude']  ?? null;
+                $lng     = $item['longitude'] ?? null;
 
-        foreach ($items as $it) {
-            try {
-                $city = City::firstOrCreate([
-                    'name'    => $it['city'] ?? 'Istanbul',
-                    'region'  => $it['region'] ?? null,
-                    'country' => $it['country'] ?? 'Turkey',
-                ]);
+                // Normalize price_per_night (ignore "Add dates for prices")
+                $ppn = $item['pricePerNight'] ?? null;
+                $pricePerNight = (is_numeric($ppn) ? (int)$ppn : null);
 
-              
+                // Upsert property by external id in raw OR slug+source
+                $property = Property::query()
+                    ->where('listing_source', 'airbnb')
+                    ->where('raw->id', $extId) // requires MySQL 5.7+/JSON
+                    ->first();
 
-        // inside the loop
-        $externalId = $it['id'] ?? ($it['url'] ?? null); // fallback to URL if no numeric id
-
-        
-        // build a stable slug that won’t change between runs
-        $base = Str::slug(($it['title'] ?? 'property').'-'.($it['id'] ?? Str::slug(parse_url($it['url'] ?? '', PHP_URL_PATH) ?? 'x')));
-        $slug = $base; $i = 1;
-        while (Property::where('slug', $slug)->exists()) { $slug = "{$base}-{$i}"; $i++; }
-
-        // Use external_id only if column exists
-        $hasExternalId = Schema::hasColumn('properties', 'external_id');
-
-        $lookup = ($hasExternalId && $externalId)
-            ? ['listing_source' => 'airbnb', 'external_id' => (string)$externalId]
-            : ['slug' => $slug];
-
-        $p = Property::updateOrCreate(
-            $lookup,
-            [
-                'slug'             => $slug,
-                'city_id'          => $city->id,
-                'title'            => $it['title'] ?? 'Untitled',
-                'summary'          => $it['summary'] ?? null,
-                'description'      => $it['description'] ?? null,
-                'address'          => $it['address'] ?? null,
-                'lat'              => $it['lat'] ?? null,
-                'lng'              => $it['lng'] ?? null,
-                'bedrooms'         => $it['bedrooms'] ?? null,
-                'beds'             => $it['beds'] ?? null,
-                'bathrooms'        => $it['bathrooms'] ?? null,
-                'max_guests'       => $it['guests'] ?? null,
-                'price_per_night'  => $it['price'] ?? null,
-                'is_featured'      => (bool)($it['is_featured'] ?? false),
-                'listing_source'   => 'airbnb',
-                'status'           => 'published',
-                'raw'              => $it,
-            ]
-        );
-
-
-                foreach (($it['images'] ?? []) as $pos => $url) {
-                    PropertyImage::firstOrCreate([
-                        'property_id' => $p->id,
-                        'url'         => $url,
-                        'position'    => $pos,
-                    ]);
+                if (!$property) {
+                    // Try matching by title if you already have titles seeded
+                    $property = Property::query()
+                        ->where('listing_source', 'airbnb')
+                        ->where('title', $title)
+                        ->first();
                 }
 
-                foreach (($it['amenities'] ?? []) as $name) {
-                    $amen = Amenity::firstOrCreate(['name' => trim($name)]);
-                    $p->amenities()->syncWithoutDetaching([$amen->id]);
+                if (!$property) {
+                    $property = new Property();
+                    $property->listing_source = 'airbnb';
+                    $property->status = 'published';
                 }
 
-                foreach (($it['categories'] ?? []) as $name) {
-                    $cslug = Str::slug($name);
-                    $cat   = Category::firstOrCreate(['slug' => $cslug], ['name' => $name]);
-                    $p->categories()->syncWithoutDetaching([$cat->id]);
+                $property->title = $title ?: $property->title;
+                $property->slug  = $property->slug ?: Str::slug($title).'-'.$extId;
+                $property->summary = $property->summary ?: null;
+                $property->description = $property->description ?: null;
+
+                // If you have cities table, set city_id via your own resolver; else store name in raw
+                $property->city_id = $property->city_id ?: null;
+
+                // Coordinates (if null in feed, keep existing)
+                if (!is_null($lat)) $property->lat = $lat;
+                if (!is_null($lng)) $property->lng = $lng;
+
+                // Bedrooms/Beds/Baths/Guests
+                $property->bedrooms       = $property->bedrooms       ?? ($item['bedrooms'] ?? null);
+                $property->beds           = $property->beds           ?? ($item['beds'] ?? null);
+                $property->bathrooms      = $property->bathrooms      ?? ($item['bathrooms'] ?? null);
+                $property->max_guests     = $property->max_guests     ?? ($item['maxGuests'] ?? null);
+                $property->price_per_night = $pricePerNight;
+
+                // Keep whole raw item for future mapping/debug
+                $property->raw = $item;
+
+                $property->save();
+
+                // --- Images: wipe & insert fresh photos[] for this property ---
+                $photos = array_values(array_filter(array_unique(array_map('strval', $this->filterPhotos($item['photos'] ?? [])))));
+                if (!empty($photos)) {
+                    // optional: keep existing if you prefer; here we refresh
+                    PropertyImage::where('property_id', $property->id)->delete();
+
+                    foreach ($photos as $i => $url) {
+                        PropertyImage::create([
+                            'property_id' => $property->id,
+                            'url'         => $url,
+                            'position'    => $i,
+                        ]);
+                    }
                 }
 
                 $count++;
-            } catch (\Throwable $e) {
-                $errors++;
-                $this->warn("Error on item ".($count+$errors).": ".$e->getMessage());
             }
+        });
 
-            $bar->advance();
-        }
-
-        $bar->finish(); $this->newLine();
-        $this->info("Imported $count listings. Errors: $errors");
-
-        return self::SUCCESS;
+        $this->info("Imported/updated {$count} listings.");
+        return static::SUCCESS;
     }
 
+    /** Try to coerce .js content to a JSON array string and decode */
+    protected function toJsonArray(string $raw)
+    {
+        $trim = trim($raw);
+
+        // If it starts with [ ... ] assume it's a JSON array
+        if (strlen($trim) && $trim[0] === '[') {
+            $data = json_decode($trim, true);
+            return (json_last_error() === JSON_ERROR_NONE) ? $data : null;
+        }
+
+        // If it starts with { ... } assume it's a single object or many concatenated; wrap into array
+        if (strlen($trim) && $trim[0] === '{') {
+            // Some .js dump may be newline-delimited JSON (NDJSON)
+            $lines = preg_split('/\r\n|\r|\n/', $raw);
+            $arr   = [];
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if ($line === '') continue;
+                $obj = json_decode($line, true);
+                if (json_last_error() === JSON_ERROR_NONE && is_array($obj)) {
+                    $arr[] = $obj;
+                }
+            }
+            if ($arr) return $arr;
+
+            // Else try a single object
+            $obj = json_decode($trim, true);
+            return (json_last_error() === JSON_ERROR_NONE && is_array($obj)) ? [$obj] : null;
+        }
+
+        // If file is "const listings = [...]" try to extract the array literal
+        if (preg_match('/\[\s*{.*}\s*]/s', $raw, $m)) {
+            $data = json_decode($m[0], true);
+            return (json_last_error() === JSON_ERROR_NONE) ? $data : null;
+        }
+
+        return null;
+    }
+
+    /** Drop platform icons / dupes; keep only real photos */
+    protected function filterPhotos(array $photos): array
+    {
+        return array_filter($photos, function ($u) {
+            if (!is_string($u)) return false;
+            $u = trim($u);
+            if ($u === '') return false;
+
+            // Skip the small Airbnb UI icon (im_w=240 search icon)
+            if (strpos($u, 'AirbnbPlatformAssets-search-bar-icons') !== false) return false;
+
+            // Basic image suffix or muscache domain check
+            if (preg_match('#\.(jpe?g|png|webp)(\?|$)#i', $u)) return true;
+            if (strpos($u, 'a0.muscache.com') !== false) return true;
+
+            return false;
+        });
+    }
+
+    /** Simple city guesser: prefer explicit fields, then amenities noise-filter (optional) */
+    protected function guessCity(array $item): ?string
+    {
+        if (!empty($item['city'])) return $item['city'];
+        // Some scrapes put city names into the "amenities" blob; try to pick Istanbul, etc.
+        if (!empty($item['amenities']) && is_array($item['amenities'])) {
+            foreach ($item['amenities'] as $a) {
+                if (!is_string($a)) continue;
+                $a = trim($a);
+                if (preg_match('/^(Istanbul|İstanbul|Kadıköy|Şişli|Beşiktaş|Beyoğlu|Bakırköy)$/iu', $a)) {
+                    return $a;
+                }
+            }
+        }
+        return null;
+        // You can extend: parse from URL or keep it null and geocode later.
+    }
 }
