@@ -1,21 +1,36 @@
 import { useEffect, useRef, useState } from 'react';
 
-/**
- * Lazy image that works inside a custom scroll container.
- * Pass the scroll container ref in `root`.
- */
-export default function LazyImage({ src, srcSet, alt, className, root }) {
+// Create responsive pair for muscache; otherwise return as-is
+const toResponsive = (url) => {
+  if (!url) return { src: '', srcSet: '' };
+  const isMuscache = /(?:^|\/\/)a\d*\.muscache\.com\//.test(url);
+  if (!isMuscache) return { src: url, srcSet: '' };
+  const base = url.split('?')[0];
+  const oneX = `${base}?im_w=720`;
+  const twoX = `${base}?im_w=1440`;
+  return { src: oneX, srcSet: `${oneX} 1x, ${twoX} 2x` };
+};
+
+export default function LazyImage({ urls = [], alt, className, root }) {
   const ref = useRef(null);
-  const [loadedSrc, setLoadedSrc] = useState(null);
-  const [loadedSet, setLoadedSet] = useState(null);
+  const triedIdx = useRef(0);
+  const [active, setActive] = useState(null);
+
+  // Clean the list once (strip blanks/nulls)
+  const cleanUrls = (Array.isArray(urls) ? urls : []).filter(Boolean);
 
   useEffect(() => {
+    // If nothing to try, show fallback immediately
     if (!ref.current) return;
+    if (cleanUrls.length === 0) {
+      setActive({ src: '/Images/gallery1.jpg', srcSet: '' });
+      return;
+    }
 
-    // Fallback: no IO support → load immediately
+    // If no IO support, load first immediately
     if (!('IntersectionObserver' in window)) {
-      setLoadedSrc(src);
-      setLoadedSet(srcSet);
+      setActive(toResponsive(cleanUrls[0]));
+      triedIdx.current = 1;
       return;
     }
 
@@ -23,25 +38,43 @@ export default function LazyImage({ src, srcSet, alt, className, root }) {
       (entries) => {
         for (const e of entries) {
           if (e.isIntersecting) {
-            setLoadedSrc(src);
-            setLoadedSet(srcSet);
+            setActive(toResponsive(cleanUrls[0]));
+            triedIdx.current = 1;
             io.disconnect();
             break;
           }
         }
       },
-      { root: root?.current ?? null, rootMargin: '200px 0px' } // pre-load a bit early
+      {
+        // Use viewport as root; big margin to pre-load
+        root: root?.current ?? null,
+        rootMargin: '800px 0px',
+      }
     );
 
     io.observe(ref.current);
     return () => io.disconnect();
-  }, [src, srcSet, root]);
+  }, [cleanUrls, root]);
+
+  const onErr = (e) => {
+    if (triedIdx.current < cleanUrls.length) {
+      setActive(toResponsive(cleanUrls[triedIdx.current]));
+      triedIdx.current += 1;
+      return;
+    }
+    // final fallback
+    e.currentTarget.src = '/Images/gallery1.jpg';
+    e.currentTarget.removeAttribute('srcset');
+  };
+
+  const src = active?.src || '/Images/placeholder-1x1.png';
+  const srcSet = active?.srcSet || '';
 
   return (
     <img
       ref={ref}
-      src={loadedSrc || '/Images/placeholder-1x1.png'}
-      srcSet={loadedSet || ''}
+      src={src}
+      srcSet={srcSet}
       alt={alt}
       className={className}
       decoding="async"
@@ -49,10 +82,8 @@ export default function LazyImage({ src, srcSet, alt, className, root }) {
       width="800"
       height="600"
       style={{ background: '#f3f4f6' }}
-      onError={(e) => {
-        e.currentTarget.src = '/Images/gallery1.jpg';
-        e.currentTarget.removeAttribute('srcset');
-      }}
+      onError={onErr}
+      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
     />
   );
 }

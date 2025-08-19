@@ -57,7 +57,10 @@ const extractUrl = (val) => {
       val.url ||
       val.src ||
       val.path ||
+      val.file ||
+      (val.attributes && (val.attributes.url || val.attributes.src || val.attributes.path)) ||
       val.original ||
+      val.image ||
       val.large ||
       val.medium ||
       val.small ||
@@ -72,7 +75,7 @@ const normalizeImages = (p) => {
   const cover = extractUrl(p.cover_image_url || p.cover_image);
   if (cover) out.push(cover);
 
-  const candidates = [p.images, p.photos, p.gallery, p.media, p.property_images];
+  const candidates = [p.images, p.photos, p.gallery, p.media, p.property_images, p.pictures];
   candidates.forEach((arr) => {
     if (!arr) return;
 
@@ -83,12 +86,20 @@ const normalizeImages = (p) => {
           parsed.forEach((x) => out.push(extractUrl(x)));
           return;
         }
+        if (parsed && typeof parsed === 'object') {
+          Object.values(parsed).forEach((x) => out.push(extractUrl(x)));
+          return;
+        }
       } catch {
         arr.split(',').forEach((s) => out.push(s.trim()));
         return;
       }
     }
     if (Array.isArray(arr)) arr.forEach((x) => out.push(extractUrl(x)));
+    if (typeof arr === 'object') {
+      const nested = arr.data || arr.images || arr.photos || Object.values(arr);
+      if (Array.isArray(nested)) nested.forEach((x) => out.push(extractUrl(x)));
+    }
   });
 
   const abs = out.map(toAbsolute).filter(Boolean);
@@ -151,6 +162,7 @@ const Listings = () => {
       const imgs = normalizeImages(p);
       const first = imgs[0] || '/Images/gallery1.jpg';
       const { src, srcSet } = muscacheSources(first);
+      const imgCandidates = imgs.length ? imgs : ['/Images/gallery1.jpg'];
 
       // prefer explicit numeric ids; else fall back
       const id = p.id ?? p.external_id ?? p.slug ?? `idx-${idx}`;
@@ -163,6 +175,7 @@ const Listings = () => {
         price: Number.isFinite(+p.price_per_night) ? `€${p.price_per_night}/night` : (p.price_text || 'Price on request'),
         image: src,
         imageSet: srcSet || '',
+        images: imgCandidates,
         lat: p.lat ?? p.latitude ?? p.coordinates?.lat ?? null,
         lng: p.lng ?? p.longitude ?? p.coordinates?.lng ?? null,
         isFeatured: !!p.is_featured,
@@ -222,8 +235,7 @@ const Listings = () => {
                   <div className="property-card" data-prop={property.id}>
                     <div className="img-wrap" title={property._rawFirst || property.image}>
                       <LazyImage
-                        src={property.image}
-                        srcSet={property.imageSet}
+                        urls={property.images}
                         alt={property.title}
                         className="property-image"
                         root={scrollRef}
