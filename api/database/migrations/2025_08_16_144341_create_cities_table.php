@@ -1,3 +1,4 @@
+// database/migrations/2025_08_19_000200_create_cities_table.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -6,15 +7,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up(): void {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('region')->nullable();
-            $table->string('country')->default('Turkey');
-            $table->timestamps();
+        Schema::create('cities', function (Blueprint $t) {
+            $t->id();
+            $t->string('name');
+            $t->string('region')->nullable(); // Istanbul / Antalya / etc
+            $t->string('country')->default('Turkey'); // adjust as needed
+            $t->timestamps();
         });
     }
-    public function down(): void {
-        Schema::dropIfExists('cities');
-    }
+    public function down(): void { Schema::dropIfExists('cities'); }
 };
