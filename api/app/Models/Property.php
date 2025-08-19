@@ -16,5 +16,9 @@ class Property extends Model {
     public function city(){ return $this->belongsTo(City::class); }
     public function amenities(){ return $this->belongsToMany(Amenity::class); }
     public function categories(){ return $this->belongsToMany(Category::class); }
-    public function stayTypes(){ return $this->belongsToMany(StayType::class); }
+    public function stayTypes()
+{
+    return $this->belongsToMany(StayType::class, 'property_stay_type');
+}
+
 }
