@@ -194,11 +194,7 @@ const Listings = () => {
                           <p className="property-locations">{property.location}</p>
                           <p className="property-price">{property.price}</p>
 
-                          {/* TEMP (debug): show which URL is being used; remove after verifying */}
-                          <small style={{display:'block', color:'#6b7280', marginTop:6, wordBreak:'break-all'}}>
-                            {property.image ? `img: ${property.image}` :
-                              (property._rawFirst ? `raw: ${property._rawFirst}` : 'no image')}
-                          </small>
+                         
                         </div>
                       </div>
                     </Link>
