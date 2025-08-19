@@ -128,18 +128,27 @@ const Listings = () => {
 
   // Normalize → view model (robust first-image selection)
   const properties = useMemo(() => {
-  return (items || []).map((p, idx) => ({
-    id: p.id ?? idx,
-    slug: p.slug,
-    title: p.title,
-    location: p.city?.name ?? p.location?.city ?? '',
-    price: Number.isFinite(+p.price_per_night) ? `€${p.price_per_night}/night` : 'Price on request',
-    image: p.cover_image_url || (Array.isArray(p.images) && p.images.length ? p.images[0] : ''),
-    lat: p.lat ?? p.coordinates?.lat ?? null,
-    lng: p.lng ?? p.coordinates?.lng ?? null,
-    isFeatured: !!p.is_featured,
-  }));
+  return (items || []).map((p, idx) => {
+    const imgs = normalizeImages(p);           // <- uses toAbsolute() internally
+    const first = imgs[0] || '/Images/gallery1.jpg';  // use an existing asset
+    const { src, srcSet } = muscacheSources(first);
+
+    return {
+      id: p.id ?? idx,
+      slug: p.slug,
+      title: p.title,
+      location: p.city?.name ?? p.location?.city ?? '',
+      price: Number.isFinite(+p.price_per_night) ? `€${p.price_per_night}/night` : 'Price on request',
+      image: src,
+      imageSet: srcSet || '',
+      lat: p.lat ?? p.coordinates?.lat ?? null,
+      lng: p.lng ?? p.coordinates?.lng ?? null,
+      isFeatured: !!p.is_featured,
+      _rawFirst: imgs[0],
+    };
+  });
 }, [items]);
+
 
 
   // Stable props for the map
@@ -175,7 +184,7 @@ const Listings = () => {
                       <div className="property-card">
                         <div className="img-wrap" title={property._rawFirst || property.image}>
                           <img
-                            src={property.image || '/fallback.jpg'}
+                            src={property.image}
                             {...(property.imageSet ? { srcSet: property.imageSet } : {})}
                             sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                             alt={property.title}
@@ -184,11 +193,12 @@ const Listings = () => {
                             decoding="async"
                             referrerPolicy="no-referrer"
                             onError={(e) => {
-                              e.currentTarget.src = '/fallback.jpg';
+                              e.currentTarget.src = '/Images/gallery1.jpg'; // this file exists
                               e.currentTarget.removeAttribute('srcset');
                             }}
                           />
-                        </div>
+
+                                                  </div>
                         <div className="property-details">
                           <h2 className="property-title">{property.title}</h2>
                           <p className="property-locations">{property.location}</p>
