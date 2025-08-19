@@ -3,9 +3,9 @@ html, body, #root { height: 100%; }
 
 .listing-layout {
   position: relative;
-  padding: 20px;
-  height: calc(100vh - 120px);          /* adjust for your header height */
-  container-type: inline-size;          /* enables container queries later if needed */
+  padding: 12px 0 0;
+  height: calc(100vh - 120px); /* adjust for your header height */
+  container-type: inline-size;
 }
 
 .listing-layout a,
@@ -14,69 +14,78 @@ html, body, #root { height: 100%; }
   outline: none;
 }
 
+/* Sticky search like Blueground */
+.search-sticky {
+  position: sticky;
+  top: 70px;              /* adjust to your header */
+  z-index: 5;
+  background: #fff;
+  padding: 6px 15px 8px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
 /* main two-column area */
 .listings-section {
   display: flex;
   gap: 20px;
   padding: 0 15px;
-  height: 100%;                         /* fills viewport remainder */
-  min-height: 520px;                    /* keeps map area from collapsing on short lists */
+  height: calc(100% - 56px);
+  min-height: 520px;
 }
 
 /* left = scrollable, right = sticky map */
 .left-section, .right-section { flex: 1; }
 
-/* Independent scroll: prevents page reflow on pagination */
 .scroll-pane {
   overflow: auto;
-  padding-right: 6px;                   /* keeps scrollbar off the cards */
-  contain: content;                     /* isolates layout/paint for smoother scroll */
+  padding-right: 6px;
+  contain: content;
 }
 
 /* ===== GRID & CARDS ===== */
 .property-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
-/* Card look */
 .property-card {
   background-color: #fff;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   border: 1px solid #e5e7eb;
-  transition: transform 0.25s ease;     /* slightly quicker, feels snappier */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   will-change: transform;
 }
-.property-card:hover { transform: translateY(-4px); }
+.property-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.08); }
 
-/* Reserve image space to stop "jump" as images load */
 .img-wrap {
   width: 100%;
-  aspect-ratio: 4 / 3;                  /* keep consistent card height */
+  aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #f3f4f6;                  /* pleasant placeholder color */
+  background: #f3f4f6;
 }
 .property-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;                       /* removes inline-gap baseline */
+  display: block;
 }
 
 /* Card text */
-.property-details { padding: 16px; color: #111827; }
-.property-title   { font-size: 17px; font-weight: 600; margin-bottom: 6px; color: #1f2937; }
-.property-locations { font-size: 14px; color: #6b7280; margin-bottom: 10px; }
+.property-details { padding: 14px; color: #111827; }
+.property-title   { font-size: 16px; font-weight: 600; line-height: 1.25; margin: 0 0 6px; color: #1f2937; }
+.property-locations { font-size: 13px; color: #6b7280; margin: 0 0 8px; }
+.meta-row { display:flex; gap:10px; flex-wrap: wrap; margin-bottom: 8px; }
+.meta-pill { background:#f3f4f6; border-radius:999px; padding:4px 10px; font-size:12px; color:#374151; }
 .property-price   { font-size: 16px; font-weight: 700; color: #111827; }
 
 /* ===== STICKY MAP COLUMN ===== */
 .right-section {
   position: sticky;
-  top: 100px;                              /* distance from top of viewport */
-  height: calc(100dvh - 120px);            /* dynamic vh for mobile toolbars */
+  top: 100px;
+  height: calc(100dvh - 120px);
   overflow: hidden;
 }
 .right-section .section-block { padding: 0 !important; margin: 0 !important; height: 100%; }
@@ -110,14 +119,7 @@ html, body, #root { height: 100%; }
 .error { color: crimson; }
 .empty { color: #6b7280; }
 
-/* ===== HOMEPAGE SCOPED VARIANTS (optional / if reused on homepage) ===== */
-.home-property-section .property-card { transform: scale(0.965); }
-.home-property-section .property-image { height: 180px; }      /* remove if using aspect-ratio there too */
-.home-property-section .property-details { padding: 14px; }
-.home-property-section .property-title { font-size: 16px; }
-.home-property-section .property-price { font-size: 15px; }
-
-/* ===== SCROLLBARS (optional) ===== */
+/* ===== SCROLLBARS ===== */
 .scroll-pane::-webkit-scrollbar { width: 10px; }
 .scroll-pane::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
 .scroll-pane:hover::-webkit-scrollbar-thumb { background: #d1d5db; }
@@ -127,20 +129,19 @@ html, body, #root { height: 100%; }
   .property-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 900px) {
-  .listings-section { flex-direction: column; }
+  .listings-section { flex-direction: column; height: auto; }
   .right-section {
-    position: static;                      /* no sticky on narrow screens */
-    height: 360px;                         /* fixed-height map block */
+    position: static;
+    height: 360px;
     margin-top: 8px;
   }
 }
 @media (max-width: 640px) {
   .property-grid { grid-template-columns: 1fr; }
-  .img-wrap { aspect-ratio: 3 / 2; }       /* taller cards read better on mobile */
+  .img-wrap { aspect-ratio: 3 / 2; }
 }
 
-/* Accessibility: reduce motion for users who prefer it */
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .property-card { transition: none; }
-  .filter-button { transition: none; }
+  .property-card, .filter-button { transition: none; }
 }

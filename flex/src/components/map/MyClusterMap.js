@@ -1,5 +1,5 @@
-import React, { useMemo, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useMemo, useRef, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
@@ -34,7 +34,6 @@ function useJitterCache() {
   const ref = useRef(new Map());
   return (id) => {
     if (!ref.current.has(id)) {
-      // very small stable offset
       ref.current.set(id, {
         lat: (Math.random() - 0.5) * 0.003,
         lng: (Math.random() - 0.5) * 0.003,
@@ -44,14 +43,30 @@ function useJitterCache() {
   };
 }
 
-function RawClusterMap({ properties = [], onLoad, showHeading = true }) {
-  const jitterFor = useJitterCache();
+// Pin highlight style
+const highlightIcon = new L.Icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconSize: [30, 49],   // slightly larger
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
-  // ✅ Keep a stable, filtered array for rendering
+function RawClusterMap({
+  properties = [],
+  onLoad,
+  showHeading = true,
+  highlightId = null,
+  onMarkerHover,
+  onMarkerClick,
+}) {
+  const jitterFor = useJitterCache();
+  const markersRef = useRef(new Map()); // id -> marker instance
+
   const items = useMemo(() => {
     return properties
       .map((p, idx) => {
-        // Prefer real coordinates if present
         let lat = Number(p.lat ?? p.latitude);
         let lng = Number(p.lng ?? p.longitude);
 
@@ -68,14 +83,29 @@ function RawClusterMap({ properties = [], onLoad, showHeading = true }) {
       .filter(Boolean);
   }, [properties, jitterFor]);
 
-  // ⚠️ Don’t manually map.remove(); react-leaflet controls lifecycle.
-  // Also avoid dynamic `key` on MapContainer — it forces remount.
+  // hook to nudge/open a pin when highlightId changes
+  function HighlightEffect() {
+    const map = useMap();
+    useEffect(() => {
+      if (!highlightId) return;
+      const m = markersRef.current.get(highlightId);
+      if (m) {
+        // open a tooltip/popup lightly and bring into view
+        // eslint-disable-next-line no-underscore-dangle
+        m.openPopup?.();
+        const ll = m.getLatLng();
+        // keep map center mostly stable; only pan slightly
+        map.panTo(ll, { animate: true, duration: 0.25 });
+      }
+    }, [highlightId, map]);
+    return null;
+  }
 
   return (
     <section className={`section-block ${!showHeading ? 'listing-map-wrapper' : ''}`}>
       {showHeading && (
         <center>
-          <h2 className="heading">
+          <h2 className="map-heading">
             <span className="heading-primary">Live</span>{' '}
             <span className="heading-secondary">Map</span>
           </h2>
@@ -89,23 +119,35 @@ function RawClusterMap({ properties = [], onLoad, showHeading = true }) {
             center={[41.0151, 28.9795]}
             zoom={11}
             style={{ height: '100%', width: '100%' }}
-            renderer={L.canvas()}            // ✅ smoother paints
+            renderer={L.canvas()}
             preferCanvas={true}
-            whenReady={onLoad}               // call once when tiles/size are ready
+            whenReady={onLoad}
           >
             <TileLayer
               url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
               attribution='&copy; OpenStreetMap contributors &copy; <a href="https://carto.com/">CARTO</a>'
             />
 
+            <HighlightEffect />
+
             <MarkerClusterGroup
-              chunkedLoading                     // ✅ incremental rendering
+              chunkedLoading
               spiderfyOnMaxZoom
               showCoverageOnHover={false}
               removeOutsideVisibleBounds={true}
             >
               {items.map((p) => (
-                <Marker key={p.id ?? `${p.slug ?? p.title}-${p.lat}-${p.lng}`} position={[p.lat, p.lng]}>
+                <Marker
+                  key={p.id ?? `${p.slug ?? p.title}-${p.lat}-${p.lng}`}
+                  position={[p.lat, p.lng]}
+                  ref={(mk) => {
+                    if (mk) markersRef.current.set(p.id, mk);
+                    else markersRef.current.delete(p.id);
+                  }}
+                  {...(highlightId === p.id ? { icon: highlightIcon } : {})} // ✅ pass icon only when set
+                  eventHandlers={{ /* ... */ }}
+                >
+
                   <Popup>
                     <b>{p.title}</b><br />
                     {p.location}<br />
@@ -121,13 +163,15 @@ function RawClusterMap({ properties = [], onLoad, showHeading = true }) {
   );
 }
 
-// ✅ Prevent re-render if props didn’t meaningfully change
+// Prevent re-render if props didn’t meaningfully change
 const propsEqual = (prev, next) => {
   if (prev.showHeading !== next.showHeading) return false;
+  if (prev.highlightId !== next.highlightId) return false;
+
   const a = prev.properties || [];
   const b = next.properties || [];
   if (a.length !== b.length) return false;
-  // Shallow compare ids + coords to decide redraw
+
   for (let i = 0; i < a.length; i++) {
     const pa = a[i], pb = b[i];
     const ida = pa.id ?? pa.slug ?? pa.title, idb = pb.id ?? pb.slug ?? pb.title;
