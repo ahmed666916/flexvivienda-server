@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         // ⬇️ Register your custom commands
         \App\Console\Commands\ImportAirbnbListings::class,
         \App\Console\Commands\BackfillPropertyImages::class,
+    
     ];
 
     /**
