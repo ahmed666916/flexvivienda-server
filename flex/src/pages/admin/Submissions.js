@@ -1,7 +1,7 @@
 // flex/src/pages/admin/Submissions.js
 import React, { useMemo, useState } from 'react';
 import AdminLayout from './AdminLayout';
-import { mockSubmissions } from './_mock';
+import api from '../../api/axios';
 
 function Badge({ status }) {
   const map = {
@@ -47,7 +47,10 @@ function useToast() {
 }
 
 export default function Submissions() {
-  const [rows, setRows] = useState(mockSubmissions);
+  const [rows, setRows] = useState([]);
+  React.useEffect(() => {
+    api.get('/admin/submissions').then(r => setRows(r.data.data || r.data));
+    }, []);
   const [filter, setFilter] = useState('pending'); // pending | approved | rejected | all
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
@@ -70,11 +73,15 @@ export default function Submissions() {
 
   const onView = (row) => { setActive(row); setOpen(true); };
 
-  const updateStatus = (row, status) => {
+  const updateStatus = async (row, status) => {
+    const url = status === 'approved'
+    ? `/admin/submissions/${row.id}/approve`
+    : `/admin/submissions/${row.id}/reject`;
+    await api.post(url);
     setRows(prev => prev.map(x => x.id === row.id ? { ...x, status } : x));
     show(status === 'approved' ? 'Submission approved' : 'Submission rejected');
     if (open) setOpen(false);
-  };
+    };
 
   return (
     <AdminLayout>
