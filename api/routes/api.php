@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\Admin\AdminPropertyController;
 use App\Http\Controllers\Api\Admin\SubmissionReviewController;
 use App\Http\Controllers\Api\Public\PropertyBrowseController;
 use App\Http\Controllers\Api\BookingController;
+use App\Http\Controllers\Api\Admin\OwnerController as AdminOwnerController;
+use App\Http\Controllers\Api\Admin\BookingController as AdminBookingController;
 
 // Public
 Route::get('/properties', [PropertyBrowseController::class, 'index']);
@@ -39,5 +41,19 @@ Route::middleware(['auth:sanctum','role:admin'])->group(function () {
     Route::post('/admin/submissions/{id}/approve', [SubmissionReviewController::class, 'approve']);
     Route::post('/admin/submissions/{id}/reject', [SubmissionReviewController::class, 'reject']);
 });
+
+Route::get('/admin/owners',            [AdminOwnerController::class,'index']);
+Route::get('/admin/owners/{id}',       [AdminOwnerController::class,'show']);
+Route::post('/admin/owners/{id}/verify',   [AdminOwnerController::class,'verify']);
+Route::post('/admin/owners/{id}/unverify', [AdminOwnerController::class,'unverify']);
+Route::post('/admin/owners/{id}/disable',  [AdminOwnerController::class,'disable']);
+Route::post('/admin/owners/{id}/enable',   [AdminOwnerController::class,'enable']);
+
+Route::get('/admin/bookings',              [AdminBookingController::class,'index']);
+Route::get('/admin/bookings/{id}',         [AdminBookingController::class,'show']);
+Route::post('/admin/bookings/{id}/confirm',[AdminBookingController::class,'confirm']);
+Route::post('/admin/bookings/{id}/cancel', [AdminBookingController::class,'cancel']);
+Route::post('/admin/bookings/{id}/pay',    [AdminBookingController::class,'markPaid']);
+Route::post('/admin/bookings/{id}/refund', [AdminBookingController::class,'refund']);
 
 

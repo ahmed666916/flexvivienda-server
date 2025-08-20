@@ -1,7 +1,7 @@
 // flex/src/pages/admin/Bookings.js
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import AdminLayout from './AdminLayout';
-import { mockBookings } from './_mock';
+import api from '../../api/axios';
 
 function StatusBadge({ s }) {
   const map = { pending:'text-bg-warning', confirmed:'text-bg-success', cancelled:'text-bg-secondary' };
@@ -30,21 +30,36 @@ function Modal({ open, onClose, title, children, footer }) {
 }
 
 export default function Bookings() {
-  const [rows, setRows] = useState(mockBookings);
-  const [filter, setFilter] = useState('all'); // all | pending | confirmed | cancelled
-  const [q, setQ] = useState('');
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState(null);
+  const [rows, setRows] = React.useState([]);
+  const [filter, setFilter] = React.useState('all'); // all | pending | confirmed | cancelled
+  const [q, setQ] = React.useState('');
+  const [open, setOpen] = React.useState(false);
+  const [active, setActive] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [err, setErr] = React.useState(null);
 
-  const filtered = useMemo(() => {
+  React.useEffect(() => {
+    let alive = true;
+    setLoading(true);
+    api.get('/admin/bookings')
+      .then(r => {
+        const data = r.data?.data ?? r.data ?? [];
+        if (alive) setRows(Array.isArray(data) ? data : []);
+      })
+      .catch(e => alive && setErr(e?.response?.data?.message || e.message))
+      .finally(() => alive && setLoading(false));
+    return () => { alive = false; };
+  }, []);
+
+  const filtered = React.useMemo(() => {
     let r = rows;
     if (filter !== 'all') r = r.filter(x => x.status === filter);
     if (q.trim()) {
       const s = q.toLowerCase();
       r = r.filter(x =>
-        x.ref.toLowerCase().includes(s) ||
-        x.property.toLowerCase().includes(s) ||
-        x.guest.toLowerCase().includes(s) ||
+        (x.ref || '').toLowerCase().includes(s) ||
+        (x.property || '').toLowerCase().includes(s) ||
+        (x.guest || '').toLowerCase().includes(s) ||
         (x.city || '').toLowerCase().includes(s)
       );
     }
@@ -53,11 +68,18 @@ export default function Bookings() {
 
   const openRow = (b) => { setActive(b); setOpen(true); };
 
-  const setStatus = (b, status) => {
+  const setStatus = async (b, status) => {
+    const url = `/admin/bookings/${b.id}/${status === 'confirmed' ? 'confirm' : 'cancel'}`;
+    await api.post(url);
     setRows(prev => prev.map(x => x.id === b.id ? { ...x, status } : x));
+    setActive(a => a && a.id === b.id ? { ...a, status } : a);
   };
-  const setPayment = (b, payment) => {
+
+  const setPayment = async (b, payment) => {
+    const url = `/admin/bookings/${b.id}/${payment === 'refunded' ? 'refund' : 'pay'}`;
+    await api.post(url);
     setRows(prev => prev.map(x => x.id === b.id ? { ...x, payment } : x));
+    setActive(a => a && a.id === b.id ? { ...a, payment } : a);
   };
 
   return (
@@ -85,7 +107,9 @@ export default function Bookings() {
             value={q}
             onChange={e=>setQ(e.target.value)}
           />
-          <div className="text-muted small">Showing {filtered.length} of {rows.length}</div>
+          <div className="text-muted small">
+            {loading ? 'Loading…' : err ? <span className="text-danger">{err}</span> : `Showing ${filtered.length} of ${rows.length}`}
+          </div>
         </div>
       </div>
 
@@ -125,7 +149,7 @@ export default function Bookings() {
                 </td>
               </tr>
             ))}
-            {!filtered.length && <tr><td colSpan={10} className="text-center text-muted py-5">No bookings found.</td></tr>}
+            {!loading && !filtered.length && <tr><td colSpan={10} className="text-center text-muted py-5">No bookings found.</td></tr>}
             </tbody>
           </table>
         </div>

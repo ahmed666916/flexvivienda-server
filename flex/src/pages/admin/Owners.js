@@ -1,7 +1,7 @@
 // flex/src/pages/admin/Owners.js
 import React, { useMemo, useState } from 'react';
 import AdminLayout from './AdminLayout';
-import { mockOwners } from './_mock';
+import api from '../../api/axios';
 
 function VBadge({ ok }) {
   return (
@@ -33,7 +33,10 @@ function Modal({ open, onClose, title, children, footer }) {
 }
 
 export default function Owners() {
-  const [rows, setRows] = useState(mockOwners);
+  const [rows, setRows] = useState([]);
+  React.useEffect(() => {
+    api.get('/admin/owners').then(r => setRows(r.data.data || r.data));
+    }, []);
   const [filter, setFilter] = useState('all'); // all | verified | unverified | disabled
   const [q, setQ] = useState('');
   const [open, setOpen] = useState(false);
@@ -57,13 +60,16 @@ export default function Owners() {
 
   const openOwner = (o) => { setActive(o); setOpen(true); };
 
-  const toggleVerify = (o) => {
-    setRows(prev => prev.map(x => x.id === o.id ? { ...x, verified: !x.verified } : x));
-  };
-  const toggleDisable = (o) => {
-    setRows(prev => prev.map(x => x.id === o.id ? { ...x, status: x.status === 'active' ? 'disabled' : 'active' } : x));
-  };
-
+  const toggleVerify = async (o) => {
+    const url = o.verified ? `/admin/owners/${o.id}/unverify` : `/admin/owners/${o.id}/verify`;
+    await api.post(url);
+    setRows(prev => prev.map(x => x.id===o.id ? {...x, verified: !o.verified} : x));
+    };
+  const toggleDisable = async (o) => {
+    const url = o.status==='active' ? `/admin/owners/${o.id}/disable` : `/admin/owners/${o.id}/enable`;
+     await api.post(url);
+     setRows(prev => prev.map(x => x.id===o.id ? {...x, status: o.status==='active'?'disabled':'active'} : x));
+     };
   return (
     <AdminLayout>
       <div className="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">

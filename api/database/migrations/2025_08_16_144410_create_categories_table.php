@@ -8,12 +8,16 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->enum('kind', ['location','thematic'])->default('thematic');
             $table->string('slug')->unique();
             $table->timestamps();
         });
     }
+
     public function down(): void {
         Schema::dropIfExists('categories');
     }
 };
+
+
