@@ -37,6 +37,8 @@ import OwnerLayout from './pages/owner/OwnerLayout';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 import MyProperties from './pages/owner/MyProperties';
 import PropertyWizard from './pages/owner/PropertyWizard';
+import AdminSubmissions from './pages/admin/Submissions';
+
 
 import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -66,6 +68,8 @@ function App() {
           <Route path="/invest" element={<Invest />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/properties" element={<AdminProperties />} />
+          <Route path="/admin/submissions" element={<AdminSubmissions />} />
+
 
 
           {/* --- Owner (owner/admin roles) --- */}
