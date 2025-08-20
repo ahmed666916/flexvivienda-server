@@ -21,6 +21,9 @@ import MidStay from './pages/midStay';
 import LongStay from './pages/longStay';
 import Invest from './pages/invest';
 import ApiTest from './components/ApiTest';
+import AdminDashboard from './pages/admin/Dashboard';
+import AdminProperties from './pages/admin/Properties';
+
 
 // Auth context + guard
 import { AuthProvider } from './auth/AuthContext';
@@ -29,7 +32,6 @@ import RequireAuth from './auth/RequireAuth';
 // Protected layouts/pages (you created the files already)
 import AdminLayout from './pages/admin/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
-import AdminProperties from './pages/admin/Properties';
 
 import OwnerLayout from './pages/owner/OwnerLayout';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
@@ -62,6 +64,9 @@ function App() {
           <Route path="/midStay" element={<MidStay />} />
           <Route path="/longStay" element={<LongStay />} />
           <Route path="/invest" element={<Invest />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/properties" element={<AdminProperties />} />
+
 
           {/* --- Owner (owner/admin roles) --- */}
           <Route
