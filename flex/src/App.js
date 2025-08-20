@@ -23,6 +23,9 @@ import Invest from './pages/invest';
 import ApiTest from './components/ApiTest';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminProperties from './pages/admin/Properties';
+import AdminOwners from './pages/admin/Owners';
+import AdminBookings from './pages/admin/Bookings';
+
 
 
 // Auth context + guard
@@ -69,6 +72,9 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/properties" element={<AdminProperties />} />
           <Route path="/admin/submissions" element={<AdminSubmissions />} />
+          <Route path="/admin/owners" element={<AdminOwners />} />
+          <Route path="/admin/bookings" element={<AdminBookings />} />
+
 
 
 
