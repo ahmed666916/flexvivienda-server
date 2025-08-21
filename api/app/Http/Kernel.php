@@ -22,7 +22,6 @@ class Kernel extends HttpKernel
     ];
 
     protected $middlewareAliases = [
-        // other aliases…
         'ensure_role' => \App\Http\Middleware\EnsureRole::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
