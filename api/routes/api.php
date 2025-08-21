@@ -76,4 +76,9 @@ Route::middleware(['auth:sanctum', 'can:isAdmin'])->group(function () {
     Route::patch('/owner-leads/{lead}', [OwnerLeadController::class, 'updateStatus']);
 });
 
+Route::prefix('admin')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/submissions', [AdminSubmissionController::class, 'index']);
+});
+
+
 

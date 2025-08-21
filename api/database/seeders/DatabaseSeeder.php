@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             StayTypeSeeder::class,
             AmenitySeeder::class,
             CategorySeeder::class,
+            PropertySeeder::class,
         ]);
     }
 

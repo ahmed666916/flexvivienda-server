@@ -2,20 +2,28 @@
 
 namespace Database\Seeders;
 
-use App\Models\StayType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role; // ignore if unused
+use App\Models\StayType;
 
 class StayTypeSeeder extends Seeder
 {
     public function run(): void
     {
-        $items = [
-            ['code'=>'short','name'=>'Short Stay'],
-            ['code'=>'mid','name'=>'Mid Stay'],
-            ['code'=>'long','name'=>'Long Stay'],
+        $rows = [
+            ['code' => 'short', 'name' => 'Short Stay'],
+            ['code' => 'mid',   'name' => 'Mid Stay'],
+            ['code' => 'long',  'name' => 'Long Stay'],
         ];
-        foreach ($items as $i) {
-            StayType::firstOrCreate(['code'=>$i['code']], $i);
+
+        foreach ($rows as $r) {
+            // Use code as the canonical slug (stable & unique)
+            $slug = $r['code']; // or Str::slug($r['name'])
+            StayType::updateOrCreate(
+                ['code' => $r['code']],
+                ['name' => $r['name'], 'slug' => $slug]
+            );
         }
     }
 }
