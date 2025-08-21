@@ -11,7 +11,7 @@ class Property extends Model {
         'price_per_night','price_per_month','status','is_featured',
         'listing_source','external_id','require_manual_approval'
     ];
-    public function images(){ return $this->hasMany(PropertyImage::class)->orderBy('sort_order'); }
+    
     public function owner(){ return $this->belongsTo(Owner::class); }
     public function city(){ return $this->belongsTo(City::class); }
     public function amenities(){ return $this->belongsToMany(Amenity::class); }
@@ -20,5 +20,8 @@ class Property extends Model {
 {
     return $this->belongsToMany(StayType::class, 'property_stay_type');
 }
+public function images() { return $this->hasMany(\App\Models\PropertyImage::class); }
+public function favoritedBy() { return $this->belongsToMany(\App\Models\User::class, 'favorites'); }
+
 
 }

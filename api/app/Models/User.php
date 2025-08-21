@@ -48,5 +48,6 @@ class User extends Authenticatable
     }
 
     public function owner() { return $this->hasOne(\App\Models\Owner::class); }
+    public function favorites() { return $this->belongsToMany(\App\Models\Property::class, 'favorites'); }
 
 }

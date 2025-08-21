@@ -11,6 +11,9 @@ use App\Http\Controllers\Api\Public\PropertyBrowseController;
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\Admin\OwnerController as AdminOwnerController;
 use App\Http\Controllers\Api\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\Api\NewsletterController;
+use App\Http\Controllers\Api\FavoriteController;
+use App\Http\Controllers\Api\OwnerLeadController;
 
 // Public
 Route::get('/properties', [PropertyBrowseController::class, 'index']);
@@ -55,5 +58,22 @@ Route::post('/admin/bookings/{id}/confirm',[AdminBookingController::class,'confi
 Route::post('/admin/bookings/{id}/cancel', [AdminBookingController::class,'cancel']);
 Route::post('/admin/bookings/{id}/pay',    [AdminBookingController::class,'markPaid']);
 Route::post('/admin/bookings/{id}/refund', [AdminBookingController::class,'refund']);
+
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe']);
+
+// Favorites require auth (Sanctum)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/favorites/{property}', [FavoriteController::class, 'toggle']);
+    Route::get('/favorites', [FavoriteController::class, 'index']);
+});
+
+// Public Owner Lead intake (list-your-home form)
+Route::post('/owner-leads', [OwnerLeadController::class, 'store']);
+
+// (Optional) Admin-only listing of leads — protect with your admin middleware
+Route::middleware(['auth:sanctum', 'can:isAdmin'])->group(function () {
+    Route::get('/owner-leads', [OwnerLeadController::class, 'index']);
+    Route::patch('/owner-leads/{lead}', [OwnerLeadController::class, 'updateStatus']);
+});
 
 
