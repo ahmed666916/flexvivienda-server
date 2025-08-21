@@ -25,6 +25,7 @@ import AdminDashboard from './pages/admin/Dashboard';
 import AdminProperties from './pages/admin/Properties';
 import AdminOwners from './pages/admin/Owners';
 import AdminBookings from './pages/admin/Bookings';
+import Login from './pages/Login';
 
 
 
@@ -132,6 +133,18 @@ function App() {
             }
           />
         </Routes>
+
+          <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/admin/submissions"
+        element={
+          <RequireAuth>
+            <AdminSubmissions />
+          </RequireAuth>
+        }
+      />
+    </Routes>
 
         <Footer />
       </AuthProvider>

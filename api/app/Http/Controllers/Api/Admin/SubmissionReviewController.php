@@ -1,9 +1,9 @@
 <?php
-// app/Http/Controllers/Api/Admin/SubmissionReviewController.php
 
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 
 class SubmissionReviewController extends Controller
@@ -11,21 +11,60 @@ class SubmissionReviewController extends Controller
     // GET /api/admin/submissions
     public function index(Request $request)
     {
-        // TODO: return paginated list of owner submissions awaiting review
-        return response()->json(['data' => []]);
+        $perPage = max(1, min((int)$request->input('per_page', 20), 100));
+
+        $q = Submission::query()->with(['user:id,name,email', 'reviewer:id,name']);
+
+        if ($request->filled('status')) {
+            $q->where('status', (string) $request->input('status'));
+        }
+        if ($request->filled('type')) {
+            $q->where('type', (string) $request->input('type'));
+        }
+        if ($request->filled('q')) {
+            $term = '%'.(string)$request->input('q').'%';
+            // Portable search: LIKE on text columns + raw JSON blob
+            $q->where(function ($w) use ($term) {
+                $w->where('notes', 'like', $term)
+                  ->orWhere('admin_notes', 'like', $term)
+                  ->orWhere('payload', 'like', $term); // works even if payload is a JSON string
+            });
+        }
+
+        $rows = $q->orderByDesc('id')->paginate($perPage);
+
+        return response()->json($rows);
     }
 
-    // POST /api/admin/submissions/{id}/approve
-    public function approve($id)
+    public function approve(Request $request, $id)
     {
-        // TODO: mark submission approved and (optionally) create a Property
-        return response()->json(['ok' => true, 'id' => $id, 'status' => 'approved']);
+        $sub = Submission::findOrFail($id);
+
+        if ($sub->status !== 'approved') {
+            $sub->status      = 'approved';
+            $sub->reviewed_by = $request->user()->id;
+            $sub->reviewed_at = now();
+            if ($request->filled('admin_notes')) {
+                $sub->admin_notes = (string)$request->input('admin_notes');
+            }
+            $sub->save();
+        }
+
+        return response()->json(['ok' => true, 'id' => $sub->id, 'status' => 'approved']);
     }
 
-    // POST /api/admin/submissions/{id}/reject
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
-        // TODO: mark submission rejected (and store reason)
-        return response()->json(['ok' => true, 'id' => $id, 'status' => 'rejected']);
+        $sub = Submission::findOrFail($id);
+
+        $sub->status      = 'rejected';
+        $sub->reviewed_by = $request->user()->id;
+        $sub->reviewed_at = now();
+        if ($request->filled('reason')) {
+            $sub->admin_notes = (string)$request->input('reason');
+        }
+        $sub->save();
+
+        return response()->json(['ok' => true, 'id' => $sub->id, 'status' => 'rejected']);
     }
 }
