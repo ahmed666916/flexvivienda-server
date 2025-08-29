@@ -21,12 +21,12 @@ const Home = () => {
       <Hero heading={t('heroMessage')} subheading={t('heroSubtitle')} />
 
       <div className="section-block">
-        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1" showHeading="1" />
+        <PropertyList title="Featured Listings" tabs="0" maps="1" tags="1" short="1" showHeading="1" type="feature" />
 
       </div>
 
       <div className="section-block home-property-section">
-        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1" />
+        <PropertyList title="Perfect Locations" tabs="1" maps="0" tags="0" short="1" type="all"/>
       </div>
 
       <div className="section-block city-explorer">

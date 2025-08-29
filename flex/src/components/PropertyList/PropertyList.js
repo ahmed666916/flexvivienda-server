@@ -19,93 +19,50 @@ const filters = [
   { name: 'Jacuzzi', icon: <FaHotTub /> },
 ];
 
-const properties = [
-  {
-    id: 1,
-    title: 'Modern Flat near Istiklal Street',
-    location: 'Beyoğlu, Istanbul',
-    price: '€120/night',
-    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
-    tag: 'Hot Property',
-    bedrooms: 2,
-    bathrooms: 1,
-    size: 75,
-    persons: 4,
-    features: ['Sea view', 'Pet friendly', 'Central', 'Jacuzzi'],
-  },
-  {
-    id: 2,
-    title: 'Superb House in Ortaköy',
-    location: 'Ortaköy, Istanbul',
-    price: '€200/night',
-    image: 'https://duotax.com.au/wp-content/uploads/House.jpg',
-    tag: 'Hot Property',
-    bedrooms: 4,
-    bathrooms: 2,
-    size: 200,
-    persons: 4,
-    features: ['Garden', 'Swimming Pool', 'Residence'],
-  },
-  {
-    id: 3,
-    title: 'Cozy Studio in Kadıköy',
-    location: 'Kadıköy, Istanbul',
-    price: '€90/night',
-    image: 'https://www.synchrony.com/syfbank/images/hero-land-lord-life-1140x570.jpg',
-    tag: 'Highest Rated',
-    bedrooms: 1,
-    bathrooms: 1,
-    size: 45,
-    persons: 4,
-    features: ['Close to Beach', 'Residence'],
-  },
-  {
-    id: 4,
-    title: 'Sea View Apartment in Bakırköy',
-    location: 'Bakırköy, Istanbul',
-    price: '€150/night',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-    tag: 'Highest Rated',
-    bedrooms: 3,
-    bathrooms: 2,
-    size: 110,
-    persons: 4,
-    features: ['Sea view', 'Swimming Pool', 'Jacuzzi'],
-  },
-  {
-    id: 5,
-    title: 'Luxury Central Flat',
-    location: 'Taksim, Istanbul',
-    price: '€250/night',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-    tag: 'Luxury Stay',
-    bedrooms: 2,
-    bathrooms: 1,
-    size: 90,
-    persons: 4,
-    features: ['Central', 'Pet friendly', 'Residence'],
-  },
-  {
-    id: 6,
-    title: 'Stylish Retreat with Jacuzzi',
-    location: 'Şişli, Istanbul',
-    price: '€220/night',
-    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
-    tag: 'Hot Property',
-    bedrooms: 2,
-    bathrooms: 2,
-    size: 120,
-    persons: 4,
-    features: ['Jacuzzi', 'Garden', 'Central'],
-  }
-];
-
 const PropertyList = (props) => {
-  const scrollRef = useRef();
+  const scrollRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('All');
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // ✅ Fetch properties from API
+  useEffect(() => {
+     
+      let url = null;
+      switch (props.type) {
+          case "feature":
+              url = "http://localhost:8000/api/getFeaturedProperties/1";
+              break;
+          case "all":
+              url = "http://localhost:8000/api/getAllProperties";
+              break;
+          case "long":
+             url = "http://localhost:8000/api/getLongMediumTermProperties/long";
+             break;
+          case "medium":
+             url = "http://localhost:8000/api/getLongMediumTermProperties/medium";
+             break;
+      }
+
+    
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setProperties(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching properties:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  // ✅ Safe scroll drag logic
   useEffect(() => {
     const el = scrollRef.current;
+    if (!el) return; // prevent null error
+
     let isDown = false;
     let startX, scrollLeft;
 
@@ -130,18 +87,22 @@ const PropertyList = (props) => {
     el.addEventListener('mouseup', handleMouseUpLeave);
     el.addEventListener('mouseleave', handleMouseUpLeave);
     el.addEventListener('mousemove', handleMouseMove);
+
     return () => {
       el.removeEventListener('mousedown', handleMouseDown);
       el.removeEventListener('mouseup', handleMouseUpLeave);
       el.removeEventListener('mouseleave', handleMouseUpLeave);
       el.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [scrollRef]);
 
+  // ✅ Apply filter
   const filteredProperties =
     activeFilter === 'All'
       ? properties
-      : properties.filter((p) => p.features && p.features.includes(activeFilter));
+      : properties.filter((p) => p.amenities && p.amenities.includes(activeFilter));
+
+  if (loading) return <p>Loading properties...</p>;
 
   return (
     <>
@@ -180,7 +141,7 @@ const PropertyList = (props) => {
 
       <div className="listing-container" ref={scrollRef}>
         {filteredProperties.map((property) => (
-          <Link to="/property_detail" key={property.id}>
+          <Link to={`/property/${property.id}`} key={property.id}>
             <div className="property-card">
               {props.tags === "1" && property.tag && (
                 <span className="property-tag">{property.tag}</span>
@@ -193,14 +154,16 @@ const PropertyList = (props) => {
                 <h2 className="property-title">{property.title}</h2>
                 <p className="property-locations">{property.location}</p>
                 <div className="property-features">
-                  <span><i className="fa-solid fa-bed"></i> {property.bedrooms}</span>
-                  <span><i className="fa-solid fa-bath"></i> {property.bathrooms}</span>
+                  {property.bedrooms && <span><i className="fa-solid fa-bed"></i> {property.bedrooms}</span>}
+                  {property.bathrooms && <span><i className="fa-solid fa-bath"></i> {property.bathrooms}</span>}
                   <span>
                     <i className={props.short === "1" ? "fa-solid fa-user-group" : "fa-solid fa-maximize"}></i>
-                    {props.short === "1" ? property.persons : property.size}
+                    {props.short === "1" ? property.persons ?? 0 : property.size ?? 0}
                   </span>
                 </div>
-                <p className="property-price">{property.price}</p>
+                <p className="property-price">
+                  {property.price ? `€${property.price}/night` : 'Price on request'}
+                </p>
               </div>
             </div>
           </Link>

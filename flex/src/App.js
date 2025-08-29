@@ -26,6 +26,7 @@ import AdminProperties from './pages/admin/Properties';
 import AdminOwners from './pages/admin/Owners';
 import AdminBookings from './pages/admin/Bookings';
 import Login from './pages/Login';
+import Booking from './pages/booking'
 
 
 
@@ -61,10 +62,10 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/listing" element={<Listings />} />
-          <Route path="/property/:slug" element={<PropertyDetail />} />
+          <Route path="/property/:id" element={<PropertyDetail />} />
           <Route path="/owner_listing" element={<OwnerListing />} />
           <Route path="/blogs" element={<Blog />} />
-          <Route path="/blog-detail" element={<Blog_detail />} />
+          <Route path="/blog-detail/:id" element={<Blog_detail />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/splitPage" element={<SplitPage />} />
           <Route path="/midStay" element={<MidStay />} />
@@ -75,6 +76,7 @@ function App() {
           <Route path="/admin/submissions" element={<AdminSubmissions />} />
           <Route path="/admin/owners" element={<AdminOwners />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
+          <Route path="/booking" element={<Booking />} />
 
 
 

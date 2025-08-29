@@ -36,7 +36,7 @@ api.interceptors.response.use(
 // ---- API helpers ----
 
 // Lists with optional filters: { page, per_page, city, amenities, ... }
-export const listProperties = (params = {}) => api.get('/properties', { params });
+export const listProperties = (params = {}) => api.get('/getAllProperties', { params });
 
 // Detail by slug
 export const getProperty = (slug) => api.get(`/properties/${slug}`);

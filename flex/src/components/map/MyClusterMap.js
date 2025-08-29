@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect } from 'react';
+import React, { useMemo, useRef, useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import 'leaflet/dist/leaflet.css';
@@ -19,16 +19,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-// Fallback city coordinates (until real lat/lng comes from API)
-const cityCoordinates = {
-  'Beyoğlu, Istanbul': [41.0369, 28.9760],
-  'Ortaköy, Istanbul': [41.0431, 29.0222],
-  'Kadıköy, Istanbul': [40.9902, 29.0275],
-  'Bakırköy, Istanbul': [40.9719, 28.8535],
-  'Taksim, Istanbul': [41.0365, 28.9850],
-  'Şişli, Istanbul': [41.0605, 28.9872],
-};
-
 // Stable jitter cache so markers don’t “wiggle”
 function useJitterCache() {
   const ref = useRef(new Map());
@@ -47,7 +37,7 @@ function useJitterCache() {
 const highlightIcon = new L.Icon({
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
-  iconSize: [30, 49],   // slightly larger
+  iconSize: [30, 49], // slightly larger
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
@@ -58,8 +48,6 @@ function RawClusterMap({
   onLoad,
   showHeading = true,
   highlightId = null,
-  onMarkerHover,
-  onMarkerClick,
 }) {
   const jitterFor = useJitterCache();
   const markersRef = useRef(new Map()); // id -> marker instance
@@ -71,11 +59,10 @@ function RawClusterMap({
         let lng = Number(p.lng ?? p.longitude);
 
         if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
-          const c = cityCoordinates[p.location];
-          if (!c) return null;
+          // fallback jitter
           const j = jitterFor(p.id ?? `${p.title}-${idx}`);
-          lat = c[0] + j.lat;
-          lng = c[1] + j.lng;
+          lat = 41.0151 + j.lat;
+          lng = 28.9795 + j.lng;
         }
 
         return { ...p, lat, lng };
@@ -90,11 +77,8 @@ function RawClusterMap({
       if (!highlightId) return;
       const m = markersRef.current.get(highlightId);
       if (m) {
-        // open a tooltip/popup lightly and bring into view
-        // eslint-disable-next-line no-underscore-dangle
         m.openPopup?.();
         const ll = m.getLatLng();
-        // keep map center mostly stable; only pan slightly
         map.panTo(ll, { animate: true, duration: 0.25 });
       }
     }, [highlightId, map]);
@@ -103,13 +87,16 @@ function RawClusterMap({
 
   return (
     <section className={`section-block ${!showHeading ? 'listing-map-wrapper' : ''}`}>
+      {/* ✅ only render heading if showHeading is true */}
       {showHeading && (
         <center>
           <h2 className="map-heading">
             <span className="heading-primary">Live</span>{' '}
             <span className="heading-secondary">Map</span>
           </h2>
-          <p className="heading-subtext">Explore our property distribution across Turkey</p>
+          <p className="heading-subtext">
+            Explore our property distribution across Turkey
+          </p>
         </center>
       )}
 
@@ -117,7 +104,7 @@ function RawClusterMap({
         <div style={{ height: '500px', width: '100%' }}>
           <MapContainer
             center={[41.0151, 28.9795]}
-            zoom={11}
+            zoom={5}
             style={{ height: '100%', width: '100%' }}
             renderer={L.canvas()}
             preferCanvas={true}
@@ -138,20 +125,29 @@ function RawClusterMap({
             >
               {items.map((p) => (
                 <Marker
-                  key={p.id ?? `${p.slug ?? p.title}-${p.lat}-${p.lng}`}
+                  key={p.id ?? `${p.title}-${p.lat}-${p.lng}`}
                   position={[p.lat, p.lng]}
                   ref={(mk) => {
                     if (mk) markersRef.current.set(p.id, mk);
                     else markersRef.current.delete(p.id);
                   }}
-                  {...(highlightId === p.id ? { icon: highlightIcon } : {})} // ✅ pass icon only when set
-                  eventHandlers={{ /* ... */ }}
+                  {...(highlightId === p.id ? { icon: highlightIcon } : {})}
                 >
-
                   <Popup>
-                    <b>{p.title}</b><br />
-                    {p.location}<br />
-                    {p.price ?? p.price_per_night ?? ''}
+                    {p.image && (
+                      <p>
+                        <img
+                          src={p.image}
+                          alt={p.title}
+                          style={{ width: '150px', borderRadius: '6px' }}
+                        />
+                      </p>
+                    )}
+                    <b>{p.title}</b>
+                    <br />
+                    {p.location}
+                    <br />
+                    <span>💰 {p.price} / day</span>
                   </Popup>
                 </Marker>
               ))}
@@ -163,23 +159,26 @@ function RawClusterMap({
   );
 }
 
-// Prevent re-render if props didn’t meaningfully change
-const propsEqual = (prev, next) => {
-  if (prev.showHeading !== next.showHeading) return false;
-  if (prev.highlightId !== next.highlightId) return false;
+// Page wrapper: fetch API + render map
+export default function PropertyMapPage({ showHeading = true }) {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const a = prev.properties || [];
-  const b = next.properties || [];
-  if (a.length !== b.length) return false;
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/properties")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched properties:", data);
+        setProperties(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching properties:", err);
+        setLoading(false);
+      });
+  }, []);
 
-  for (let i = 0; i < a.length; i++) {
-    const pa = a[i], pb = b[i];
-    const ida = pa.id ?? pa.slug ?? pa.title, idb = pb.id ?? pb.slug ?? pb.title;
-    if (ida !== idb) return false;
-    if ((pa.lat ?? pa.latitude) !== (pb.lat ?? pb.latitude)) return false;
-    if ((pa.lng ?? pa.longitude) !== (pb.lng ?? pb.longitude)) return false;
-  }
-  return true;
-};
+  if (loading) return <p>Loading map...</p>;
 
-export default React.memo(RawClusterMap, propsEqual);
+  return <RawClusterMap properties={properties} showHeading={showHeading} />;
+}

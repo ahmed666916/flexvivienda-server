@@ -1,27 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './BlogDetail.css';
 
 const BlogDetail = () => {
-  const blog = {
-    title: "Exploring Istanbul's Hidden Gems",
-    date: "May 15, 2025",
-    image: "https://images.unsplash.com/photo-1560347876-aeef00ee58a1?fit=crop&w=1200&q=80",
-    content: `
-      Istanbul is a city layered with history and bursting with culture. While iconic landmarks like the Hagia Sophia and Blue Mosque are essential, there's a quieter side waiting to be explored.
+  const { id } = useParams();
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-      Wander through the hidden alleyways of Balat, sip Turkish tea on rooftops that overlook the Bosphorus, and get lost in the endless corridors of local bazaars.
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/api/blogs/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setBlog(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error fetching blog:", err);
+        setLoading(false);
+      });
+  }, [id]);
 
-      From century-old bookstores to tucked-away art galleries, this city never stops revealing new surprises. Let’s uncover some of its most enchanting hidden gems together.
-    `
-  };
+  if (loading) return <p>Loading blog...</p>;
+  if (!blog) return <p>Blog not found</p>;
 
   return (
     <div className="blog-detail">
-      <img src={blog.image} alt={blog.title} className="blog-detail-image" />
+      {blog.image && (
+        <img src={blog.image} alt={blog.title} className="blog-detail-image" />
+      )}
       <div className="blog-detail-content">
         <h1 className="blog-detail-title">{blog.title}</h1>
         <p className="blog-detail-date">{blog.date}</p>
-        <p className="blog-detail-text">{blog.content}</p>
+        {/* render HTML body safely */}
+        <div
+          className="blog-detail-text"
+          dangerouslySetInnerHTML={{ __html: blog.body }}
+        />
       </div>
     </div>
   );

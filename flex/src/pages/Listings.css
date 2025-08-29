@@ -4,7 +4,8 @@ html, body, #root { height: 100%; }
 .listing-layout {
   position: relative;
   padding: 12px 0 0;
-  height: calc(100vh - 120px); /* adjust for your header height */
+  height:100%;
+  margin-bottom: 10%;
   container-type: inline-size;
 }
 

@@ -17,7 +17,7 @@ const MidStay = () => {
         description={t('MidheroDescription')}
       />
       <br />
-      <PropertyList title="Midterm Stay Locations" tabs="0" maps="0" tags="0" short="0" />
+      <PropertyList title="Midterm Stay Locations" tabs="0" maps="0" tags="0" short="0" type="medium"/>
       <LifeTimeExperience />
       <Testimonials />
       <FAQ />

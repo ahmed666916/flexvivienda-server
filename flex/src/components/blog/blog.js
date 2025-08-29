@@ -1,45 +1,31 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './blog.css';
 
-const blogs = [
-  {
-    id: 1,
-    title: '5 Tips for Buying Your First Home',
-    date: 'May 20, 2025',
-    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
-  },
-  {
-    id: 2,
-    title: 'The Istanbul Property Market in 2025',
-    date: 'May 18, 2025',
-    image: 'https://duotax.com.au/wp-content/uploads/House.jpg',
-  },
-  {
-    id: 3,
-    title: 'How to Choose the Right Neighborhood',
-    date: 'May 15, 2025',
-    image: 'https://www.synchrony.com/syfbank/images/hero-land-lord-life-1140x570.jpg',
-  },
-  {
-    id: 4,
-    title: 'Home Staging Secrets Revealed',
-    date: 'May 10, 2025',
-    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
-  },
-  {
-    id: 5,
-    title: 'Home Staging Secrets Revealed',
-    date: 'May 10, 2025',
-    image: 'https://agentrealestateschools.com/wp-content/uploads/2021/11/real-estate-property.jpg',
-  },
-];
-
 const Blog = () => {
   const scrollRef = useRef();
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch blogs from Laravel API
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        setBlogs(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching blogs:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  // Horizontal drag-to-scroll effect
   useEffect(() => {
     const el = scrollRef.current;
+    if (!el) return;
+
     let isDown = false;
     let startX;
     let scrollLeft;
@@ -82,9 +68,10 @@ const Blog = () => {
     };
   }, []);
 
+  if (loading) return <p>Loading blogs...</p>;
+
   return (
     <>
-      <center>
       <center>
         <h2 className="blog-section-title heading">
           <span className="heading-black">Latest</span>{' '}
@@ -92,11 +79,12 @@ const Blog = () => {
         </h2>
       </center>
 
-      </center>
       <div className="blog-container" ref={scrollRef}>
         {blogs.map((blog) => (
-          <Link to="/blog-detail" key={blog.id} className="blog-card">
-            <img src={blog.image} alt={blog.title} className="blog-image" />
+          <Link to={`/blog-detail/${blog.id}`} key={blog.id} className="blog-card">
+            {blog.image && (
+              <img src={blog.image} alt={blog.title} className="blog-image" />
+            )}
             <div className="blog-content">
               <p className="blog-date">{blog.date}</p>
               <h3 className="blog-title">{blog.title}</h3>
@@ -104,8 +92,14 @@ const Blog = () => {
           </Link>
         ))}
       </div>
-      <center><span className="blog-links"><Link to="/blogs">See All Blogs</Link></span></center>
+
+      <center>
+        <span className="blog-links">
+          <Link to="/blogs">See All Blogs</Link>
+        </span>
+      </center>
     </>
   );
 };
+
 export default Blog;
