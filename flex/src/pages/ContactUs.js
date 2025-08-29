@@ -24,7 +24,7 @@ const ContactUs = () => {
     setResponseMsg('');
 
     try {
-      const response = await fetch("http://localhost:8000/api/send-email", {
+      const response = await fetch("https://app.flexvivienda.com/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

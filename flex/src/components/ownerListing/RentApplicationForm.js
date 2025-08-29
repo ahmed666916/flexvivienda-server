@@ -54,7 +54,7 @@ const RentApplicationForm = forwardRef((props, ref) => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/rent-applications", {
+      const res = await fetch("https://app.flexvivienda.com/api/rent-applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

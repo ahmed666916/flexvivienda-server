@@ -27,7 +27,7 @@ const Listings = () => {
     useEffect(() => {
        var url = null;
       
-         url = "http://localhost:8000/api/getAllProperties";
+         url = "https://app.flexvivienda.com/api/getAllProperties";
       
   
       fetch(url)

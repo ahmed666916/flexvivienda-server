@@ -11,7 +11,7 @@ const PropertyDetail = () => {
   const [property, setProperty] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/properties/${id}`)
+    fetch(`https://app.flexvivienda.com/api/properties/${id}`)
       .then(res => res.json())
       .then(data => setProperty(data))
       .catch(err => console.error("Error fetching property:", err));

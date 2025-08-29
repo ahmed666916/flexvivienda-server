@@ -31,16 +31,16 @@ const PropertyList = (props) => {
       let url = null;
       switch (props.type) {
           case "feature":
-              url = "http://localhost:8000/api/getFeaturedProperties/1";
+              url = "https://app.flexvivienda.com/api/getFeaturedProperties/1";
               break;
           case "all":
-              url = "http://localhost:8000/api/getAllProperties";
+              url = "https://app.flexvivienda.com/api/getAllProperties";
               break;
           case "long":
-             url = "http://localhost:8000/api/getLongMediumTermProperties/long";
+             url = "https://app.flexvivienda.com/api/getLongMediumTermProperties/long";
              break;
           case "medium":
-             url = "http://localhost:8000/api/getLongMediumTermProperties/medium";
+             url = "https://app.flexvivienda.com/api/getLongMediumTermProperties/medium";
              break;
       }
 
