@@ -13,6 +13,8 @@ import BetterHomeSlider from '../components/BetterHomeSlider/BetterHomeSlider';
 import './home.css';
 import MyClusterMap from '../components/map/MyClusterMap';
 
+
+
 const Home = () => {
   const { t, i18n } = useTranslation();
 
