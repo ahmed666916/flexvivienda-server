@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
 
-             {{-- Success Message --}}
+            {{-- Success Message --}}
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
             @endif
@@ -23,12 +23,8 @@
                     </ul>
                 </div>
             @endif
-            
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
 
-            <form method="POST" action="{{ route('properties.store') }}" enctype= multipart/form-data>
+            <form method="POST" action="{{ route('properties.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Title -->
@@ -43,12 +39,19 @@
                     <textarea name="description" class="form-control" rows="3"></textarea>
                 </div>
 
-                <!-- Location -->
+                <!-- Location + Lat/Lng (Hidden) -->
                 <div class="mb-3">
                     <label class="form-label">Location (Search in Turkey)</label>
                     <input type="text" id="locationInput" name="location" class="form-control" required>
                     <input type="hidden" id="latitude" name="latitude">
                     <input type="hidden" id="longitude" name="longitude">
+                </div>
+
+                <!-- Map Picker (draggable marker for precise pin) -->
+                <div class="mb-3">
+                    <label class="form-label d-block">Pin Exact Location</label>
+                    <div id="mapPicker" style="height: 320px; border-radius: 8px; overflow: hidden;"></div>
+                    <small class="text-muted">Tip: click anywhere on the map or drag the pin to set exact coordinates.</small>
                 </div>
 
                 <!-- Numbers Row -->
@@ -89,18 +92,19 @@
                     <div class="row">
                         @php
                             $allAmenities = [
-                                'Sea view', 'Swimming Pool', 'Garden', 'Close to Beach',
-                                'Pet friendly', 'Residence', 'Central', 'Jacuzzi', 'Hair dryer', 'Shampoo', 'Body soap', 'Hot water', 'Shower gel', 'Hangers', 'Bed linens', 'Extra pillows and blankets', 'Iron', 'Clothing storage', 'TV', 'Air conditioning', 'Smoke alarm', 'Fire extinguisher', 'First aid kit', 'Wifi, Dedicated workspace', 'Kitchen', 'Refrigerator', 'Microwave', 'Cooking basics', 'Dishes and silverware', 'Dishwasher', 'Stove', 'Hot water kettle', 'Wine glasses', 'Dining table', 'Coffee', 'Elevator', 
+                                'Sea view','Swimming Pool','Garden','Close to Beach','Pet friendly','Residence','Central','Jacuzzi',
+                                'Hair dryer','Shampoo','Body soap','Hot water','Shower gel','Hangers','Bed linens','Extra pillows and blankets',
+                                'Iron','Clothing storage','TV','Air conditioning','Smoke alarm','Fire extinguisher','First aid kit',
+                                'Wifi, Dedicated workspace','Kitchen','Refrigerator','Microwave','Cooking basics','Dishes and silverware',
+                                'Dishwasher','Stove','Hot water kettle','Wine glasses','Dining table','Coffee','Elevator',
                             ];
                         @endphp
                         @foreach($allAmenities as $amenity)
                             <div class="col-md-3">
                                 <div class="form-check">
-                                    <input type="checkbox" name="amenities[]" value="{{ $amenity }}" 
+                                    <input type="checkbox" name="amenities[]" value="{{ $amenity }}"
                                            id="amenity_{{ $loop->index }}" class="form-check-input">
-                                    <label for="amenity_{{ $loop->index }}" class="form-check-label">
-                                        {{ $amenity }}
-                                    </label>
+                                    <label for="amenity_{{ $loop->index }}" class="form-check-label">{{ $amenity }}</label>
                                 </div>
                             </div>
                         @endforeach
@@ -141,7 +145,7 @@
                         @foreach($types as $value => $label)
                             <div class="col-md-3">
                                 <div class="form-check">
-                                    <input type="checkbox" name="property_type[]" value="{{ $value }}" 
+                                    <input type="checkbox" name="property_type[]" value="{{ $value }}"
                                            id="ptype_{{ $value }}" class="form-check-input">
                                     <label for="ptype_{{ $value }}" class="form-check-label">{{ $label }}</label>
                                 </div>
@@ -156,7 +160,6 @@
                     <input type="file" name="images[]" class="form-control" multiple required>
                     <small class="text-muted">Upload at least 4 images (jpg, png, max 2MB each)</small>
                 </div>
-
 
                 <!-- Submit -->
                 <div class="text-end">
@@ -180,15 +183,50 @@ function initAutocomplete() {
     autocomplete.addListener('place_changed', function () {
         const place = autocomplete.getPlace();
         if (!place.geometry) return;
-        document.getElementById('latitude').value = place.geometry.location.lat();
-        document.getElementById('longitude').value = place.geometry.location.lng();
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+        // center marker on the map when a place is chosen
+        if (window.__leafletMarker && window.__leafletMap) {
+            window.__leafletMarker.setLatLng([lat, lng]);
+            window.__leafletMap.setView([lat, lng], 15);
+        }
     });
 }
 window.initAutocomplete = initAutocomplete;
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9Fz5z9lHcRgsU7V1XUh1-74VVbxudfEU&libraries=places&callback=initAutocomplete" async defer></script>
 
-{{-- Tags Input --}}
+{{-- Leaflet (map picker) --}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const map = L.map('mapPicker').setView([41.015137, 28.97953], 12); // Istanbul default
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    const marker = L.marker(map.getCenter(), {draggable: true}).addTo(map);
+
+    function updateLatLng(latlng) {
+        document.getElementById('latitude').value = latlng.lat.toFixed(6);
+        document.getElementById('longitude').value = latlng.lng.toFixed(6);
+    }
+
+    updateLatLng(marker.getLatLng());
+
+    marker.on('dragend', (e) => updateLatLng(e.target.getLatLng()));
+    map.on('click', (e) => { marker.setLatLng(e.latlng); updateLatLng(e.latlng); });
+
+    // Expose for autocomplete callback to use
+    window.__leafletMap = map;
+    window.__leafletMarker = marker;
+});
+</script>
+
+{{-- Tiny tags input --}}
 <script>
 function setupTags(inputId, tagsDivId, hiddenId) {
     const input = document.getElementById(inputId);
@@ -198,35 +236,31 @@ function setupTags(inputId, tagsDivId, hiddenId) {
 
     function renderTags() {
         tagsDiv.innerHTML = "";
+        hidden.value = tags.join(",");
         tags.forEach((tag, idx) => {
             const span = document.createElement("span");
             span.className = "badge bg-primary me-1";
             span.innerHTML = tag + ` <span style="cursor:pointer" data-idx="${idx}">&times;</span>`;
             tagsDiv.appendChild(span);
         });
-        hidden.value = tags.join(",");
     }
 
     input.addEventListener("keydown", e => {
         if (e.key === "Enter" || e.key === ",") {
             e.preventDefault();
             const val = input.value.trim();
-            if (val && !tags.includes(val)) {
-                tags.push(val);
-                renderTags();
-            }
+            if (val && !tags.includes(val)) { tags.push(val); renderTags(); }
             input.value = "";
         }
     });
 
     tagsDiv.addEventListener("click", e => {
         if (e.target.dataset.idx !== undefined) {
-            tags.splice(e.target.dataset.idx, 1);
+            tags.splice(+e.target.dataset.idx, 1);
             renderTags();
         }
     });
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     setupTags("rulesInput", "rulesTags", "rulesHidden");
     setupTags("cancellationInput", "cancellationTags", "cancellationHidden");
