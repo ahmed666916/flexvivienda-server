@@ -1,110 +1,52 @@
-/* === Container & Layout === */
-.search-bar-container-listing {
+/* === Airbnb-style container === */
+.airbnb-searchbar {
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
-  z-index: 5;
-}
-
-.search-bar-listing {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1.2rem;
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 16px;
-  max-width: 1200px;
-  width: 100%;
-  align-items: flex-end;
-}
-
-/* === Input Groups === */
-.input-group {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.input-group label {
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: #555;
-  margin-bottom: 6px;
-}
-
-.input-group input,
-.search-bar input {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 0.95rem;
-  width: 100%;
-  background-color: white;
-  box-sizing: border-box;
-  z-index: 1;
-}
-
-input::placeholder {
-  color: #aaa;
-}
-
-/* === Buttons === */
-.search-button-group .button-row {
-  display: flex;
-  gap: 12px;
   width: 100%;
 }
 
-.search-button-group .button-row button {
-  flex: 1;
-  height: 44px;
-}
-
-.search-btn {
-  background-color: #ef3b5c;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: 600;
+.searchbar-inner {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  height: 48px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: background-color 0.3s ease;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 40px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  /* overflow: hidden;  ❌ remove this */
+  width: 100%;
+  max-width: 900px;
+  position: relative; /* ✅ keep dropdown inside properly */
 }
 
-.search-btn:hover {
-  background-color: #d72c4e;
+.dropdown-list {
+  z-index: 9999; /* instead of 20 */
 }
 
-.filter-button {
-  background-color: #334155;
-  color: white;
+
+.searchbar-item {
+  flex: 1;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.searchbar-item:not(:last-child) {
+  border-right: 1px solid #eee;
+}
+
+/* Inputs */
+.searchbar-item input {
   border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 0.95rem;
-  cursor: pointer;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  background: transparent;
+}
+.searchbar-item input::placeholder {
+  color: #999;
 }
 
-.filter-button:hover {
-  background-color: #1e293b;
-}
-
-.invisible-label {
-  visibility: hidden;
-  height: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/* === City Dropdown === */
+/* Dropdown list (city search) */
 .dropdown-list {
   position: absolute;
   top: 100%;
@@ -113,267 +55,87 @@ input::placeholder {
   background: white;
   border: 1px solid #ccc;
   border-top: none;
-  max-height: 200px;
+  max-height: 220px;
   overflow-y: auto;
-  z-index: 10;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
-
 .dropdown-list li {
   padding: 10px 14px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 14px;
 }
-
 .dropdown-list li:hover {
   background-color: #f5f5f5;
 }
-
 .no-result {
   padding: 10px 14px;
   color: #999;
 }
 
-/* === Modal === */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 2000;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+/* Actions: Filter + Search */
+.actions {
   display: flex;
-  justify-content: center;
+  gap: 10px;
   align-items: center;
 }
-
-.modal-content {
-  background: #fff !important;
-  width: 95%;
-  max-width: 860px;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  overflow: hidden;
-  position: relative;
-  z-index: 2001;
-}
-
-.modal-header {
-  padding: 1.2rem 2rem 0 2rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.modal-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  padding: 2rem;
-  font-family: 'Inter', sans-serif;
-}
-
-.modal-footer {
-  padding: 0.75rem 1.2rem;
-  background-color: #fff;
-  border-top: 1px solid #eee;
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* === Close Button === */
-.modal-close-button {
-  position: absolute;
-  top: 12px;
-  right: 18px;
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  color: #6b7280;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.modal-close-button:hover {
-  color: #f43f5e;
-}
-
-/* === Filter Sections === */
-.filter-section {
-  margin-bottom: 1.8rem;
-}
-
-.filter-section label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  font-size: 1rem;
-  color: #1f2937;
-}
-
-/* === Counter (Rooms, Beds, Baths) === */
-.counter-group {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.75rem;
-}
-
-.counter-item {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  background: #f9fafb;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #1f2937;
-}
-
-.counter-item button {
-  background: #f43f5e;
-  color: #fff;
-  border: none;
-  padding: 0.4rem 0.75rem;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.counter-item button:hover {
-  background-color: #e11d48;
-}
-
-/* === Price Range === */
-.price-range-slider {
-  width: 100%;
-  height: 6px;
-  appearance: none;
-  background: #e5e7eb;
-  border-radius: 10px;
-  outline: none;
-  margin-top: 10px;
-  position: relative;
-}
-
-.price-range-slider::-webkit-slider-thumb,
-.price-range-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ef3b5c;
-  border: 3px solid white;
-  box-shadow: 0 0 0 2px #ef3b5c;
-  cursor: pointer;
-}
-
-.price-display {
-  text-align: right;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-top: 6px;
-  color: #1f2937;
-}
-
-/* === Chips === */
-.chip-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.chip-button {
-  padding: 10px 16px;
-  font-size: 0.95rem;
-  border-radius: 999px;
-  border: 1px solid #ccc;
+.filter-btn {
+  border: 1px solid #ddd;
+  border-radius: 20px;
   background: #fff;
-  color: #333;
-  transition: 0.3s;
+  padding: 6px 14px;
+  font-size: 14px;
   cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+.filter-btn:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.chip-button:hover,
-.chip-button.active {
-  background: #ef3b5c;
+.search-btn {
+  background: #ff385c;
   color: #fff;
-  border-color: transparent;
-}
-
-/* === Footer Buttons === */
-.apply-filters-btn {
-  background-color: #22c55e;
-  color: white;
   border: none;
-  padding: 0.5rem 1.2rem;
-  font-size: 0.95rem;
-  border-radius: 8px;
+  border-radius: 30px;
+  padding: 0 20px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  margin-right: 1rem;
-  transition: background-color 0.3s ease;
+  transition: background 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-.apply-filters-btn:hover {
-  background-color: #16a34a;
+.search-btn:hover {
+  background: #e11d48;
 }
 
-.close-modal {
-  background-color: #f43f5e;
-  color: white;
-  border: none;
-  padding: 0.5rem 1.2rem;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
 
-.close-modal:hover {
-  background-color: #e11d48;
-}
 
-/* === Radio Button (Price Circle Lookalike) === */
-input[type="radio"] {
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #f43f5e;
-  border-radius: 50%;
-  background: white;
-  position: relative;
-  cursor: pointer;
-}
-
-input[type="radio"]:checked::before {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 8px;
-  height: 8px;
-  background: #f43f5e;
-  border-radius: 50%;
-}
-
-/* === Responsive === */
+/* Responsive */
 @media (max-width: 768px) {
-  .search-bar-listing {
+  .searchbar-inner {
     flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
+    border-radius: 20px;
+    padding: 10px;
+    gap: 10px;
   }
-
-  .modal-body {
-    grid-template-columns: 1fr;
-  }
-
-  .input-group,
-  .search-button-group button {
+  .searchbar-item {
+    border-right: none !important;
     width: 100%;
+    padding: 8px 12px;
+  }
+  .actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .search-btn {
+    width: 100%;
+    border-radius: 12px;
   }
 }

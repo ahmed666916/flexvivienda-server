@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './SearchBarListing.css';
 import { Link } from 'react-router-dom';
 import DateRangeDropdown from './DateRangeDropdown';
-import { FaFilter, FaSearch } from 'react-icons/fa';
-import FilterModal from '../FilterModal/FilterModal'; 
+import { FaSearch } from 'react-icons/fa';
+import FilterModal from '../FilterModal/FilterModal';
 
 const cities = [
   'Istanbul', 'Ankara', 'Izmir', 'Antalya', 'Bursa', 'Adana',
@@ -17,20 +17,22 @@ const SearchBar = ({ className = '' }) => {
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => setShowModal(!showModal);
+
   const filteredCities = cities.filter(city =>
     city.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className={`search-bar-container-listing ${className}`}>
-      {/* New Blueground-style Filter Modal */}
+    <div className={`airbnb-searchbar ${className}`}>
+      {/* Filter modal */}
       {showModal && <FilterModal onClose={toggleModal} />}
 
-      <section className="search-bar-listing">
-        <div className="input-group">
+      <div className="searchbar-inner">
+        {/* City input */}
+        <div className="searchbar-item city-input">
           <input
             type="text"
-            placeholder="Select or type city"
+            placeholder="Where"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onFocus={() => setShowList(true)}
@@ -52,23 +54,27 @@ const SearchBar = ({ className = '' }) => {
           )}
         </div>
 
-        <div className="input-group">
+        {/* Date picker */}
+        <div className="searchbar-item date-input">
           <DateRangeDropdown />
         </div>
 
-        <div className="input-group">
-          <input type="number" placeholder="Guests" />
+        {/* Guests */}
+        <div className="searchbar-item guest-input">
+          <input type="number" placeholder="Guests" min="1" />
         </div>
 
-        <div className="input-group search-button-group">
-          <div className="button-row">
-            <Link to="/listing">
-              <button className="search-btn"><FaSearch /> Search</button>
-            </Link>
-            <button className="filter-button" onClick={toggleModal}><FaFilter /> Filters</button>
-          </div>
+        {/* Filter + Search */}
+        <div className="searchbar-item actions">
+          <button className="filter-btn" onClick={toggleModal}>Filters</button>
+          <Link to="/listing">
+            <button className="search-btn">
+            <FaSearch /> Search
+          </button>
+
+          </Link>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
