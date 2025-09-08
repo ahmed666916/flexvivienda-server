@@ -2,12 +2,41 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class booking extends Model
+class Booking extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'name', 'email', 'phone', 'guests',
-        'start_date', 'end_date', 'total_price'
+        // Old flow (direct booking form)
+        'name',
+        'email',
+        'phone',
+        'guests',
+        'start_date',
+        'end_date',
+        'total_price',
+
+        // New flow (API booking with users & properties)
+        'user_id',
+        'property_id',
+        'check_in',
+        'check_out',
+        'status',
     ];
+
+    /**
+     * Relationships
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }
