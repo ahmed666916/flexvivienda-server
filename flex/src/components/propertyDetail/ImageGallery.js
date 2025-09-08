@@ -5,6 +5,14 @@ const ImageGallery = ({ images }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
+  // ✅ Ensure correct src (local vs external)
+  const getImageSrc = (imgPath) => {
+    if (!imgPath) return '/placeholder.jpg'; // fallback if null
+    return imgPath.startsWith('http')
+      ? imgPath
+      : `/storage/${imgPath}`;
+  };
+
   const handlePrev = () => {
     setSlideIndex((prev) => (prev - 2 + images.length) % images.length);
   };
@@ -27,14 +35,14 @@ const ImageGallery = ({ images }) => {
 
         <div className="dual-image-wrapper">
           <img
-            src={visibleImages[0]}
+            src={getImageSrc(visibleImages[0])}
             alt={`Gallery ${slideIndex + 1}`}
             className="dual-gallery-image"
             onClick={() => setSelectedIndex(slideIndex)}
           />
           
           <img
-            src={visibleImages[1]}
+            src={getImageSrc(visibleImages[1])}
             alt={`Gallery ${slideIndex + 2}`}
             className="dual-gallery-image"
             onClick={() => setSelectedIndex((slideIndex + 1) % images.length)}
@@ -55,7 +63,7 @@ const ImageGallery = ({ images }) => {
               )
             }>&#10094;</button>
             <img
-              src={images[selectedIndex]}
+              src={getImageSrc(images[selectedIndex])}
               alt={`Large view ${selectedIndex}`}
               className="large-image"
             />

@@ -5,37 +5,58 @@ import ImageGallery from './ImageGallery';
 import BookingCard from './BookingCard';
 import SinglePropertyMap from '../map/SinglePropertyMap';
 
+// ✅ Helper function to normalize fields (array, JSON string, or comma-separated string)
+const parseList = (value) => {
+  if (!value) return [];
+  try {
+    if (Array.isArray(value)) {
+      return value;
+    } else if (typeof value === "string") {
+      // Try JSON parse first
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      } else {
+        // fallback: split comma-separated
+        return value.split(",").map((v) => v.trim()).filter(Boolean);
+      }
+    }
+  } catch {
+    return value.split(",").map((v) => v.trim()).filter(Boolean);
+  }
+  return [];
+};
+
 const PropertyDetail = () => {
   const { id } = useParams();
-
   const [property, setProperty] = useState(null);
 
   useEffect(() => {
     fetch(`https://app.flexvivienda.com/api/properties/${id}`)
-      .then(res => res.json())
-      .then(data => setProperty(data))
-      .catch(err => console.error("Error fetching property:", err));
+      .then((res) => res.json())
+      .then((data) => setProperty(data))
+      .catch((err) => console.error("Error fetching property:", err));
   }, [id]);
-
-
 
   if (!property) return <p>Loading...</p>;
 
-const amenities = Array.isArray(property.amenities)
-  ? property.amenities
-  : JSON.parse(property.amenities || "[]");
+  // ✅ Parse fields safely
+  const amenities = parseList(property.amenities);
+  const rules = parseList(property.rules);
+  const cancellation = parseList(property.cancellation);
+  const neighborhood = parseList(property.neighborhood);
 
-const rules = Array.isArray(property.rules)
-  ? property.rules
-  : JSON.parse(property.rules || "[]");
+  // ✅ Normalize images
+  const imagePaths = property.images?.length
+    ? property.images.map((img) => {
+        const path = typeof img === "string" ? img : img.image_path;
+        return path?.startsWith("http") ? path : `/storage/${path}`;
+      })
+    : ["https://via.placeholder.com/800x600?text=No+Image"];
 
-const cancellation = Array.isArray(property.cancellation)
-  ? property.cancellation
-  : JSON.parse(property.cancellation || "[]");
-
-const neighborhood = Array.isArray(property.neighborhood)
-  ? property.neighborhood
-  : JSON.parse(property.neighborhood || "[]");
+  // ✅ Fallback coordinates (Istanbul) if missing
+  const lat = property.latitude ?? 41.015137;
+  const lng = property.longitude ?? 28.97953;
 
   return (
     <div className="property-detail-container">
@@ -44,16 +65,15 @@ const neighborhood = Array.isArray(property.neighborhood)
 
       {/* Image Gallery */}
       <div className="gallery-section">
-        <ImageGallery images={property.images} />
+        <ImageGallery images={imagePaths} />
       </div>
 
       <div className="main-content">
         <div className="content-left">
-
           {/* Description */}
           <section className="description-section">
             <h2>Description</h2>
-            <p>{property.description}</p>
+            <p>{property.description || "Description coming soon."}</p>
           </section>
 
           {/* Amenities */}
@@ -74,7 +94,7 @@ const neighborhood = Array.isArray(property.neighborhood)
           <section className="property-info">
             <h2>Things to Know</h2>
             <div className="info-grid">
-              {rules.length > 0 && rules[0] !== "" ? (
+              {rules.length > 0 ? (
                 rules.map((rule, index) => (
                   <div className="info-item" key={index}>
                     <span className="icon">ℹ️</span> {rule}
@@ -86,14 +106,12 @@ const neighborhood = Array.isArray(property.neighborhood)
             </div>
           </section>
 
-           {/* Cancellation */}
+          {/* Cancellation */}
           <section className="property-cancellation">
             <h2>Cancellation & Early Termination</h2>
             <ul className="cancel-list">
-              {cancellation.length > 0 && cancellation[0] !== "" ? (
-                cancellation.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))
+              {cancellation.length > 0 ? (
+                cancellation.map((item, index) => <li key={index}>{item}</li>)
               ) : (
                 <li>No cancellation policy listed</li>
               )}
@@ -104,10 +122,11 @@ const neighborhood = Array.isArray(property.neighborhood)
           <section className="property-neighborhood">
             <h2>About the Neighborhood</h2>
             <div className="neighborhood-grid">
-              {neighborhood.length > 0 && neighborhood[0] !== "" ? (
+              {neighborhood.length > 0 ? (
                 neighborhood.map((place, index) => (
                   <div key={index}>
-                    <span role="img">📍</span><p>{place}</p>
+                    <span role="img">📍</span>
+                    <p>{place}</p>
                   </div>
                 ))
               ) : (
@@ -118,16 +137,16 @@ const neighborhood = Array.isArray(property.neighborhood)
 
           {/* Map */}
           <section className="map-section">
-            <SinglePropertyMap location={{
-              lat: property.lat,
-              lng: property.lng,
-              title: property.title
-            }} />
+            {lat && lng ? (
+              <SinglePropertyMap location={{ lat, lng, title: property.title }} />
+            ) : (
+              <p>No map available for this property.</p>
+            )}
           </section>
         </div>
 
         <div className="content-right">
-          <BookingCard price={property.price}/>
+          <BookingCard price={property.price_per_day || property.price} />
         </div>
       </div>
     </div>

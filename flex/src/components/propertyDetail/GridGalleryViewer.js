@@ -4,6 +4,13 @@ import './GridGalleryViewer.css';
 const GridGalleryViewer = ({ images = [] }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
+  const getImageSrc = (imgPath) => {
+    if (!imgPath) return '/placeholder.jpg';
+    return imgPath.startsWith('http')
+      ? imgPath
+      : `/storage/${imgPath}`;
+  };
+
   const handleNext = () => {
     setSelectedIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
@@ -18,7 +25,7 @@ const GridGalleryViewer = ({ images = [] }) => {
         {images.map((img, index) => (
           <img
             key={index}
-            src={img}
+            src={getImageSrc(img)}
             alt={`Gallery ${index}`}
             className="grid-image"
             onClick={() => setSelectedIndex(index)}
@@ -30,7 +37,11 @@ const GridGalleryViewer = ({ images = [] }) => {
         <div className="image-viewer-backdrop" onClick={() => setSelectedIndex(null)}>
           <div className="image-viewer-content" onClick={(e) => e.stopPropagation()}>
             <button className="nav-arrows left" onClick={handlePrev}>&#10094;</button>
-            <img src={images[selectedIndex]} alt="Full View" className="image-viewer-image" />
+            <img 
+              src={getImageSrc(images[selectedIndex])} 
+              alt="Full View" 
+              className="image-viewer-image" 
+            />
             <button className="nav-arrows right" onClick={handleNext}>&#10095;</button>
           </div>
         </div>

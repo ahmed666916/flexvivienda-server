@@ -1,1 +1,14 @@
 ﻿flex-platform.zip
+
+
+# Environment files
+.env
+admin/.env
+
+# Node dependencies
+node_modules/
+scrapers/node_modules/
+
+# Build outputs
+build/
+dist/
