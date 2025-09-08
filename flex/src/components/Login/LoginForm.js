@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import { apiRequest } from "../../utils/api";
+import { useNavigate, Link } from "react-router-dom";
+import { AuthContext } from "../../auth/AuthContext";
+import api from "../../services/api";
 import "./LoginForm.css";
 
 const LoginForm = () => {
@@ -14,12 +14,12 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await apiRequest("/login", "POST", formData);
-      login(data.user, data.token);
+      const res = await api.post("/login", formData);
+      login(res.data.user, res.data.token);
       alert("✅ Logged in successfully!");
       navigate("/");
     } catch (err) {
-      alert("⚠️ " + err.message);
+      alert("⚠️ " + (err.data?.message || "Login failed"));
     } finally {
       setLoading(false);
     }
@@ -27,10 +27,17 @@ const LoginForm = () => {
 
   return (
     <div className="login-wrapper">
-      {/* Left image section omitted for brevity */}
+      {/* LEFT SIDE IMAGE */}
+      <div className="login-left">
+        <img src="/Images/lifestyle.jpg" alt="Login Visual" />
+      </div>
+
+      {/* RIGHT SIDE FORM */}
       <div className="login-right">
         <div className="form-box">
+          <div className="logo">🧱 <strong>Logo</strong></div>
           <h2>Sign into your account</h2>
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input
@@ -59,6 +66,19 @@ const LoginForm = () => {
             <button type="submit" className="btn-login" disabled={loading}>
               {loading ? "Loading..." : "LOGIN"}
             </button>
+
+            {/* Links below the button */}
+            <div className="form-links">
+              <Link to="/forgot-password">Forgot password?</Link>
+              <p>
+                Don’t have an account? <Link to="/signup">Register here</Link>
+              </p>
+            </div>
+
+            <div className="terms">
+              <Link to="/terms">Terms of use</Link>.{" "}
+              <Link to="/privacy">Privacy policy</Link>
+            </div>
           </form>
         </div>
       </div>

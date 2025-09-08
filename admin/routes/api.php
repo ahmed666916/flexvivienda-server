@@ -47,3 +47,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // ✅ Admin-only bookings view
 Route::middleware(['auth:sanctum'])->get('/admin/bookings', [BookingController::class, 'allBookings']);
+
+Route::get('/ping', fn() => response()->json(['message' => 'pong']));

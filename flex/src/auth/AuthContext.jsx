@@ -1,31 +1,41 @@
-// src/auth/AuthContext.jsx
-import { createContext, useContext, useEffect, useState } from 'react';
-import api from '../api/axios';
+// src/auth/AuthContext.js
+import { createContext, useState, useContext, useEffect } from "react";
 
-const Ctx = createContext();
+export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(() =>
+    JSON.parse(localStorage.getItem("user") || "null")
+  );
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
 
-  async function me() {
-    try { const { data } = await api.get('/auth/me'); setUser(data); }
-    catch { setUser(null); }
-  }
+  useEffect(() => {
+    if (user && token) {
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+    }
+  }, [user, token]);
 
-  async function login(email, password) {
-    const { data } = await api.post('/auth/login', { email, password });
-    localStorage.setItem('token', data.token);
-    setUser(data.user);
-  }
+  const login = (userData, tokenData) => {
+    setUser(userData);
+    setToken(tokenData);
+  };
 
-  function logout() {
-    localStorage.removeItem('token');
+  const logout = () => {
     setUser(null);
-    api.post('/auth/logout').catch(()=>{});
-  }
+    setToken(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  };
 
-  useEffect(() => { me(); }, []);
+  return (
+    <AuthContext.Provider value={{ user, token, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-  return <Ctx.Provider value={{ user, login, logout }}>{children}</Ctx.Provider>;
-}
-export const useAuth = () => useContext(Ctx);
+export const useAuth = () => useContext(AuthContext);
