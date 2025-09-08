@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 
-// Public pages (existing)
+// Public pages
 import Home from './pages/home';
 import About from './pages/about';
 import Signup from './pages/Signup';
@@ -21,29 +21,25 @@ import MidStay from './pages/midStay';
 import LongStay from './pages/longStay';
 import Invest from './pages/invest';
 import ApiTest from './components/ApiTest';
-import AdminDashboard from './pages/admin/Dashboard';
+import Booking from './pages/booking';
+
+// Admin pages
+import AdminLayout from './pages/admin/AdminLayout';
+import Dashboard from './pages/admin/Dashboard';
 import AdminProperties from './pages/admin/Properties';
 import AdminOwners from './pages/admin/Owners';
 import AdminBookings from './pages/admin/Bookings';
-import Login from './pages/Login';
-import Booking from './pages/booking'
+import AdminSubmissions from './pages/admin/Submissions';
 
-
-
-// Auth context + guard
-import { AuthProvider } from './auth/AuthContext';
-import RequireAuth from './auth/RequireAuth';
-
-// Protected layouts/pages (you created the files already)
-import AdminLayout from './pages/admin/AdminLayout';
-import Dashboard from './pages/admin/Dashboard';
-
+// Owner pages
 import OwnerLayout from './pages/owner/OwnerLayout';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 import MyProperties from './pages/owner/MyProperties';
 import PropertyWizard from './pages/owner/PropertyWizard';
-import AdminSubmissions from './pages/admin/Submissions';
 
+// Auth context + guard
+import { AuthProvider } from './auth/AuthContext';
+import RequireAuth from './auth/RequireAuth';
 
 import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -71,15 +67,7 @@ function App() {
           <Route path="/midStay" element={<MidStay />} />
           <Route path="/longStay" element={<LongStay />} />
           <Route path="/invest" element={<Invest />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/properties" element={<AdminProperties />} />
-          <Route path="/admin/submissions" element={<AdminSubmissions />} />
-          <Route path="/admin/owners" element={<AdminOwners />} />
-          <Route path="/admin/bookings" element={<AdminBookings />} />
           <Route path="/booking" element={<Booking />} />
-
-
-
 
           {/* --- Owner (owner/admin roles) --- */}
           <Route
@@ -134,19 +122,37 @@ function App() {
               </RequireAuth>
             }
           />
+          <Route
+            path="/admin/owners"
+            element={
+              <RequireAuth allow={['admin']}>
+                <AdminLayout>
+                  <AdminOwners />
+                </AdminLayout>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/admin/bookings"
+            element={
+              <RequireAuth allow={['admin']}>
+                <AdminLayout>
+                  <AdminBookings />
+                </AdminLayout>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/admin/submissions"
+            element={
+              <RequireAuth allow={['admin']}>
+                <AdminLayout>
+                  <AdminSubmissions />
+                </AdminLayout>
+              </RequireAuth>
+            }
+          />
         </Routes>
-
-          <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route
-        path="/admin/submissions"
-        element={
-          <RequireAuth>
-            <AdminSubmissions />
-          </RequireAuth>
-        }
-      />
-    </Routes>
 
         <Footer />
       </AuthProvider>

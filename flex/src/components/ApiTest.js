@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import api from '../services/api'; 
+import { useEffect } from "react";
+import api from "../services/api";
 
 export default function ApiTest() {
   useEffect(() => {
-    api.get('/ping')
-      .then(res => console.log('API /ping:', res.data))
-      .catch(err => console.error('API /ping error:', err));
+    api.get("/ping")
+      .then(res => console.log("✅ API /ping:", res.data))
+      .catch(err => console.error("❌ API /ping error:", err));
   }, []);
 
-  return null; // nothing visible; check the browser console
+  return null;
 }

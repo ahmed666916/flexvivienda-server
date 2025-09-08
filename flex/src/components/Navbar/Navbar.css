@@ -115,6 +115,20 @@
   box-shadow: none !important;
 }
 
+.user-avatar {
+  background-color: #E11D48;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+
 /* Mobile Fix */
 @media (max-width: 991px) {
   .navbar-custom .nav-link {

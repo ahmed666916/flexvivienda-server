@@ -1,56 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import './Signup.css';
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { apiRequest } from "../../utils/api";
+import "./Signup.css";
 
 const Signup = () => {
-  const [countryCode, setCountryCode] = useState('+1');
-  const [showCodes, setShowCodes] = useState(false);
-  const [countries, setCountries] = useState([]);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch('https://country-code-au6g.vercel.app/Country.json')
-      .then(response => response.json())
-      .then(data => setCountries(data))
-      .catch(error => console.error('Error fetching country data:', error));
-  }, []);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const data = await apiRequest("/register", "POST", formData);
+      login(data.user, data.token);
+      alert("🎉 Account created successfully!");
+      navigate("/");
+    } catch (err) {
+      alert("⚠️ " + err.message);
+      console.error("Signup error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="signup-wrapper">
       <div className="signup-left">
-        <form className="signup-form">
+        <form className="signup-form" onSubmit={handleSubmit}>
           <h2>Sign up now</h2>
 
-          <div className="form-row">
-            <input type="text" placeholder="First name" required />
-            <input type="text" placeholder="Last name" required />
-          </div>
+          <input
+            type="text"
+            placeholder="Full name"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+          />
 
-          <div className="form-group">
-            <input type="email" placeholder="Email address" required />
-          </div>
+          <input
+            type="email"
+            placeholder="Email address"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            required
+          />
 
-          <div className="form-group">
-            <input type="password" placeholder="Password" required />
-          </div>
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            required
+          />
 
-          <div className="checkbox-row">
-            <input type="checkbox" id="newsletter" />
-            <label htmlFor="newsletter">Subscribe to our newsletter</label>
-          </div>
+          <input
+            type="password"
+            placeholder="Confirm password"
+            value={formData.password_confirmation}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                password_confirmation: e.target.value,
+              })
+            }
+            required
+          />
 
-          <button type="submit" className="btn-signup">Sign Up</button>
-
-          <div className="social-signup">
-            <p>or sign up with:</p>
-            <div className="icons">
-              <i className="fab fa-facebook-f"></i>
-              <i className="fab fa-google"></i>
-              <i className="fab fa-twitter"></i>
-              <i className="fab fa-github"></i>
-            </div>
-          </div>
+          <button type="submit" className="btn-signup" disabled={loading}>
+            {loading ? "Loading..." : "Sign Up"}
+          </button>
         </form>
       </div>
-
       <div className="signup-right">
         <img src="/Images/phone.jpg" alt="Signup Visual" />
       </div>

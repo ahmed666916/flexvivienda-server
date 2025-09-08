@@ -5,12 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './i18n';
 
+// Import your AuthProvider
+import { AuthProvider } from './context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
+  <AuthProvider>
     <App />
-  
+  </AuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
