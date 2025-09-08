@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Models\booking;
+use App\Models\Booking;
+use App\Models\Property;
 
 class BookingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Admin: Display a listing of bookings (web view).
      */
     public function index()
     {
@@ -18,28 +18,42 @@ class BookingController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store booking (old flow, e.g. contact form style).
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-
-
     public function store(Request $request)
     {
+        // Detect if request is coming from API (with user auth)
+        if ($request->user()) {
+            // ✅ API booking flow
+            $request->validate([
+                'property_id' => 'required|exists:properties,id',
+                'check_in'    => 'required|date',
+                'check_out'   => 'required|date|after:check_in',
+            ]);
+
+            $booking = Booking::create([
+                'user_id'     => $request->user()->id,
+                'property_id' => $request->property_id,
+                'check_in'    => $request->check_in,
+                'check_out'   => $request->check_out,
+                'status'      => 'active',
+            ]);
+
+            return response()->json([
+                'message' => 'Booking successful!',
+                'booking' => $booking,
+            ], 201);
+        }
+
+        // ✅ Fallback: old booking form flow
         $validated = $request->validate([
-            'name'       => 'required|string|max:255',
-            'email'      => 'required|email',
-            'phone'      => 'required|string|max:20',
-            'guests'     => 'required|integer|min:1',
-            'start_date' => 'required|date',
-            'end_date'   => 'required|date|after:start_date',
-            'total_price'=> 'required|numeric|min:0',
+            'name'        => 'required|string|max:255',
+            'email'       => 'required|email',
+            'phone'       => 'required|string|max:20',
+            'guests'      => 'required|integer|min:1',
+            'start_date'  => 'required|date',
+            'end_date'    => 'required|date|after:start_date',
+            'total_price' => 'required|numeric|min:0',
         ]);
 
         $booking = Booking::create($validated);
@@ -48,34 +62,42 @@ class BookingController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * API: Cancel a booking (user).
      */
-    public function show(string $id)
+    public function destroy($id, Request $request)
     {
-        //
+        $booking = Booking::where('id', $id)
+            ->where('user_id', $request->user()->id)
+            ->firstOrFail();
+
+        $booking->update(['status' => 'canceled']);
+
+        return response()->json(['message' => 'Booking canceled successfully']);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * API: Show authenticated user's bookings.
      */
-    public function edit(string $id)
+    public function myBookings(Request $request)
     {
-        //
+        $bookings = Booking::with('property')
+            ->where('user_id', $request->user()->id)
+            ->get();
+
+        return response()->json($bookings);
     }
 
     /**
-     * Update the specified resource in storage.
+     * API: Show all bookings (admin only).
      */
-    public function update(Request $request, string $id)
+    public function allBookings(Request $request)
     {
-        //
-    }
+        if ($request->user()->role !== 'admin') {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $bookings = Booking::with(['property', 'user'])->get();
+
+        return response()->json($bookings);
     }
 }
