@@ -1,32 +1,53 @@
-// BookingCard.js
-import React, { useState } from 'react';
-import { DateRange } from 'react-date-range';
-import { addDays } from 'date-fns';
-import enUS from 'date-fns/locale/en-US';
-import { useNavigate } from 'react-router-dom';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
-import './PropertyDetail.css';
+import React, { useState, useEffect } from "react";
+import { DateRange } from "react-date-range";
+import { addDays } from "date-fns";
+import enUS from "date-fns/locale/en-US";
+import { useNavigate } from "react-router-dom";
+import api from "../../services/api"; // ✅ use axios instance
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import "./PropertyDetail.css";
 
-const BookingCard = ({ price }) => {
+const BookingCard = ({ price, propertyId }) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 2),
-      key: 'selection'
-    }
+      key: "selection",
+    },
   ]);
+  const [bookedDates, setBookedDates] = useState([]);
   const navigate = useNavigate();
+
+  // ✅ Fetch booked dates
+  useEffect(() => {
+    api
+      .get(`/properties/${propertyId}/booked-dates`)
+      .then((res) => setBookedDates(res.data))
+      .catch((err) => console.error("Error fetching booked dates", err));
+  }, [propertyId]);
+
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return d.toISOString().split("T")[0];
+  };
+
+  // ✅ Convert booked ranges for disabling
+  const disabledRanges = bookedDates.map((b) => ({
+    startDate: new Date(b.check_in),
+    endDate: new Date(b.check_out),
+    key: "disabled",
+  }));
 
   const handleBooking = () => {
     const bookingData = {
-      startDate: state[0].startDate,
-      endDate: state[0].endDate,
+      check_in: formatDate(state[0].startDate),
+      check_out: formatDate(state[0].endDate),
       price,
+      propertyId,
     };
 
-    // Redirect to booking page with state
-    navigate('/booking', { state: bookingData });
+    navigate("/booking", { state: bookingData });
   };
 
   return (
@@ -35,11 +56,21 @@ const BookingCard = ({ price }) => {
       <DateRange
         locale={enUS}
         editableDateInputs={true}
-        onChange={item => setState([item.selection])}
+        onChange={(item) => setState([item.selection])}
         moveRangeOnFirstSelection={false}
         ranges={state}
+        disabledDay={date =>
+          bookedDates.some(
+            b =>
+              date >= new Date(b.check_in) &&
+              date <= new Date(b.check_out)
+          )
+        }
       />
-      <button className="book-button" onClick={handleBooking}>Book Now</button>
+
+      <button className="book-button" onClick={handleBooking}>
+        Book Now
+      </button>
     </div>
   );
 };

@@ -149,7 +149,16 @@ const PropertyList = (props) => {
               <button className="fav-btn">
                 <i className="fa-regular fa-heart"></i>
               </button>
-              <img src={property.image} alt={property.title} className="property-image" />
+              <img
+              src={
+                property.images && property.images.length > 0
+                  ? property.images[0].url   // ✅ new normalized API
+                  : property.image || "https://via.placeholder.com/400x250" // fallback
+              }
+              alt={property.title}
+              className="property-image"
+            />
+
               <div className="property-details">
                 <h2 className="property-title">{property.title}</h2>
                 <p className="property-locations">{property.location}</p>
@@ -162,8 +171,11 @@ const PropertyList = (props) => {
                   </span>
                 </div>
                 <p className="property-price">
-                  {property.price ? `€${property.price}/night` : 'Price on request'}
+                  {property.price && property.price > 0
+                    ? `€${property.price}/night`
+                    : '€146/night'}  {/* or whatever default */}
                 </p>
+
               </div>
             </div>
           </Link>

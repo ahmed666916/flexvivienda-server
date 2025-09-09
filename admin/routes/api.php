@@ -45,6 +45,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/bookings/my', [BookingController::class, 'myBookings']);
 });
 
+Route::get('/properties/{id}/booked-dates', [BookingController::class, 'bookedDates']);
+
+
 // ✅ Admin-only bookings view
 Route::middleware(['auth:sanctum'])->get('/admin/bookings', [BookingController::class, 'allBookings']);
 

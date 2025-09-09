@@ -22,6 +22,7 @@ import LongStay from './pages/longStay';
 import Invest from './pages/invest';
 import ApiTest from './components/ApiTest';
 import Booking from './pages/booking';
+import MyBookings from './pages/MyBookings';
 
 // Admin pages
 import AdminLayout from './pages/admin/AdminLayout';
@@ -68,6 +69,8 @@ function App() {
           <Route path="/longStay" element={<LongStay />} />
           <Route path="/invest" element={<Invest />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/my-bookings" element={<MyBookings />} />
+
 
           {/* --- Owner (owner/admin roles) --- */}
           <Route

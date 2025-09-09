@@ -47,12 +47,16 @@ const PropertyDetail = () => {
   const neighborhood = parseList(property.neighborhood);
 
   // ✅ Normalize images
-  const imagePaths = property.images?.length
-    ? property.images.map((img) => {
-        const path = typeof img === "string" ? img : img.image_path;
-        return path?.startsWith("http") ? path : `/storage/${path}`;
-      })
-    : ["https://via.placeholder.com/800x600?text=No+Image"];
+  // ✅ Normalize images into plain strings
+const imagePaths = property.images?.length
+  ? property.images.map((img) => {
+      if (typeof img === "string") return img;       // old format
+      if (img.url) return img.url;                   // new format
+      if (img.image_path) return `/storage/${img.image_path}`; // fallback
+      return null;
+    }).filter(Boolean)
+  : ["https://via.placeholder.com/800x600?text=No+Image"];
+
 
   // ✅ Fallback coordinates (Istanbul) if missing
   const lat = property.latitude ?? 41.015137;
@@ -146,7 +150,7 @@ const PropertyDetail = () => {
         </div>
 
         <div className="content-right">
-          <BookingCard price={property.price_per_day || property.price} />
+          <BookingCard price={property.price} propertyId={property.id} />
         </div>
       </div>
     </div>

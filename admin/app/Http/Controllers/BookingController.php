@@ -100,4 +100,17 @@ class BookingController extends Controller
 
         return response()->json($bookings);
     }
+
+    /**
+ * API: Get booked dates for a property (disable in calendar).
+ */
+        public function bookedDates($propertyId)
+        {
+            $bookings = Booking::where('property_id', $propertyId)
+                ->where('status', 'active')
+                ->get(['check_in', 'check_out']);
+
+            return response()->json($bookings);
+        }
+
 }

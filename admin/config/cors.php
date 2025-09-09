@@ -7,9 +7,11 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'http://localhost:3000',
-        'https://app.flexvivienda.com',
-    ],
+    'http://localhost:3000',
+    'https://flexvivienda.com',
+    'https://app.flexvivienda.com',
+],
+
 
     'allowed_origins_patterns' => [],
 
