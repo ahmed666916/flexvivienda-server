@@ -1,0 +1,41 @@
+.reservation-bar {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+  overflow: hidden;
+  padding: 10px 20px;
+  align-items: center;
+  gap: 15px;
+}
+
+.res-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  font-size: 14px;
+  color: #333;
+}
+
+.res-item input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  flex: 1;
+}
+
+.res-btn {
+  background: linear-gradient(90deg, #E11D48, #C20059);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.res-btn:hover {
+  opacity: 0.9;
+}

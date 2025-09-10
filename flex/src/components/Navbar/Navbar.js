@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+// src/components/Navbar/Navbar.js
+import React, { useContext, useEffect, useState } from "react";
 import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -9,10 +10,15 @@ const CustomNavbar = () => {
   const { t, i18n } = useTranslation();
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const changeLanguage = (lng) => i18n.changeLanguage(lng);
 
   const handleLogout = () => {
     logout();
@@ -20,7 +26,11 @@ const CustomNavbar = () => {
   };
 
   return (
-    <Navbar expand="lg" className="navbar-custom" sticky="top">
+    <Navbar
+      expand="lg"
+      className={`navbar-custom ${scrolled ? "scrolled" : ""}`}
+      fixed="top"
+    >
       <Container>
         <Navbar.Brand as={Link} to="/">
           <img src="/Images/logo.png" alt="Flex Logo" className="navbar-logo" />
@@ -28,16 +38,10 @@ const CustomNavbar = () => {
         <Navbar.Toggle aria-controls="main-navbar-nav" />
         <Navbar.Collapse id="main-navbar-nav">
           <Nav className="me-auto align-items-center">
-            <Nav.Link as={Link} to="/">
-              {t("home")}
-            </Nav.Link>
+            <Nav.Link as={Link} to="/">{t("home")}</Nav.Link>
             <NavDropdown title="Explore Stays" id="explore-stays-dropdown">
-              <NavDropdown.Item as={Link} to="/midStay">
-                Mid Stays
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/longStay">
-                Long Stays
-              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/midStay">Mid Stays</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/longStay">Long Stays</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link as={Link} to="/blogs">Blog</Nav.Link>
             <Nav.Link as={Link} to="/about">About Us</Nav.Link>
@@ -69,15 +73,9 @@ const CustomNavbar = () => {
             )}
 
             <NavDropdown title="Language" id="language-dropdown">
-              <NavDropdown.Item onClick={() => changeLanguage("en")}>
-                English
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => changeLanguage("tr")}>
-                Türkçe
-              </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => changeLanguage("ar")}>
-                العربية
-              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage("en")}>English</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage("tr")}>Türkçe</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => changeLanguage("ar")}>العربية</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

@@ -1,83 +1,45 @@
-.hero {
+.hero-section {
   position: relative;
   width: 100%;
   height: 100vh;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
   background-size: cover;
   background-position: center;
-  margin-bottom: 0; /* NEW */
-  padding-bottom: 0; /* NEW */
-}
-
-/* Dark overlay for better text readability */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 0;
-}
-
-.hero-contents {
-  position: relative;
-  z-index: 1;
-  max-width: 800px;
-  margin-bottom: 0.5rem; /* REDUCED */
-}
-
-.hero-contents h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  animation: fadeInUp 1.2s ease-out forwards;
-  animation-delay: 0.2s;
-  opacity: 0;
-}
-
-.hero-contents p {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  font-family: 'Inter', sans-serif;
-  animation: fadeInUp 1.2s ease-out forwards;
-  animation-delay: 0.4s;
-  opacity: 0;
-}
-
-.search-bar-container {
-  animation: fadeInUp 1.2s ease-out forwards;
-  animation-delay: 0.6s;
-  opacity: 0;
-}
-
-.explore-button {
-  background: #f22048;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: #fff;
-  padding: 0.75rem 2rem;
-  border-radius: 5px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background 0.3s;
 }
 
-.explore-button:hover {
-  background: #000;
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
 }
 
-/* Keyframes for fade-in */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin-left: 8%;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+}
+
+.reservation-bar-wrapper {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  z-index: 3;
 }
