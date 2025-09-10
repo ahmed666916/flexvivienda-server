@@ -106,11 +106,31 @@ class BookingController extends Controller
  */
         public function bookedDates($propertyId)
         {
-            $bookings = Booking::where('property_id', $propertyId)
+            // Internal bookings (direct bookings)
+            $internal = Booking::where('property_id', $propertyId)
                 ->where('status', 'active')
-                ->get(['check_in', 'check_out']);
+                ->get(['check_in', 'check_out'])
+                ->map(fn($b) => [
+                    'check_in' => $b->check_in,
+                    'check_out' => $b->check_out,
+                    'source' => 'direct',
+                ]);
 
-            return response()->json($bookings);
+            // External bookings (Airbnb, etc.)
+            $external = \App\Models\ExternalBooking::where('property_id', $propertyId)
+                ->get(['check_in', 'check_out', 'source'])
+                ->map(fn($b) => [
+                    'check_in' => $b->check_in,
+                    'check_out' => $b->check_out,
+                    'source' => $b->source ?? 'external',
+                ]);
+
+            return response()->json([
+                'property_id' => $propertyId,
+                'bookings' => $internal->concat($external)->values(),
+            ]);
         }
+
+
 
 }
