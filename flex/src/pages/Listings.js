@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropertyCard from "../components/PropertyCard/PropertyCard";
 import "./Listings.css";
 import ClusterMap from '../components/map/MyClusterMap';
-import SearchBarListing from "../components/SearchBar/SearchBarListing";
+import SearchBarListing from "../components/SearchBar/SearchBarListing"; // ✅ import
 
 const Listings = () => {
   const [properties, setProperties] = useState([]);
@@ -17,7 +17,7 @@ const Listings = () => {
       .catch((err) => console.error("Error fetching properties:", err));
   }, []);
 
-  // Pagination logic
+  // Pagination
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
   const currentProperties = properties.slice(
@@ -29,13 +29,13 @@ const Listings = () => {
 
   return (
     <div className="listings-page">
-      {/* Airbnb-style search bar */}
+      {/* ✅ Replace old header with functional Airbnb-style search bar */}
       <div className="listings-header">
         <SearchBarListing />
       </div>
 
       <div className="listings-content">
-        {/* Left: Property grid */}
+        {/* Left: Property list */}
         <div className="property-panel">
           <div className="property-grid">
             {currentProperties.length > 0 ? (
