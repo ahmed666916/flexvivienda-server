@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\blog;
+use App\Models\Blog;
 
 class BlogController extends Controller
 {

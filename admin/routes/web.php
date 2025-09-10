@@ -8,7 +8,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RentApplicationController;
 use App\Models\Property;
-use App\Models\blog;
+use App\Models\Blog;
 use App\Models\User;
 
 
@@ -36,15 +36,18 @@ Route::middleware('auth')->group(function () {
 
     
 
-// Properties
-Route::resource('properties', PropertyController::class)->middleware('auth');
-Route::get('/properties/create', [PropertyController::class, 'create'])->name('properties.create');
-Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
+//Route::resource('properties', PropertyController::class)->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+    Route::get('/properties/create', [PropertyController::class, 'create'])->name('properties.create');
+    Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
+    Route::get('/properties/{property}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
+    Route::put('/properties/{property}', [PropertyController::class, 'update'])->name('properties.update');
+    Route::delete('/properties/images/{image}', [App\Http\Controllers\PropertyController::class, 'destroyImage'])
+        ->name('properties.images.destroy');
+});
 
-Route::get('/properties/{property}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
-Route::put('/properties/{property}', [PropertyController::class, 'update'])->name('properties.update');
-Route::delete('/properties/images/{image}', [App\Http\Controllers\PropertyController::class, 'destroyImage'])
-    ->name('properties.images.destroy');
+
 
 
 // Blogs
