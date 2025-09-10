@@ -10,16 +10,17 @@
 .searchbar-container {
   display: flex;
   align-items: center;
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.2); /* glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  backdrop-filter: blur(12px) saturate(150%);
   padding: 12px 20px;
   max-width: 1000px;
   width: 100%;
   gap: 12px;
-  flex-wrap: wrap;
 }
+
 
 .search-item {
   flex: 1;
@@ -139,6 +140,29 @@
 .search-button:hover {
   opacity: 0.9;
 }
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: #e11d48;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.counter button:hover {
+  background: #be123c;
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
