@@ -8,7 +8,21 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./PropertyDetail.css";
 
+/**
+ * BookingCard component displays a price and a date range picker for a single
+ * property. It fetches booked date ranges from the backend and disables
+ * selection of those dates on the calendar. It navigates to the booking
+ * checkout page when the user clicks "Book Now".
+ *
+ * This updated version adds defensive checks around the bookedDates data to
+ * prevent runtime errors. The API may return `null`, an object, or other
+ * unexpected formats, so we normalise it to an array. If bookedDates is not
+ * an array, we treat it as empty. We also ensure that the state is always
+ * initialised to an array of ranges and that disabledDay and disabledRanges
+ * rely on the normalised array.
+ */
 const BookingCard = ({ price, propertyId }) => {
+  // Selection state for the date range picker
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -16,28 +30,57 @@ const BookingCard = ({ price, propertyId }) => {
       key: "selection",
     },
   ]);
+  // Raw booked dates returned from API
   const [bookedDates, setBookedDates] = useState([]);
   const navigate = useNavigate();
 
-  // ✅ Fetch booked dates
+  // Fetch booked dates on mount or when propertyId changes
   useEffect(() => {
     api
       .get(`/properties/${propertyId}/booked-dates`)
-      .then((res) => setBookedDates(res.data))
-      .catch((err) => console.error("Error fetching booked dates", err));
+      .then((res) => {
+        // Normalise API response to an array
+        const data = res.data;
+        if (Array.isArray(data)) {
+          setBookedDates(data);
+        } else if (data && typeof data === "object" && Array.isArray(data.data)) {
+          // In case API wraps data in a `data` property
+          setBookedDates(data.data);
+        } else {
+          setBookedDates([]);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching booked dates", err);
+        setBookedDates([]);
+      });
   }, [propertyId]);
 
+  // Helper to format dates as YYYY-MM-DD strings
   const formatDate = (date) => {
     const d = new Date(date);
     return d.toISOString().split("T")[0];
   };
 
-  // ✅ Convert booked ranges for disabling
-  const disabledRanges = bookedDates.map((b) => ({
-    startDate: new Date(b.check_in),
-    endDate: new Date(b.check_out),
-    key: "disabled",
-  }));
+  // Convert booked date objects to date ranges for the picker. We first
+  // normalise bookedDates into an array to avoid runtime errors. Each
+  // object should have `check_in` and `check_out` fields (strings or dates).
+  const bookedArray = Array.isArray(bookedDates) ? bookedDates : [];
+  const disabledRanges = bookedArray.map((b, idx) => {
+    let start = null;
+    let end = null;
+    try {
+      start = new Date(b.check_in);
+      end = new Date(b.check_out);
+    } catch {
+      // fall back to null if parsing fails
+    }
+    return {
+      startDate: start,
+      endDate: end,
+      key: `disabled-${idx}`,
+    };
+  });
 
   const handleBooking = () => {
     const bookingData = {
@@ -46,7 +89,6 @@ const BookingCard = ({ price, propertyId }) => {
       price,
       propertyId,
     };
-
     navigate("/booking", { state: bookingData });
   };
 
@@ -59,15 +101,15 @@ const BookingCard = ({ price, propertyId }) => {
         onChange={(item) => setState([item.selection])}
         moveRangeOnFirstSelection={false}
         ranges={state}
-        disabledDay={date =>
-          bookedDates.some(
-            b =>
-              date >= new Date(b.check_in) &&
-              date <= new Date(b.check_out)
-          )
+        disabledDay={(date) =>
+          // Disable if date falls within any booked range
+          bookedArray.some((b) => {
+            const checkIn = new Date(b.check_in);
+            const checkOut = new Date(b.check_out);
+            return date >= checkIn && date <= checkOut;
+          })
         }
       />
-
       <button className="book-button" onClick={handleBooking}>
         Book Now
       </button>

@@ -1,67 +1,131 @@
+/*
+ * Redesigned styles for PropertyCard to more closely match the
+ * aesthetic of Airbnb listing cards.  Cards are clean, have soft
+ * rounded corners, subtle hover effects and a floating favourite
+ * button overlay on the cover image.  Icons for attributes and
+ * rating are styled to blend with the overall design.
+ */
+
 .property-card {
-  border: 1px solid #eee;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  height: auto;         /* don’t force extra height */
-  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .property-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* === IMAGE SECTION === */
+/* Wrapper for the cover image to position the favourite button */
+.image-wrapper {
+  position: relative;
+}
+
 .property-image {
   width: 100%;
-  height: 140px;   /* smaller like Airbnb */
+  height: 220px;
   object-fit: cover;
   display: block;
 }
 
-/* === INFO SECTION === */
+/* Floating favourite (heart) button */
+.favorite-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Information container */
 .property-info {
-  padding: 8px 10px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
+/* Title and rating row */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .property-title {
-  font-size: 0.85rem;   /* smaller text */
+  font-size: 1rem;
   font-weight: 600;
-  line-height: 1.2;
-  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-
-.property-location {
-  font-size: 0.75rem;
-  color: #666;
-  margin: 0;
+/* Rating text and icon */
+.property-rating {
+  font-size: 0.85rem;
+  color: #ff385c;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-
-.property-price {
-  font-size: 0.85rem;
-  font-weight: 600;
+.star-icon {
   color: #ff385c;
+}
+
+/* Location text */
+.property-location {
+  font-size: 0.85rem;
+  color: #666666;
+}
+
+/* Attributes row (bedrooms, bathrooms, guests) */
+.property-attributes {
+  font-size: 0.8rem;
+  color: #444444;
+  display: flex;
+  gap: 8px;
   margin-top: 2px;
 }
 
-/* Ensure link looks clean */
+.attr {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Pricing styling */
+.property-price {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.per-night {
+  font-weight: 400;
+  color: #666666;
+  margin-left: 2px;
+}
+
+/* Ensure the anchor does not change default styles */
 .card-link {
   text-decoration: none;
   color: inherit;
-  display: block;
-  height: 100%;
 }
