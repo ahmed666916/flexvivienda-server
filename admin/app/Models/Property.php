@@ -26,7 +26,8 @@ class Property extends Model
         'neighborhood',
         'amenities',
         'property_type',
-        'status'
+        'status',
+        'ical_url',
     ];
 
     protected $appends = ['full_images'];

@@ -42,6 +42,11 @@ class Kernel extends HttpKernel
         ],
     ];
 
+    protected $commands = [
+    \App\Console\Commands\PatchPropertyExternalIds::class,
+];
+
+
     /**
      * The application's route middleware.
      *
