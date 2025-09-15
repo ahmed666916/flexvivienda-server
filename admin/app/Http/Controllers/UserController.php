@@ -10,11 +10,14 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $users = User::latest()->paginate(10);
-        return view('users.index', compact('users'));
+    public function index() {
+    return User::with('roles')->paginate(20);
     }
+    public function suspend(User $user) {
+        $user->update(['suspended' => true]);
+        return response()->json(['message' => 'User suspended']);
+    }
+
 
     /**
      * Show the form for creating a new resource.

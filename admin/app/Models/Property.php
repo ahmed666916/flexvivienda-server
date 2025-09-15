@@ -28,6 +28,7 @@ class Property extends Model
         'property_type',
         'status',
         'ical_url',
+        'google_calendar_id',
     ];
 
     protected $appends = ['full_images'];

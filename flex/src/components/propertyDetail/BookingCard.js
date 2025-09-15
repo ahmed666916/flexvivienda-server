@@ -3,7 +3,7 @@ import { DateRange } from "react-date-range";
 import { addDays } from "date-fns";
 import enUS from "date-fns/locale/en-US";
 import { useNavigate } from "react-router-dom";
-import api from "../../services/api"; // ✅ use axios instance
+import api from "../../services/api"; // ✅ axios instance
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import "./PropertyDetail.css";
@@ -19,12 +19,19 @@ const BookingCard = ({ price, propertyId }) => {
   const [bookedDates, setBookedDates] = useState([]);
   const navigate = useNavigate();
 
-  // ✅ Fetch booked dates
+  // ✅ Fetch booked dates safely
   useEffect(() => {
     api
       .get(`/properties/${propertyId}/booked-dates`)
-      .then((res) => setBookedDates(res.data))
-      .catch((err) => console.error("Error fetching booked dates", err));
+      .then((res) => {
+        // normalize response
+        const data = Array.isArray(res.data) ? res.data : [];
+        setBookedDates(data);
+      })
+      .catch((err) => {
+        console.error("Error fetching booked dates", err);
+        setBookedDates([]); // fallback so UI doesn’t break
+      });
   }, [propertyId]);
 
   const formatDate = (date) => {
@@ -32,7 +39,7 @@ const BookingCard = ({ price, propertyId }) => {
     return d.toISOString().split("T")[0];
   };
 
-  // ✅ Convert booked ranges for disabling
+  // ✅ Always safe to map now
   const disabledRanges = bookedDates.map((b) => ({
     startDate: new Date(b.check_in),
     endDate: new Date(b.check_out),
@@ -59,9 +66,9 @@ const BookingCard = ({ price, propertyId }) => {
         onChange={(item) => setState([item.selection])}
         moveRangeOnFirstSelection={false}
         ranges={state}
-        disabledDay={date =>
+        disabledDay={(date) =>
           bookedDates.some(
-            b =>
+            (b) =>
               date >= new Date(b.check_in) &&
               date <= new Date(b.check_out)
           )

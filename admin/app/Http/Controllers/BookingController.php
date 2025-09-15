@@ -106,8 +106,8 @@ class BookingController extends Controller
  */
         public function bookedDates($propertyId)
         {
-            // Internal bookings (direct bookings)
-            $internal = Booking::where('property_id', $propertyId)
+            // Local bookings (direct website bookings)
+            $local = Booking::where('property_id', $propertyId)
                 ->where('status', 'active')
                 ->get(['check_in', 'check_out'])
                 ->map(fn($b) => [
@@ -116,7 +116,7 @@ class BookingController extends Controller
                     'source' => 'direct',
                 ]);
 
-            // External bookings (Airbnb, etc.)
+            // External bookings (Airbnb, Google Calendar sync, etc.)
             $external = \App\Models\ExternalBooking::where('property_id', $propertyId)
                 ->get(['check_in', 'check_out', 'source'])
                 ->map(fn($b) => [
@@ -125,11 +125,15 @@ class BookingController extends Controller
                     'source' => $b->source ?? 'external',
                 ]);
 
+            // Merge both sources
+            $allBookings = $local->concat($external)->values();
+
             return response()->json([
                 'property_id' => $propertyId,
-                'bookings' => $internal->concat($external)->values(),
+                'bookings' => $allBookings,
             ]);
         }
+
 
 
 

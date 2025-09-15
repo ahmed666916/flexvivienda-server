@@ -17,6 +17,12 @@ use App\Http\Controllers\AuthController;
 | Example: /api/properties
 |
 */
+// routes/api.php
+Route::prefix('admin')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/stats', [DashboardController::class, 'stats']);
+    // other admin APIs
+});
+
 
 // Public routes
 Route::get('/properties', [PropertyController::class, 'apiIndex']);
