@@ -2,16 +2,16 @@
 
 return [
 
-    'paths' => ['api/*'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-    'http://localhost:3000',
-    'https://flexvivienda.com',
-    'https://app.flexvivienda.com',
-],
-
+        'http://localhost:5173',   // 👈 add this
+        'http://localhost:3000',   // keep if you use CRA
+        'https://flexvivienda.com',
+        'https://app.flexvivienda.com',
+    ],
 
     'allowed_origins_patterns' => [],
 
@@ -21,6 +21,7 @@ return [
 
     'max_age' => 0,
 
-    // ❌ No credentials needed with Bearer tokens
+    // ❌ Keep false if using Bearer tokens
+    // ✅ If you plan to use Sanctum cookies, set true
     'supports_credentials' => false,
 ];

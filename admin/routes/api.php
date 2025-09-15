@@ -8,6 +8,8 @@ use App\Http\Controllers\RentApplicationController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,10 +20,8 @@ use App\Http\Controllers\AuthController;
 |
 */
 // routes/api.php
-Route::prefix('admin')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    Route::get('/stats', [DashboardController::class, 'stats']);
-    // other admin APIs
-});
+Route::get('/admin/stats', [DashboardController::class, 'stats']);
+
 
 
 // Public routes

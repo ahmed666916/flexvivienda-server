@@ -38,11 +38,11 @@ a:hover { color: #535bf2; }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  @apply bg-white text-black; /* force light mode for now */
 }
+
 
 h1 {
   font-size: 3.2em;
@@ -78,6 +78,10 @@ button:focus, button:focus-visible {
 }
 
 @layer base {
-  * { @apply border-border outline-ring/50; }
-  body { @apply bg-background text-foreground; }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-white text-gray-900; /* light theme by default */
+  }
 }

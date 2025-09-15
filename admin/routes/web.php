@@ -54,15 +54,15 @@ Route::middleware('auth')->group(function () {
 Route::resource('blogs', BlogController::class)->middleware('auth');
 
 // Owner Listing Requests
-Route::resource('owner/requests', OwnerRequestController::class)->names([
-    'index' => 'owner.requests.index',
-    'create' => 'owner.requests.create',
-    'store' => 'owner.requests.store',
-    'show' => 'owner.requests.show',
-    'edit' => 'owner.requests.edit',
-    'update' => 'owner.requests.update',
-    'destroy' => 'owner.requests.destroy',
-])->middleware('auth');
+//Route::resource('owner/requests', OwnerRequestController::class)->names([
+  //  'index' => 'owner.requests.index',
+    //'create' => 'owner.requests.create',
+    //'store' => 'owner.requests.store',
+    //'show' => 'owner.requests.show',
+    //'edit' => 'owner.requests.edit',
+    //'update' => 'owner.requests.update',
+    //'destroy' => 'owner.requests.destroy',
+//])->middleware('auth');
 
 // Bookings
 Route::resource('bookings', BookingController::class)->middleware('auth');
