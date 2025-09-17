@@ -9,6 +9,11 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\PropertyAdminController;
+use App\Http\Controllers\Owner\OwnerPropertyController;
+use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
 
 
 /*
@@ -19,8 +24,34 @@ use App\Http\Controllers\DashboardController;
 | Example: /api/properties
 |
 */
+
 // routes/api.php
 Route::get('/admin/stats', [DashboardController::class, 'stats']);
+
+// OWNER: submit / edit drafts (login required, role owner)
+Route::middleware('auth:sanctum')->prefix('owner')->group(function () {
+    Route::post('/properties', [OwnerPropertyController::class, 'store']);
+    Route::put('/properties/{property}', [OwnerPropertyController::class, 'update'])
+        ->middleware('can:update,property'); // optional policy
+});
+
+// ADMIN: review & approve
+Route::middleware(['auth:sanctum'])->prefix('admin')->group(function () {
+    Route::get('/stats', [\App\Http\Controllers\DashboardController::class, 'stats']);
+    Route::get('/properties/pending', [PropertyAdminController::class, 'pending']);
+    Route::post('/properties/{property}/approve', [PropertyAdminController::class, 'approve']);
+    Route::post('/properties/{property}/reject', [PropertyAdminController::class, 'reject']);
+    Route::put('/properties/{property}/rates', [PropertyAdminController::class, 'updateRates']);
+    Route::get('/reports/summary', [ReportController::class, 'summary']);
+});
+
+// CALENDAR sync + availability
+Route::get('/properties/{property}/calendar', [CalendarController::class, 'availability']);
+Route::post('/airbnb/ical/import', [CalendarController::class, 'importIcal']); // admin only (add auth if needed)
+
+// PAYMENTS (Stripe)
+Route::post('/payments/intent', [PaymentController::class, 'createIntent'])->middleware('auth:sanctum');
+Route::post('/payments/webhook', [PaymentController::class, 'webhook']); // no auth
 
 
 
