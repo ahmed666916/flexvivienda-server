@@ -9,6 +9,8 @@ import Payments from "./pages/Payments";
 import Reports from "./pages/Reports";
 import Moderation from "./pages/Moderation";
 import Settings from "./pages/Settings";
+import OwnerSubmit from "./pages/OwnerSubmit";
+import PendingProperties from "./pages/admin/PendingProperties";
 
 function App() {
   return (
@@ -25,6 +27,12 @@ function App() {
           <Route path="moderation" element={<Moderation />} />
           <Route path="settings" element={<Settings />} />
         </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="properties/pending" element={<PendingProperties />} />
+        {/* ...other admin routes... */}
+      </Route>
+      <Route path="/owner/submit" element={<OwnerSubmit/>} />
       </Routes>
     </BrowserRouter>
   );
