@@ -1,19 +1,17 @@
+// src/api/axios.js
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api",
-  withCredentials: false,
+  baseURL: "http://localhost:8000/api",
 });
 
-// ✅ Hardcoded dev token for testing (replace with real token from /api/login response)
-const DEV_TOKEN = "6|fKeksNoAiDC2J2mOzDA9nLQ0503cfKzJqHN6rm9Ad382faed";
-
-api.interceptors.request.use(cfg => {
-  const token = localStorage.getItem("token") || DEV_TOKEN;
+// ✅ Attach token if available
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
   if (token) {
-    cfg.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`;
   }
-  return cfg;
+  return config;
 });
 
 export default api;
