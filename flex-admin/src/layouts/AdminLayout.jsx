@@ -1,27 +1,35 @@
-import { Link, Outlet } from "react-router-dom";
-import { Home, Users, Building2, Calendar, BarChart2, Settings, Shield, CreditCard } from "lucide-react";
+import { Outlet, NavLink } from "react-router-dom";
+import { Home, Users, Building2, Calendar, ShieldCheck, Settings, CreditCard, BarChart } from "lucide-react";
 
-export default function AdminLayout() {
+const Link = ({ to, Icon, children }) => (
+  <NavLink
+    to={to}
+    className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-gray-100"
+  >
+    <Icon size={18} />
+    <span>{children}</span>
+  </NavLink>
+);
+
+
+
+export default function AdminLayout(){
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg">
-        <div className="p-6 font-bold text-xl text-indigo-600">Flex Admin</div>
-        <nav className="space-y-2 px-4">
-          <Link to="/admin" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><Home size={18}/> Dashboard</Link>
-          <Link to="/admin/users" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><Users size={18}/> Users</Link>
-          <Link to="/admin/properties" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><Building2 size={18}/> Properties</Link>
-          <Link to="/admin/bookings" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><Calendar size={18}/> Bookings</Link>
-          <Link to="/admin/calendar" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><Calendar size={18}/> Calendar</Link>
-          <Link to="/admin/payments" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><CreditCard size={18}/> Payments</Link>
-          <Link to="/admin/reports" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><BarChart2 size={18}/> Reports</Link>
-          <Link to="/admin/moderation" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><Shield size={18}/> Trust & Safety</Link>
-          <Link to="/admin/settings" className="flex items-center gap-2 p-2 rounded hover:bg-gray-200"><Settings size={18}/> Settings</Link>
+    <div className="min-h-screen grid grid-cols-[240px_1fr]">
+      <aside className="p-4 border-r bg-white">
+        <div className="text-xl font-semibold mb-4">Flex Admin</div>
+        <nav className="space-y-1">
+          <Link to="/admin" Icon={Home}>Dashboard</Link>
+          <Link to="/admin/users" icon={Users}>Users</Link>
+          <Link to="/admin/properties" icon={Building2}>Properties</Link>
+          <Link to="/admin/bookings" icon={Calendar}>Bookings</Link>
+          <Link to="/admin/payments" icon={CreditCard}>Payments</Link>
+          <Link to="/admin/reports" icon={BarChart}>Reports</Link>
+          <Link to="/admin/moderation" icon={ShieldCheck}>Trust & Safety</Link>
+          <Link to="/admin/settings" icon={Settings}>Settings</Link>
         </nav>
       </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="p-8">
         <Outlet />
       </main>
     </div>

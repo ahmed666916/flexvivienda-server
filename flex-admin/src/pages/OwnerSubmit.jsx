@@ -1,44 +1,26 @@
 import { useState } from "react";
 import api from "../api/axios";
 
-export default function OwnerSubmit() {
-  const [form, setForm] = useState({
-    title:"", description:"", location:"",
-    rental_modes:["short"], images:[]
-  });
-  const [msg,setMsg] = useState("");
+export default function OwnerSubmit(){
+  const [form, setForm] = useState({title:'', description:''});
+  const [done, setDone] = useState(false);
+  const onChange = e => setForm(f=>({...f,[e.target.name]:e.target.value}));
 
-  const onSubmit = async (e) => {
+  const submit = async e => {
     e.preventDefault();
-    const { data } = await api.post("/owner/properties", form);
-    setMsg(`Submitted. Property #${data.id} is pending review.`);
+    await api.post("/owner/properties", form);
+    setDone(true);
   };
 
-  const toggleMode = (m) =>
-    setForm(f => ({...f, rental_modes: f.rental_modes.includes(m)
-      ? f.rental_modes.filter(x=>x!==m)
-      : [...f.rental_modes,m]}));
+  if(done) return <div className="p-6 bg-white rounded-xl">Thanks! Your property is pending review.</div>;
 
   return (
-    <div className="max-w-2xl">
-      <h1 className="text-2xl font-bold mb-4">Submit a Property</h1>
-      <form onSubmit={onSubmit} className="space-y-4">
-        <input className="input" placeholder="Title"
-          value={form.title} onChange={e=>setForm({...form, title:e.target.value})}/>
-        <input className="input" placeholder="Location"
-          value={form.location} onChange={e=>setForm({...form, location:e.target.value})}/>
-        <textarea className="textarea" placeholder="Description"
-          value={form.description} onChange={e=>setForm({...form, description:e.target.value})}/>
-        <div className="flex gap-3">
-          {["short","mid","long"].map(m=>(
-            <label key={m} className="flex items-center gap-2">
-              <input type="checkbox" checked={form.rental_modes.includes(m)} onChange={()=>toggleMode(m)}/>
-              {m.toUpperCase()}
-            </label>
-          ))}
-        </div>
-        <button className="btn btn-primary">Submit</button>
-        {msg && <p className="text-green-600 mt-2">{msg}</p>}
+    <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-sm">
+      <h1 className="text-2xl font-semibold mb-4">Submit your property</h1>
+      <form onSubmit={submit} className="space-y-3">
+        <input name="title" className="w-full border rounded-lg p-2" placeholder="Title" onChange={onChange} required/>
+        <textarea name="description" className="w-full border rounded-lg p-2" placeholder="Description" onChange={onChange}/>
+        <button className="px-4 py-2 bg-gray-900 text-white rounded-lg">Submit</button>
       </form>
     </div>
   );

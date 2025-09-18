@@ -11,17 +11,21 @@ class OwnerPropertyController extends Controller
     public function store(Request $r)
     {
         $data = $r->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'location' => 'required|string',
-            'rental_modes' => 'required|array', // ["short","mid","long"]
-            'images' => 'array',
+            'title'         => 'required|string|max:255',
+            'description'   => 'nullable|string',
+            'location'      => 'nullable|string', // legacy field
+            'address'       => 'nullable|string', // new
+            'city'          => 'nullable|string',
+            'country'       => 'nullable|string',
+            'rental_modes'  => 'nullable|array', // ["short","mid","long"]
+            'amenities'     => 'nullable|array',
+            'images'        => 'nullable|array',
         ]);
 
-        $p = new Property($data);
-        $p->owner_id = $r->user()->id;
-        $p->status = 'pending';
-        $p->save();
+        $p = Property::create(array_merge($data, [
+            'owner_id' => $r->user()->id,
+            'status'   => 'pending',
+        ]));
 
         return response()->json($p, 201);
     }
@@ -29,14 +33,25 @@ class OwnerPropertyController extends Controller
     public function update(Request $r, Property $property)
     {
         $this->authorize('update', $property);
+
         $data = $r->validate([
-            'title' => 'sometimes|string|max:255',
+            'title'       => 'sometimes|string|max:255',
             'description' => 'nullable|string',
-            'location' => 'sometimes|string',
-            'rental_modes' => 'sometimes|array',
+            'location'    => 'sometimes|string',
+            'address'     => 'sometimes|string',
+            'city'        => 'sometimes|string',
+            'country'     => 'sometimes|string',
+            'rental_modes'=> 'sometimes|array',
+            'amenities'   => 'nullable|array',
         ]);
 
-        $property->update($data);
+        // If owner edits after rejection -> back to pending
+        if ($property->status === 'rejected') {
+            $property->status = 'pending';
+        }
+
+        $property->fill($data)->save();
+
         return response()->json($property);
     }
 }
