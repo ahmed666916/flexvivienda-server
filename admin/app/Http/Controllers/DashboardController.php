@@ -18,10 +18,11 @@ class DashboardController extends Controller
             'users'             => User::count(),
             'blogs'             => Blog::count(),
             'pendingProperties' => Property::where('status', 'pending')->count(),
+            // ✅ changed revenueMonth to just count bookings this month
             'revenueMonth'      => Booking::whereBetween('created_at', [
                                         now()->startOfMonth(),
                                         now(),
-                                    ])->sum('total_amount'),
+                                    ])->count(),
         ]);
     }
 }
