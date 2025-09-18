@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import Reservations from "../components/Reservations";
 
 export default function Dashboard() {
   const [stats, setStats] = useState(null);
@@ -37,26 +38,10 @@ export default function Dashboard() {
       </div>
 
       {/* Reservations style card (like Airbnb screenshot) */}
-      <div className="rounded-2xl bg-white shadow-sm border border-gray-100">
-        <div className="flex items-center gap-3 border-b px-6 py-3">
-          <button className="px-4 py-2 rounded-full bg-gray-900 text-white text-sm font-medium">
-            Today
-          </button>
-          <button className="px-4 py-2 rounded-full bg-gray-100 text-sm font-medium">
-            Upcoming
-          </button>
+        {/* Reservations section */}
+        <div className="rounded-2xl bg-white shadow-sm border border-gray-100 p-6">
+            <Reservations /> {/* 👈 reuse your component here */}
         </div>
-        <div className="p-6">
-          <p className="text-xl">
-            You have{" "}
-            <b className="text-pink-600">{stats.pendingProperties}</b> pending
-            properties to review.
-          </p>
-          <p className="text-gray-500 mt-2 text-sm">
-            Stay on top of your approvals to keep listings active.
-          </p>
-        </div>
-      </div>
-    </>
+        </>
   );
 }
