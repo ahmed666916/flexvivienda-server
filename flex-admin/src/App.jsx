@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AdminLayout from "./layouts/AdminLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -15,12 +15,15 @@ import Moderation from "./pages/Moderation";
 import Settings from "./pages/Settings";
 import OwnerSubmit from "./pages/OwnerSubmit";
 
-export default function App(){
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Redirect / to /admin (temporary while testing) */}
+        <Route path="/" element={<Navigate to="/admin" replace />} />
+
         {/* Public routes */}
-        <Route path="/login" element={<Login/>} />
+        <Route path="/login" element={<Login />} />
         <Route path="/owner/submit" element={<OwnerSubmit />} />
 
         {/* Protected Admin routes */}

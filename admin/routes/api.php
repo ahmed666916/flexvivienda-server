@@ -9,22 +9,25 @@ use App\Http\Controllers\{
 };
 
 // -------------------------
-// AUTH ROUTES (API TOKEN)
+// AUTH ROUTES (public)
 // -------------------------
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']); 
+Route::post('/register', [AuthController::class, 'register']); // optional
 
+// -------------------------
+// PROTECTED ROUTES
+// -------------------------
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
 
-    // OWNER ROUTES
+    // OWNER
     Route::prefix('owner')->middleware('role:owner|admin')->group(function () {
         Route::post('/properties', [OwnerPropertyController::class, 'store']);
         Route::put('/properties/{property}', [OwnerPropertyController::class, 'update']);
     });
 
-    // ADMIN ROUTES
+    // ADMIN
     Route::prefix('admin')->middleware('role:admin')->group(function () {
         Route::get('/stats', [DashboardController::class, 'stats']);
         Route::get('/properties/pending', [PropertyAdminController::class, 'pending']);
@@ -45,7 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/settings', [SettingController::class, 'update']);
     });
 
-    // USER-ONLY PROTECTED ROUTES
+    // USER
     Route::post('/bookings', [BookingController::class, 'store']);
     Route::delete('/bookings/{id}', [BookingController::class, 'destroy']);
     Route::get('/bookings/my', [BookingController::class, 'myBookings']);
@@ -57,23 +60,17 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/properties', [PropertyController::class, 'apiIndex']);
 Route::get('/properties/{id}', [PropertyController::class, 'show']);
 Route::get('/properties/{propertyId}/booked-dates', [BookingController::class, 'bookedDates']);
-Route::get('/getFeaturedProperties/{feature}', [PropertyController::class, 'getFeaturedPropertiesCommit']);
-Route::get('/getAllProperties', [PropertyController::class, 'getAllPropertiesCommit']);
-Route::get('/getLongMediumTermProperties/{type}', [PropertyController::class, 'getLongMediumTermPropertiesCommit']);
-
 Route::get('/blogs', [BlogController::class, 'apiIndex']);
 Route::get('/blogs/{id}', [BlogController::class, 'apiShow']);
-
 Route::post('/rent-applications', [RentApplicationController::class, 'store']);
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
 
 Route::get('/properties/{property}/calendar', [CalendarController::class, 'availability']);
 Route::post('/airbnb/ical/import', [CalendarController::class, 'importIcal']); 
 
+// Stripe
 Route::post('/payments/intent', [PaymentController::class, 'createIntent'])->middleware('auth:sanctum');
-Route::post('/payments/webhook', [PaymentController::class, 'webhook']); 
+Route::post('/payments/webhook', [PaymentController::class, 'webhook']);
 
-// -------------------------
-// MISC
-// -------------------------
+// Ping
 Route::get('/ping', fn () => response()->json(['message' => 'pong']));
