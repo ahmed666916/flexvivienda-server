@@ -1,10 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import api from "../api/axios";
-import { addDays, format, startOfMonth, endOfMonth, eachDayOfInterval } from "date-fns";
+import {
+  addMonths,
+  format,
+  startOfMonth,
+  endOfMonth,
+  eachDayOfInterval,
+} from "date-fns";
 
 export default function CalendarPage() {
-  const [propertyId, setPropertyId] = useState(1); // default property for testing
+  const [propertyId, setPropertyId] = useState(2); // default property
   const [icalUrl, setIcalUrl] = useState("");
   const [days, setDays] = useState([]);
   const [booked, setBooked] = useState([]);
@@ -18,9 +24,19 @@ export default function CalendarPage() {
     api
       .get(`/properties/${propertyId}/calendar`)
       .then((res) => {
+         console.log("API raw response:", res.data); 
         const { days, booked } = res.data;
-        setDays(days || []);
+
+        // ✅ Normalize all API dates to "yyyy-MM-dd"
+        const normalizedDays = (days || []).map((d) => ({
+          ...d,
+          date: format(new Date(d.date), "yyyy-MM-dd"),
+        }));
+
+        setDays(normalizedDays);
         setBooked(booked || []);
+        console.log("Normalized days:", normalizedDays);
+        console.log("Booked:", booked);
       })
       .catch(() => {
         setDays([]);
@@ -32,21 +48,45 @@ export default function CalendarPage() {
   // Submit iCal import
   const handleImport = async () => {
     if (!icalUrl) return;
-    await api.post("/airbnb/ical/import", { property_id: propertyId, ical_url: icalUrl });
+    await api.post("/airbnb/ical/import", {
+      property_id: propertyId,
+      ical_url: icalUrl,
+    });
     alert("iCal imported successfully!");
   };
 
   // Check if a date is booked
   const isBooked = (date) => {
-    return booked.some((b) => date >= new Date(b.start) && date <= new Date(b.end));
+    return booked.some(
+      (b) => date >= new Date(b.start) && date <= new Date(b.end)
+    );
   };
 
-  // Render calendar grid (current month)
+  // Get day status (Available / Blocked / Booked)
+  const getDayStatus = (dayData, bookedDay) => {
+    if (bookedDay) return "Booked";
+    if (dayData?.status === "blocked") return "Blocked";
+    return "Available";
+  };
+
+  // Build 2 months (current + next)
   const today = new Date();
-  const monthDays = eachDayOfInterval({
-    start: startOfMonth(today),
-    end: endOfMonth(today),
-  });
+  const months = [
+    {
+      title: format(today, "MMMM yyyy"),
+      days: eachDayOfInterval({
+        start: startOfMonth(today),
+        end: endOfMonth(today),
+      }),
+    },
+    {
+      title: format(addMonths(today, 1), "MMMM yyyy"),
+      days: eachDayOfInterval({
+        start: startOfMonth(addMonths(today, 1)),
+        end: endOfMonth(addMonths(today, 1)),
+      }),
+    },
+  ];
 
   return (
     <div className="p-6">
@@ -79,46 +119,58 @@ export default function CalendarPage() {
       </div>
 
       {/* Calendar Grid */}
-      <div className="bg-white shadow rounded-2xl p-6 border border-gray-100">
-        <h2 className="text-lg font-semibold mb-4">
-          {format(today, "MMMM yyyy")}
-        </h2>
+      {loading ? (
+        <p>Loading calendar…</p>
+      ) : (
+        months.map((month, idx) => (
+          <div
+            key={idx}
+            className="bg-white shadow rounded-2xl p-6 border border-gray-100 mb-8"
+          >
+            <h2 className="text-lg font-semibold mb-4">{month.title}</h2>
 
-        {loading ? (
-          <p>Loading calendar…</p>
-        ) : (
-          <div className="grid grid-cols-7 gap-2 text-center">
-            {/* Weekday headers */}
-            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-              <div key={d} className="font-medium text-gray-500">
-                {d}
-              </div>
-            ))}
-
-            {/* Days */}
-            {monthDays.map((date) => {
-              const dayData = days.find((d) => d.date === format(date, "yyyy-MM-dd"));
-              const bookedDay = isBooked(date);
-
-              return (
-                <div
-                  key={date}
-                  className={`h-24 flex flex-col justify-between rounded-lg p-2 border ${
-                    bookedDay
-                      ? "bg-red-100 border-red-300"
-                      : "bg-green-50 border-green-200"
-                  }`}
-                >
-                  <span className="text-sm font-medium">{format(date, "d")}</span>
-                  <span className="text-xs text-gray-600">
-                    {dayData ? `$${dayData.price}` : "-"}
-                  </span>
+            <div className="grid grid-cols-7 gap-2 text-center">
+              {/* Weekday headers */}
+              {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
+                <div key={d} className="font-medium text-gray-500">
+                  {d}
                 </div>
-              );
-            })}
+              ))}
+
+              {/* Days */}
+              {month.days.map((date) => {
+                const formattedDate = format(date, "yyyy-MM-dd");
+                const dayData = days.find((d) => d.date === formattedDate);
+                const bookedDay = isBooked(date);
+
+                return (
+                  <div
+                    key={date}
+                    className={`h-24 flex flex-col justify-between rounded-lg p-2 border text-left ${
+                      bookedDay
+                        ? "bg-orange-100 border-orange-300"
+                        : dayData?.status === "blocked"
+                        ? "bg-red-100 border-red-300"
+                        : "bg-green-50 border-green-200"
+                    }`}
+                  >
+                    <span className="text-sm font-medium">
+                      {format(date, "d")}
+                    </span>
+                    <span className="text-xs text-gray-600">
+                      {dayData ? `$${dayData.price}` : "-"}
+                    </span>
+                    <span className="text-[10px] text-gray-500">
+                      {getDayStatus(dayData, bookedDay)}
+                      {dayData?.min_stay ? ` • ${dayData.min_stay} nights` : ""}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        )}
-      </div>
+        ))
+      )}
     </div>
   );
 }

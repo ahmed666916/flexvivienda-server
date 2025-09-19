@@ -8,12 +8,13 @@ import Users from "./pages/Users";
 import Properties from "./pages/Properties";
 import PendingProperties from "./pages/admin/PendingProperties";
 import Bookings from "./pages/Bookings";
-import CalendarPage from "./pages/Calendar";
+import CalendarPage from "./pages/CalendarPage";
 import Payments from "./pages/Payments";
 import Reports from "./pages/Reports";
 import Moderation from "./pages/Moderation";
 import Settings from "./pages/Settings";
 import OwnerSubmit from "./pages/OwnerSubmit";
+
 
 export default function App() {
   return (
