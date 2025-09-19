@@ -4,137 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
-use App\Models\Property;
+use App\Models\ExternalBooking;
 
 class BookingController extends Controller
 {
     /**
-     * Admin: Display a listing of bookings (web view).
+     * API: Get booked dates for a property (disable in calendar).
      */
-    public function index()
+    public function bookedDates($propertyId)
     {
-        $bookings = Booking::latest()->get();
-        return view('admin.bookings.index', compact('bookings'));
-    }
-
-    /**
-     * Store booking (old flow, e.g. contact form style).
-     */
-    public function store(Request $request)
-    {
-        // Detect if request is coming from API (with user auth)
-        if ($request->user()) {
-            // ✅ API booking flow
-            $request->validate([
-                'property_id' => 'required|exists:properties,id',
-                'check_in'    => 'required|date',
-                'check_out'   => 'required|date|after:check_in',
+        // Local bookings (direct website bookings)
+        $local = Booking::where('property_id', $propertyId)
+            ->where('status', 'active')
+            ->get(['check_in', 'check_out'])
+            ->map(fn($b) => [
+                'start' => $b->check_in,
+                'end'   => $b->check_out,
+                'type'  => 'internal',
             ]);
 
-            $booking = Booking::create([
-                'user_id'     => $request->user()->id,
-                'property_id' => $request->property_id,
-                'check_in'    => $request->check_in,
-                'check_out'   => $request->check_out,
-                'status'      => 'active',
+        // External bookings (Airbnb, Booking.com, etc.)
+        $external = ExternalBooking::where('property_id', $propertyId)
+            ->get(['check_in', 'check_out', 'source'])
+            ->map(fn($b) => [
+                'start'   => $b->check_in,
+                'end'     => $b->check_out,
+                'type'    => 'external',
+                'summary' => $b->source ?? 'external',
             ]);
 
-            return response()->json([
-                'message' => 'Booking successful!',
-                'booking' => $booking,
-            ], 201);
-        }
-
-        // ✅ Fallback: old booking form flow
-        $validated = $request->validate([
-            'name'        => 'required|string|max:255',
-            'email'       => 'required|email',
-            'phone'       => 'required|string|max:20',
-            'guests'      => 'required|integer|min:1',
-            'start_date'  => 'required|date',
-            'end_date'    => 'required|date|after:start_date',
-            'total_price' => 'required|numeric|min:0',
+        return response()->json([
+            'booked' => $local->merge($external)->values(),
         ]);
-
-        $booking = Booking::create($validated);
-
-        return response()->json($booking, 201);
     }
-
-    /**
-     * API: Cancel a booking (user).
-     */
-    public function destroy($id, Request $request)
-    {
-        $booking = Booking::where('id', $id)
-            ->where('user_id', $request->user()->id)
-            ->firstOrFail();
-
-        $booking->update(['status' => 'canceled']);
-
-        return response()->json(['message' => 'Booking canceled successfully']);
-    }
-
-    /**
-     * API: Show authenticated user's bookings.
-     */
-    public function myBookings(Request $request)
-    {
-        $bookings = Booking::with('property')
-            ->where('user_id', $request->user()->id)
-            ->get();
-
-        return response()->json($bookings);
-    }
-
-    /**
-     * API: Show all bookings (admin only).
-     */
-    public function allBookings(Request $request)
-    {
-        if ($request->user()->role !== 'admin') {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $bookings = Booking::with(['property', 'user'])->get();
-
-        return response()->json($bookings);
-    }
-
-    /**
- * API: Get booked dates for a property (disable in calendar).
- */
-        public function bookedDates($propertyId)
-        {
-            // Local bookings (direct website bookings)
-            $local = Booking::where('property_id', $propertyId)
-                ->where('status', 'active')
-                ->get(['check_in', 'check_out'])
-                ->map(fn($b) => [
-                    'check_in' => $b->check_in,
-                    'check_out' => $b->check_out,
-                    'source' => 'direct',
-                ]);
-
-            // External bookings (Airbnb, Google Calendar sync, etc.)
-            $external = \App\Models\ExternalBooking::where('property_id', $propertyId)
-                ->get(['check_in', 'check_out', 'source'])
-                ->map(fn($b) => [
-                    'check_in' => $b->check_in,
-                    'check_out' => $b->check_out,
-                    'source' => $b->source ?? 'external',
-                ]);
-
-            // Merge both sources
-            $allBookings = $local->concat($external)->values();
-
-            return response()->json([
-                'property_id' => $propertyId,
-                'bookings' => $allBookings,
-            ]);
-        }
-
-
-
-
 }

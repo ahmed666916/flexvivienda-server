@@ -63,6 +63,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/properties', [PropertyController::class, 'apiIndex']);
 Route::get('/properties/{id}', [PropertyController::class, 'show']);
 Route::get('/properties/{propertyId}/booked-dates', [BookingController::class, 'bookedDates']);
+Route::get('/properties/{propertyId}/calendar', [CalendarController::class, 'availability']);
 
 Route::get('/blogs', [BlogController::class, 'apiIndex']);
 Route::get('/blogs/{id}', [BlogController::class, 'apiShow']);
@@ -70,7 +71,6 @@ Route::get('/blogs/{id}', [BlogController::class, 'apiShow']);
 Route::post('/rent-applications', [RentApplicationController::class, 'store']);
 Route::post('/send-email', [ContactController::class, 'sendEmail']);
 
-Route::get('/properties/{property}/calendar', [CalendarController::class, 'availability']);
 Route::post('/airbnb/ical/import', [CalendarController::class, 'importIcal']); 
 
 // Stripe

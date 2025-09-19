@@ -165,6 +165,49 @@ class PropertyController extends Controller
         ];
     }
 
+        public function calendar($id)
+        {
+            $property = Property::findOrFail($id);
+            $defaultPrice = $property->price_per_day;
+
+            $start = now()->startOfMonth();
+            $end = now()->addMonths(6)->endOfMonth();
+
+            $dates = collect();
+            $current = $start->copy();
+            while ($current <= $end) {
+                $dates->push($current->format('Y-m-d'));
+                $current->addDay();
+            }
+
+            // ✅ Key rows by date string, not Carbon
+            $customRows = \App\Models\PropertyCalendar::where('property_id', $id)
+                ->whereBetween('date', [$start, $end])
+                ->get()
+                ->keyBy(fn($row) => $row->date->toDateString());
+
+            $calendar = $dates->map(function ($date) use ($customRows, $defaultPrice) {
+                if (isset($customRows[$date])) {
+                    return [
+                        'date'     => $date,
+                        'price'    => $customRows[$date]->price ?? $defaultPrice,
+                        'status'   => $customRows[$date]->status,
+                        'min_stay' => $customRows[$date]->min_stay,
+                    ];
+                }
+
+                return [
+                    'date'     => $date,
+                    'price'    => $defaultPrice,
+                    'status'   => 'available',
+                    'min_stay' => 1,
+                ];
+            });
+
+            return response()->json($calendar);
+        }
+
+
     public function apiIndex()
     {
         $properties = Property::with('images')->whereNotNull('latitude')->whereNotNull('longitude')->get();
